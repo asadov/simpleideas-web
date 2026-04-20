@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
+import { VideoEmbed } from "@/components/VideoEmbed";
 import { AboutGame } from "@/components/AboutGame";
 import { Screenshots } from "@/components/Screenshots";
 import { AboutDeveloper } from "@/components/AboutDeveloper";
@@ -13,6 +14,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <VideoEmbed />
         <AboutGame />
         <Screenshots />
         <AboutDeveloper />

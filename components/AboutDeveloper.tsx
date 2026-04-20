@@ -78,6 +78,20 @@ export function AboutDeveloper() {
                 fontSize: "0.85rem",
                 fontWeight: 500,
                 color: "var(--fg)",
+                cursor: "default",
+                transition: "border-color 0.2s, transform 0.2s, box-shadow 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = "var(--accent)";
+                el.style.transform = "scale(1.05)";
+                el.style.boxShadow = "0 0 12px rgba(0,212,255,0.15)";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = "var(--border)";
+                el.style.transform = "scale(1)";
+                el.style.boxShadow = "none";
               }}
             >
               <span>{skill.icon}</span>

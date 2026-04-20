@@ -85,13 +85,15 @@ export function Projects() {
                   if (!project.coming) {
                     const el = e.currentTarget as HTMLElement;
                     el.style.borderColor = "var(--accent)";
-                    el.style.transform = "translateY(-2px)";
+                    el.style.transform = "translateY(-3px)";
+                    el.style.boxShadow = "0 0 0 1px var(--accent), 0 16px 40px rgba(0,212,255,0.1)";
                   }
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = project.coming ? "var(--border)" : "var(--border)";
+                  el.style.borderColor = "var(--border)";
                   el.style.transform = "translateY(0)";
+                  el.style.boxShadow = "none";
                 }}
               >
                 {/* Header */}
@@ -107,6 +109,9 @@ export function Projects() {
                   <div style={{ fontSize: "2.5rem" }}>{project.icon}</div>
                   <span
                     style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.4rem",
                       fontSize: "0.72rem",
                       fontWeight: 600,
                       letterSpacing: "0.1em",
@@ -119,6 +124,19 @@ export function Projects() {
                       whiteSpace: "nowrap",
                     }}
                   >
+                    {!project.coming && (
+                      <span
+                        style={{
+                          width: "6px",
+                          height: "6px",
+                          borderRadius: "50%",
+                          background: project.statusColor,
+                          display: "inline-block",
+                          animation: "pulse-dot 2s ease-in-out infinite",
+                          flexShrink: 0,
+                        }}
+                      />
+                    )}
                     {project.status}
                   </span>
                 </div>

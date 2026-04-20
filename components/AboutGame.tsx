@@ -96,12 +96,14 @@ export function AboutGame() {
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLElement;
                 el.style.borderColor = "var(--accent)";
-                el.style.transform = "translateY(-2px)";
+                el.style.transform = "translateY(-4px)";
+                el.style.boxShadow = "0 0 0 1px var(--accent), 0 12px 32px rgba(0,212,255,0.12)";
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLElement;
                 el.style.borderColor = "var(--border)";
                 el.style.transform = "translateY(0)";
+                el.style.boxShadow = "none";
               }}
             >
               <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>{feature.icon}</div>

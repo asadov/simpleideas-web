@@ -14,9 +14,32 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Simple Ideas — Almost in Orbit",
+  title: "Almost in Orbit — Roguelite Shoot-em-up for iOS & Android | Simple Ideas",
   description:
-    "Almost in Orbit — a roguelite shoot-em-up mobile game by Salih Salihoglu. Coming soon to iOS & Android.",
+    "A portrait-mode roguelite shoot-em-up built in Unity 6. Survive 40 waves, upgrade your drones and elements, and fight your way to orbit. Coming soon to iOS and Android.",
+  openGraph: {
+    title: "Almost in Orbit — Roguelite Shoot-em-up for iOS & Android | Simple Ideas",
+    description:
+      "A portrait-mode roguelite shoot-em-up built in Unity 6. Survive 40 waves, upgrade your drones and elements, and fight your way to orbit. Coming soon to iOS and Android.",
+    url: "https://simpleideas.net",
+    siteName: "Simple Ideas",
+    images: [
+      {
+        url: "https://simpleideas.net/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Almost in Orbit — Roguelite Shoot-em-up",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Almost in Orbit — Roguelite Shoot-em-up for iOS & Android | Simple Ideas",
+    description:
+      "A portrait-mode roguelite shoot-em-up built in Unity 6. Survive 40 waves, upgrade your drones and elements, and fight your way to orbit. Coming soon to iOS and Android.",
+    images: ["https://simpleideas.net/og-image.png"],
+  },
 };
 
 export default function RootLayout({

@@ -5,8 +5,6 @@ import { FadeIn } from "./FadeIn";
 const skills = [
   { name: "Unity 6", icon: "🎮" },
   { name: "C#", icon: "💻" },
-  { name: "Flutter", icon: "📱" },
-  { name: "Figma", icon: "✏️" },
   { name: "Pixel Art", icon: "🎨" },
   { name: "Game Design", icon: "📐" },
 ];

@@ -185,15 +185,6 @@ export function Contact() {
           ))}
         </div>
 
-        <p
-          style={{
-            marginTop: "1.25rem",
-            fontSize: "0.8rem",
-            color: "var(--fg-muted)",
-          }}
-        >
-          Social profiles coming soon
-        </p>
       </FadeIn>
     </section>
   );

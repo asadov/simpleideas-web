@@ -5,12 +5,12 @@ import { useState, useEffect, useCallback } from "react";
 import { FadeIn } from "./FadeIn";
 
 const screenshots = [
-  { src: "/screenshots/IMG_8721.PNG", alt: "Gameplay" },
-  { src: "/screenshots/IMG_8722.PNG", alt: "Gameplay" },
-  { src: "/screenshots/IMG_8732.PNG", alt: "Gameplay" },
-  { src: "/screenshots/IMG_8741.PNG", alt: "Gameplay" },
-  { src: "/screenshots/IMG_8747.PNG", alt: "Gameplay" },
-  { src: "/screenshots/IMG_8749.PNG", alt: "Gameplay" },
+  { src: "/screenshots/IMG_8721.PNG", alt: "Almost in Orbit gameplay — drone combat" },
+  { src: "/screenshots/IMG_8722.PNG", alt: "Almost in Orbit — boss encounter" },
+  { src: "/screenshots/IMG_8732.PNG", alt: "Almost in Orbit — upgrade selection screen" },
+  { src: "/screenshots/IMG_8741.PNG", alt: "Almost in Orbit — wave progression" },
+  { src: "/screenshots/IMG_8747.PNG", alt: "Almost in Orbit — elemental drone effects" },
+  { src: "/screenshots/IMG_8749.PNG", alt: "Almost in Orbit — pixel art space combat" },
 ];
 
 export function Screenshots() {

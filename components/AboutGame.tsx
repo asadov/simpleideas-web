@@ -6,17 +6,17 @@ const features = [
   {
     icon: "🔁",
     title: "Roguelite Progression",
-    desc: "Every run is different. Choose upgrades, adapt your build, and push further each time.",
+    desc: "Every run is different. Choose upgrades, adapt your build, and push further each time — permanent upgrades between runs keep every attempt meaningful.",
   },
   {
     icon: "🤖",
     title: "Drone System",
-    desc: "Deploy and upgrade combat drones to support your ship with unique attack patterns.",
+    desc: "Deploy and upgrade combat drones to support your ship. Ice, Fire, Lightning, Poison — four element types across three tiers of power.",
   },
   {
     icon: "🌊",
     title: "40 Waves",
-    desc: "Survive 40 escalating waves of enemy formations, mini-bosses, and screen-filling bosses.",
+    desc: "Survive 40 escalating waves of enemy formations, boss encounters at waves 10, 20, 30 and 40, and screen-filling final bosses.",
   },
   {
     icon: "🎨",

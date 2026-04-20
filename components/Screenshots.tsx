@@ -105,7 +105,7 @@ export function Screenshots() {
                     src={item.src}
                     alt={item.alt}
                     fill
-                    style={{ objectFit: "cover" }}
+                    style={{ objectFit: "cover", objectPosition: "top" }}
                     sizes="(max-width: 768px) 45vw, 200px"
                   />
                 </div>
@@ -167,7 +167,7 @@ export function Screenshots() {
               src={screenshots[activeIndex].src}
               alt={screenshots[activeIndex].alt}
               fill
-              style={{ objectFit: "cover" }}
+              style={{ objectFit: "contain" }}
               sizes="360px"
               priority
             />

@@ -184,7 +184,7 @@ export function Hero() {
             lineHeight: 1.6,
           }}
         >
-          A roguelite shoot-em-up. Survive 30 waves, upgrade your drones, and reach orbit.
+          A roguelite shoot-em-up. Survive 40 waves, upgrade your drones, and reach orbit.
           <br />
           Coming soon to iOS & Android.
         </motion.p>

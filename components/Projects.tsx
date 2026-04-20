@@ -7,7 +7,7 @@ const projects = [
     title: "Almost in Orbit",
     status: "In Development",
     statusColor: "#00d4ff",
-    desc: "A roguelite shoot-em-up mobile game. Survive 30 waves, upgrade drones, and fight your way to orbit. Built in Unity 6 for iOS & Android.",
+    desc: "A roguelite shoot-em-up mobile game. Survive 40 waves, upgrade drones, and fight your way to orbit. Built in Unity 6 for iOS & Android.",
     tags: ["Unity 6", "C#", "Pixel Art", "Mobile"],
     icon: "🚀",
     coming: false,

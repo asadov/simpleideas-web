@@ -15,8 +15,8 @@ const features = [
   },
   {
     icon: "🌊",
-    title: "30 Waves",
-    desc: "Survive 30 escalating waves of enemy formations, mini-bosses, and screen-filling bosses.",
+    title: "40 Waves",
+    desc: "Survive 40 escalating waves of enemy formations, mini-bosses, and screen-filling bosses.",
   },
   {
     icon: "🎨",

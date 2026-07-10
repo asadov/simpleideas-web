@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — Almost in Orbit</title>
+<meta name="description" content="Support for Almost in Orbit. One inbox, one human, fast answers.">
+<meta name="theme-color" content="#060a14">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--void:#060a14;--hull:#0c1424;--edge:rgba(100,231,240,.16);--ink:#e9f1fb;--dim:#8c9bb5;--shield:#64e7f0;--boost:#ffb454;--disp:'Chakra Petch',system-ui,sans-serif;--body:'IBM Plex Sans',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;--rail:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--void);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;overflow-x:hidden}
+::selection{background:rgba(100,231,240,.28)}
+a{color:var(--shield)}
+:focus-visible{outline:2px solid var(--shield);outline-offset:3px;border-radius:4px}
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:-2}
+.nebula{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(52% 38% at 78% 6%,rgba(100,231,240,.07),transparent 70%),radial-gradient(46% 34% at 12% 84%,rgba(120,84,255,.055),transparent 70%)}
+.frame{position:relative;max-width:840px;margin:0 auto;padding:0 22px 0 46px}
+.frame::before{content:"";position:absolute;top:0;bottom:0;left:var(--rail);width:1px;background:linear-gradient(180deg,transparent,var(--edge) 6%,var(--edge) 94%,transparent)}
+.node{position:absolute;left:calc(var(--rail) - 46px - 4.5px);top:6px;width:10px;height:10px;border-radius:50%;background:var(--void);border:1.5px solid var(--shield);box-shadow:0 0 10px rgba(100,231,240,.55)}
+section,header.page-head{position:relative;padding:44px 0}
+header.page-head{padding-top:72px}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:12px}
+.back{display:inline-block;font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--dim);margin-bottom:26px}
+.back:hover{color:var(--shield)}
+h1{font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:clamp(1.9rem,6vw,3rem);line-height:1.05;margin-bottom:14px}
+h2{font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:clamp(1.15rem,3vw,1.45rem);margin-bottom:12px}
+h3{font-family:var(--disp);font-size:1rem;text-transform:uppercase;letter-spacing:.03em;margin:22px 0 6px}
+p{max-width:64ch}
+p+p{margin-top:12px}
+.lede{color:var(--dim)}
+ul{max-width:64ch;padding-left:20px}
+li{margin:8px 0}
+.btn{display:inline-block;margin-top:18px;text-decoration:none;font-family:var(--disp);font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:.86rem;color:var(--void);background:var(--shield);border-radius:11px;padding:13px 22px;transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(100,231,240,.3)}
+footer{position:relative;border-top:1px solid rgba(140,155,181,.14);padding:40px 0 56px;font-size:.86rem;color:var(--dim)}
+.studio{font-family:var(--disp);text-transform:uppercase;letter-spacing:.08em;color:var(--ink);margin-bottom:14px}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0 0 18px;list-style:none;padding:0}
+.foot-links a{color:var(--dim);text-decoration:none;font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase}
+.foot-links a:hover{color:var(--shield)}
+.fine{font-size:.74rem;opacity:.75}
+</style>
+</head>
+<body>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="nebula" aria-hidden="true"></div>
+
+<div class="frame">
+
+  <header class="page-head">
+    <span class="node" aria-hidden="true"></span>
+    <a class="back" href="index.html">← Almost in Orbit</a>
+    <span class="eyebrow">Support</span>
+    <h1>One inbox, one human</h1>
+    <p class="lede">Stuck, found a bug, or something looks wrong? Email me — the developer answers every message personally, usually within a day or two.</p>
+    <a class="btn" href="mailto:salih@simpleideas.net?subject=Almost%20in%20Orbit%20%E2%80%94%20support">Email support</a>
+  </header>
+
+  <section>
+    <span class="node" aria-hidden="true"></span>
+    <h2>Reporting a bug</h2>
+    <p>Three things make a bug fixable fast:</p>
+    <ul>
+      <li>Your device model and OS version (e.g. iPhone 14, iOS 19 / Pixel 8, Android 16)</li>
+      <li>What happened, and what you expected to happen</li>
+      <li>A screenshot or screen recording, if you can grab one — those are gold</li>
+    </ul>
+  </section>
+
+  <section>
+    <span class="node" aria-hidden="true"></span>
+    <h2>Common questions</h2>
+
+    <h3>Does one purchase cover both iOS and Android?</h3>
+    <p>No — the App Store and Google Play are separate stores with separate purchases. Buying the game on one platform doesn't unlock it on the other.</p>
+
+    <h3>Where is my progress stored?</h3>
+    <p>On your device. There's no account and no cloud service — your save travels with your phone's own backup when you switch devices.</p>
+
+    <h3>Can I get a refund?</h3>
+    <p>Refunds are handled by Apple and Google through their standard store processes, on their terms. We can't process refunds directly, but if something's broken, email us first — we'd rather fix it.</p>
+
+    <h3>Do I need an account?</h3>
+    <p>No accounts, no logins, no passwords to reset. Download and play.</p>
+  </section>
+
+  <footer>
+    <p class="studio">Simple Ideas</p>
+    <ul class="foot-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="press.html">Press kit</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="mailto:salih@simpleideas.net">salih@simpleideas.net</a></li>
+    </ul>
+    <p class="fine">© 2026 Simple Ideas.</p>
+  </footer>
+
+</div>
+
+<script>
+(function(){const cv=document.getElementById('stars'),cx=cv.getContext('2d');const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;let s=[],W,H,d,l=0;
+function sz(){d=Math.min(devicePixelRatio||1,2);W=cv.width=innerWidth*d;H=cv.height=innerHeight*d;s=Array.from({length:Math.min(150,Math.round(innerWidth*innerHeight/11000))},()=>({x:Math.random()*W,y:Math.random()*H,r:(Math.random()+.35)*d,a:Math.random()*.5+.25,v:(Math.random()*.3+.1)*d,p:Math.random()*6.28,t:Math.random()*1.4+.4}))}
+function dr(n){const dt=Math.min((n-l)/16.7,3);l=n;cx.clearRect(0,0,W,H);const t=n/1e3;
+for(const q of s){if(!RM){q.y+=q.v*dt;if(q.y>H+4){q.y=-4;q.x=Math.random()*W}}
+cx.beginPath();cx.fillStyle=`rgba(233,241,251,${(q.a*(RM?1:.62+.38*Math.sin(t*q.t+q.p))).toFixed(3)})`;cx.arc(q.x,q.y,q.r,0,6.284);cx.fill()}
+if(!RM)requestAnimationFrame(dr)}
+addEventListener('resize',()=>{sz();if(RM)dr(performance.now())});sz();RM?dr(performance.now()):requestAnimationFrame(dr)})();
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+.oo {
+  position: relative;
+  display: inline-block;
+}
+.oo svg {
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  width: 1.85em;
+  height: 0.8em;
+  transform: translate(-50%, -50%) rotate(-14deg);
+  overflow: visible;
+  pointer-events: none;
+}
+.oo svg.back {
+  z-index: -1;
+}

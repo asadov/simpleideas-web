@@ -1,0 +1,54 @@
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+  gap: 14px;
+  margin: 8px 0 14px;
+}
+.shot {
+  aspect-ratio: 9 / 19.4;
+  border-radius: 18px;
+  border: 1px solid var(--edge);
+  overflow: hidden;
+  position: relative;
+  background: var(--hull);
+}
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ph {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  background: radial-gradient(110% 60% at 50% 8%, rgba(100, 231, 240, 0.1), transparent 62%),
+    linear-gradient(180deg, #0b1425, #060b16);
+}
+.ph i {
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid rgba(100, 231, 240, 0.5);
+  border-radius: 50%;
+  position: relative;
+}
+.ph i::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: rgba(100, 231, 240, 0.5);
+}
+.ph code {
+  font-size: 0.55rem;
+  color: var(--dim);
+}
+.empty .ph {
+  display: flex;
+}
+.empty img {
+  display: none;
+}

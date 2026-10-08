@@ -1,25 +1,64 @@
 :root {
-  --void: #060a14; /* deep space           */
-  --hull: #0c1424; /* raised panel         */
-  --edge: rgba(100, 231, 240, 0.16);
-  --ink: #e9f1fb; /* starlight            */
-  --dim: #8c9bb5; /* nebula gray          */
-  --shield: #64e7f0; /* cyan — shield glow   */
-  --boost: #ffb454; /* amber — boost chevron*/
-  --disp: "Chakra Petch", system-ui, sans-serif;
-  --body: "IBM Plex Sans", system-ui, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, monospace;
-  --rail: 14px; /* route spine x-offset */
+  /* ── Almost in Orbit · deep-space HUD ─────────────────── */
+  --void: #060a14;
+  --panel: #0b1020;
+  --card: #131c3d;
+  --panel-hover: #101830;
+  --edge: rgba(0, 200, 255, 0.16);
+  --edge-strong: rgba(0, 200, 255, 0.28);
+  --ink: #e8f4ff;
+  --dim: #8c9bb5;
+  --cyan: #00c8ff;
+  --glow: #64e7f0;
+  --gold: #fcd34d;
+  --boss: #d62525;
+
+  /* ── Collect Pixel Art · classic museum (dark walls) ──── */
+  --m-bg: #201d1a;
+  --m-card: #2c2722;
+  --m-foot: #1a1714;
+  --m-ink: #eee4cf;
+  --m-dim: #bcae98;
+  --m-gold: #b39559;
+  --m-gold-hi: #d9bf7d;
+  --m-gold-lo: #a3874f;
+  --m-gold-lip: #6c5631;
+  --m-gold-hover: #c8aa6a;
+  --m-burgundy: #74333f;
+  --m-line: #4c4032;
+
+  /* ── museum · light gallery wall ──────────────────────── */
+  --w-bg: #f2e7cc;
+  --w-card: #f8efd9;
+  --w-ink: #342e27;
+  --w-dim: #6e6454;
+  --w-gold: #b89953;
+  --w-action: #927137;
+  --w-burgundy: #712c3b;
+  --w-line: #d3c39e;
+
+  /* ── type (space fonts are set on <html> by next/font) ── */
+  --disp: var(--font-exo), "Exo 2", system-ui, sans-serif;
+  --body: var(--font-plex-sans), "IBM Plex Sans", system-ui, sans-serif;
+  --mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --focus: var(--glow);
 }
 
-* {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  /* decorative elements (orbit ring, nebula) may extend past the viewport: clip, never scroll */
+  overflow-x: clip;
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -31,31 +70,52 @@ body {
   background: var(--void);
   color: var(--ink);
   font-family: var(--body);
-  font-size: 16px;
-  overflow-x: hidden;
-}
-
-::selection {
-  background: rgba(100, 231, 240, 0.28);
-}
-
-a {
-  color: var(--shield);
-}
-
-:focus-visible {
-  outline: 2px solid var(--shield);
-  outline-offset: 3px;
-  border-radius: 4px;
+  font-size: 17px;
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
 }
 
 img,
-video {
+video,
+svg {
   display: block;
   max-width: 100%;
 }
 
-/* ── ambient starfield canvas ───────────────────────────── */
+a {
+  color: var(--cyan);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgba(0, 200, 255, 0.28);
+}
+
+/* museum scope: swaps the focus ring + selection colour; museum fonts come from next/font vars */
+.museum {
+  --focus: var(--m-gold-hi);
+}
+.museum ::selection {
+  background: rgba(179, 149, 89, 0.35);
+}
+
+/* crisp pixel grids */
+.px {
+  image-rendering: pixelated;
+}
+
+/* ── ambient starfield canvas (AIO pages) ─────────────── */
 #stars {
   position: fixed;
   inset: 0;
@@ -64,24 +124,23 @@ video {
   z-index: -2;
 }
 
-/* ── route spine node markers ───────────────────────────── */
+/* ── route-spine node markers (sector-map metaphor) ────── */
 .node {
   position: absolute;
-  left: calc(var(--rail) - 46px - 4.5px);
-  top: 6px;
+  left: -53px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: var(--void);
-  border: 1.5px solid var(--shield);
-  box-shadow: 0 0 10px rgba(100, 231, 240, 0.55);
+  border: 1.5px solid var(--cyan);
+  box-shadow: 0 0 10px rgba(0, 200, 255, 0.6);
 }
 .node--boss {
-  border-color: var(--boost);
-  box-shadow: 0 0 10px rgba(255, 180, 84, 0.55);
+  border-color: var(--boss);
+  box-shadow: 0 0 10px rgba(214, 37, 37, 0.6);
 }
 
-/* ── reveal on scroll (index only, harmless elsewhere) ──── */
+/* ── reveal on scroll ──────────────────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
   [data-reveal] {
     opacity: 0;

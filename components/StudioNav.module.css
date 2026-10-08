@@ -1,0 +1,156 @@
+.header {
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid var(--nav-line);
+  background: var(--nav-bg);
+}
+.space {
+  --nav-line: var(--edge);
+  --nav-bg: rgba(6, 10, 20, 0.72);
+  --nav-ink: var(--ink);
+  --nav-dim: var(--dim);
+  --nav-accent: var(--cyan);
+  --nav-mark: var(--cyan);
+  --nav-brand-font: var(--disp);
+  --nav-link-font: var(--mono);
+  --nav-link-size: 12px;
+  --nav-link-weight: 400;
+  --nav-link-track: 0.16em;
+}
+.museum {
+  --nav-line: var(--m-line);
+  --nav-bg: transparent;
+  --nav-ink: var(--m-ink);
+  --nav-dim: var(--m-dim);
+  --nav-accent: var(--m-gold);
+  --nav-mark: var(--m-gold);
+  --nav-brand-font: var(--font-source-sans), "Source Sans 3", system-ui, sans-serif;
+  --nav-link-font: var(--font-source-sans), "Source Sans 3", system-ui, sans-serif;
+  --nav-link-size: 13px;
+  --nav-link-weight: 600;
+  --nav-link-track: 0.14em;
+}
+
+.inner {
+  max-width: 1232px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.museum .inner {
+  max-width: 1296px;
+  padding: 0 48px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  color: var(--nav-ink);
+  text-decoration: none;
+  font-family: var(--nav-brand-font);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.museum .brand {
+  font-weight: 600;
+}
+.mark {
+  display: inline-flex;
+  color: var(--nav-mark);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  color: var(--nav-dim);
+  text-decoration: none;
+  font-family: var(--nav-link-font);
+  font-weight: var(--nav-link-weight);
+  font-size: var(--nav-link-size);
+  letter-spacing: var(--nav-link-track);
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+.link:hover {
+  color: var(--nav-ink);
+}
+.link[aria-current="page"] {
+  color: var(--nav-ink);
+  box-shadow: inset 0 -1px 0 var(--nav-accent);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 7px;
+  border: 1px solid var(--m-gold);
+  border-radius: 999px;
+  color: var(--m-gold);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+}
+.museum .chip {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+@media (max-width: 720px) {
+  .inner,
+  .museum .inner {
+    max-width: none;
+    height: auto;
+    padding: 8px 20px 10px;
+    display: block;
+  }
+  .brand {
+    gap: 10px;
+    font-size: 14px;
+  }
+  .mark svg {
+    width: 16px;
+    height: 16px;
+  }
+  .nav {
+    flex-wrap: wrap;
+    gap: 0 4px;
+    margin: 0 -10px;
+  }
+  .link {
+    gap: 6px;
+    padding: 0 10px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+  }
+  .museum .link {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+  }
+  .chip {
+    height: 17px;
+    padding: 0 6px;
+    letter-spacing: 0.14em;
+  }
+  .museum .chip {
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+  }
+}

@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Starfield } from "@/components/Starfield";
+import { StudioNav } from "@/components/StudioNav";
+import { SiteFooter } from "@/components/SiteFooter";
 import { PressScreenshots } from "@/components/PressScreenshots";
 import { screenshots } from "@/lib/screenshots";
+import { CONTACT_EMAIL, TRAILER } from "@/lib/site";
 import subStyles from "../subpages.module.css";
 import styles from "./press.module.css";
 
 export const metadata: Metadata = {
   title: "Press kit — Almost in Orbit",
   description:
-    "Press kit for Almost in Orbit: factsheet, descriptions, screenshots and media contact. A premium roguelite space shooter for iOS and Android by Simple Ideas.",
+    "Press kit for Almost in Orbit: factsheet, descriptions, trailer, screenshots and media contact. A premium roguelite space shooter for iPhone and Android by Simple Ideas.",
 };
 
 export default function PressPage() {
@@ -17,16 +19,14 @@ export default function PressPage() {
     <>
       <Starfield variant="sub" />
       <div className={subStyles.nebula} aria-hidden="true" />
-      <div className={subStyles.frame}>
+      <StudioNav current="/press" />
+      <main className={subStyles.frame}>
         <header className={styles.pageHead}>
           <span className="node" aria-hidden="true" />
-          <Link className={subStyles.back} href="/">
-            ← Almost in Orbit
-          </Link>
-          <span className={subStyles.eyebrow}>Press kit · updated July 10, 2026</span>
+          <span className={subStyles.eyebrow}>Press kit · updated October 8, 2026</span>
           <h1 className={subStyles.h1}>Everything you need to cover the game</h1>
           <p className={subStyles.lede}>
-            Factsheet, descriptions, screenshots and a direct line to the developer. All of it is free to use in
+            Factsheet, descriptions, the trailer, screenshots and a direct line to the developer. All of it is free to use in
             articles and videos.
           </p>
         </header>
@@ -49,15 +49,15 @@ export default function PressPage() {
             </div>
             <div>
               <dt className={styles.dt}>Release</dt>
-              <dd className={styles.dd}>July 2026</dd>
+              <dd className={styles.dd}>September 30, 2026 (App Store) · out now on Google Play</dd>
             </div>
             <div>
               <dt className={styles.dt}>Platforms</dt>
-              <dd className={styles.dd}>iOS · Android</dd>
+              <dd className={styles.dd}>iPhone · Android</dd>
             </div>
             <div>
               <dt className={styles.dt}>Price</dt>
-              <dd className={styles.dd}>$2.99 — premium, no ads, no IAP</dd>
+              <dd className={styles.dd}>$2.99 — premium, no ads, no IAP, plays offline</dd>
             </div>
             <div>
               <dt className={styles.dt}>Genre</dt>
@@ -88,13 +88,13 @@ export default function PressPage() {
           <p>
             <strong>Short.</strong> Almost in Orbit is a handcrafted roguelite space shooter for phones —
             one-thumb controls, branching sector maps, stackable elemental drones and three screen-filling bosses.
-            $2.99, no ads, no in-app purchases.
+            $2.99, no ads, no in-app purchases. Out now on iPhone and Android.
           </p>
           <p>
             <strong>Long.</strong> Almost in Orbit strips the roguelite run down to something you can play with one
             thumb on the bus, then layers real depth on top. Each climb generates a branching sector map: fight
-            through choreographed swarm formations, gamble on elite encounters, mine meteor fields for boosts, or
-            duck into a shop to reroll your build. Elemental drones — ice, fire, lightning and poison, three tiers
+            through choreographed swarm formations, gamble on elite encounters, take your chances on mystery nodes,
+            or duck into a shop to reroll your build. Elemental drones — ice, fire, lightning and acid, three tiers
             each — stack into wildly different loadouts, and every sector ends in a multi-phase boss built to fill a
             phone screen. Death sends you home with currency for permanent upgrades, so every run makes the next one
             meaner. It&apos;s a premium game the old way: pay once, own everything, made start to finish by one
@@ -106,14 +106,14 @@ export default function PressPage() {
           <span className="node" aria-hidden="true" />
           <h2 className={styles.h2}>Key features</h2>
           <ul>
-            <li>Branching, regenerating sector maps — battles, elites, shops, meteor fields and rest stops</li>
+            <li>Branching, regenerating sector maps across three sectors — battles, elites, shops, rest stops and mystery nodes</li>
             <li>
-              Choreographed enemy swarms in eight formation patterns; full-clearing a wave drops a fire-rate boost
+              Choreographed enemy swarms in twelve formation patterns; wiping out a whole swarm can drop a power-up
             </li>
-            <li>Ice, fire, lightning and poison drones, three tiers each, for wildly different builds</li>
-            <li>Three multi-phase bosses: a shielded capital ship, a carrier mothership, a beam-sweeping dreadnought</li>
+            <li>Ice, fire, lightning and acid drones, three tiers each, for wildly different builds</li>
+            <li>Three multi-phase bosses, one at the end of every sector</li>
             <li>Permanent upgrades persist between runs — the sector resets, your arsenal doesn&apos;t</li>
-            <li>Premium: $2.99 once. No ads, no in-app purchases, no energy timers</li>
+            <li>Premium: $2.99 once. No ads, no in-app purchases, no energy timers. Plays offline</li>
           </ul>
         </section>
 
@@ -121,14 +121,25 @@ export default function PressPage() {
           <span className="node" aria-hidden="true" />
           <h2 className={styles.h2}>Media</h2>
           <div className={styles.panel}>
-            <span className={styles.chip}>Trailer — lands with launch</span>
-            <p className={styles.mut}>A 60-second gameplay trailer will be embedded here at release.</p>
-            {/* TRAILER: replace this panel with the YouTube embed once uploaded */}
+            <span className={styles.chip}>Trailer · {TRAILER.duration} · vertical 9:16</span>
+            <video
+              className={styles.trailer}
+              src={TRAILER.src}
+              poster={TRAILER.poster}
+              width={TRAILER.width}
+              height={TRAILER.height}
+              controls
+              playsInline
+              preload="metadata"
+            />
+            <p className={styles.mut}>
+              Made for shorts and stories. <a href={TRAILER.src} download>Download the MP4</a> (720×1280).
+            </p>
           </div>
           <PressScreenshots items={screenshots} />
           <p className={styles.mut}>
-            A full-resolution bundle (<code className={styles.code}>assets/presskit.zip</code>) will be linked here
-            with the launch build. Until then, any image above is fair game.
+            Every image above is fair game. Need the 1080×1920 trailer master or full-resolution screenshots?{" "}
+            <a href={`mailto:${CONTACT_EMAIL}?subject=Press%20assets%20%E2%80%94%20Almost%20in%20Orbit`}>Just ask</a>.
           </p>
         </section>
 
@@ -153,26 +164,8 @@ export default function PressPage() {
             Email the developer
           </a>
         </section>
-
-        <footer className={subStyles.footer}>
-          <p className={subStyles.footBrand}>Simple Ideas</p>
-          <ul className={subStyles.footLinks}>
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/privacy">Privacy</Link>
-            </li>
-            <li>
-              <Link href="/support">Support</Link>
-            </li>
-            <li>
-              <a href="mailto:salih@simpleideas.net">salih@simpleideas.net</a>
-            </li>
-          </ul>
-          <p className={subStyles.fine}>© 2026 Simple Ideas.</p>
-        </footer>
-      </div>
+      </main>
+      <SiteFooter variant="space" />
     </>
   );
 }

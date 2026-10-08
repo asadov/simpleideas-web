@@ -1,31 +1,48 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Starfield } from "@/components/Starfield";
-import { OrbitMark } from "@/components/OrbitMark";
-import { GameplayVideo } from "@/components/GameplayVideo";
-import { Screenshots } from "@/components/Screenshots";
 import { RevealObserver } from "@/components/RevealObserver";
+import { StudioNav } from "@/components/StudioNav";
+import { SiteFooter } from "@/components/SiteFooter";
+import { StoreBadges } from "@/components/StoreBadges";
+import { PhoneVideo } from "@/components/PhoneVideo";
+import { Screenshots } from "@/components/Screenshots";
+import { RevealFrame } from "@/components/RevealFrame";
 import { screenshots } from "@/lib/screenshots";
+import { greatWave } from "@/lib/paintings";
+import { CONTACT_EMAIL, STORE, TRAILER } from "@/lib/site";
+import { museumFontVars } from "@/lib/fonts-museum";
 import styles from "./page.module.css";
+
+const SITE = "https://simpleideas.net";
 
 export const metadata: Metadata = {
   title: "Almost in Orbit — a handcrafted roguelite space shooter",
   description:
-    "A premium roguelite shmup for iOS and Android. One-thumb controls, elemental drones, branching star maps, three colossal bosses. $2.99 — no ads, no in-app purchases.",
-  alternates: { canonical: "https://simpleideas.net/" },
+    "Out now on iPhone and Android. A handcrafted roguelite space shooter: one thumb, endless swarms, zero ads. $2.99 — no in-app purchases, no energy timers, plays offline.",
+  alternates: { canonical: `${SITE}/` },
   openGraph: {
     type: "website",
-    url: "https://simpleideas.net/",
+    url: `${SITE}/`,
     siteName: "Simple Ideas",
     title: "Almost in Orbit",
-    description: "A handcrafted roguelite space shooter. One thumb, endless swarms, zero ads. $2.99 on iOS and Android.",
-    images: [{ url: "https://simpleideas.net/og-image.png", width: 1200, height: 630 }],
+    description:
+      "Out now on iPhone and Android. A handcrafted roguelite space shooter — one thumb, endless swarms, zero ads. $2.99, pay once.",
+    images: [
+      {
+        url: `${SITE}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "Almost in Orbit — out now on iPhone and Android",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Almost in Orbit",
-    description: "A handcrafted roguelite space shooter. One thumb, endless swarms, zero ads.",
-    images: ["https://simpleideas.net/og-image.png"],
+    description: "Out now on iPhone and Android. A handcrafted roguelite space shooter — one thumb, endless swarms, zero ads.",
+    images: [`${SITE}/og-image.png`],
   },
 };
 
@@ -33,273 +50,356 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "VideoGame",
   name: "Almost in Orbit",
-  url: "https://simpleideas.net/",
-  image: "https://simpleideas.net/og-image.png",
+  url: `${SITE}/`,
+  image: `${SITE}/og-image.png`,
   description:
-    "A handcrafted roguelite space shooter for iOS and Android. One-thumb controls, elemental drones, branching star maps and three colossal bosses. Premium — no ads, no in-app purchases.",
+    "A handcrafted roguelite space shooter for iPhone and Android. One-thumb controls, branching sector maps, stackable elemental drones and three colossal bosses. Out now — premium, no ads, no in-app purchases.",
   genre: ["Roguelite", "Shoot 'em up"],
   gamePlatform: ["iOS", "Android"],
   applicationCategory: "GameApplication",
   operatingSystem: "iOS, Android",
+  sameAs: [STORE.appStore, STORE.googlePlay],
   author: {
     "@type": "Organization",
     name: "Simple Ideas",
-    url: "https://simpleideas.net/",
-    email: "salih@simpleideas.net",
+    url: `${SITE}/`,
+    email: CONTACT_EMAIL,
   },
   publisher: { "@type": "Organization", name: "Simple Ideas" },
-  offers: { "@type": "Offer", price: "2.99", priceCurrency: "USD" },
+  offers: {
+    "@type": "Offer",
+    price: "2.99",
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
+    url: `${SITE}/`,
+  },
 };
+
+const ICON_PROPS = {
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.5,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  "aria-hidden": true,
+} as const;
+
+const FEATURES = [
+  {
+    title: "Chart the sector",
+    body:
+      "Every run draws a fresh branching map across three sectors. Battles, elites, shops, a place to catch your breath and the odd mystery node — your route, your risk.",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <circle cx="12" cy="3.5" r="2.3" />
+        <circle cx="5" cy="12" r="2.3" />
+        <circle cx="19" cy="12" r="2.3" />
+        <circle cx="12" cy="20.5" r="2.3" />
+        <path d="M10.3 5.2 6.7 10M13.7 5.2l3.6 4.8M6.7 14l3.6 4.8M17.3 14l-3.6 4.8" />
+      </svg>
+    ),
+  },
+  {
+    title: "Swarms with choreography",
+    body: "Twelve formation patterns, from snaking trains to pincer dives. Wipe out a whole swarm and it may drop a power-up.",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <path d="M12 2.5l2 2-2 2-2-2zM7.5 8l2 2-2 2-2-2zM16.5 8l2 2-2 2-2-2zM4 14.5l2 2-2 2-2-2zM20 14.5l2 2-2 2-2-2z" />
+        <path d="M12 13v8" />
+      </svg>
+    ),
+  },
+  {
+    title: "Stack your drones",
+    body: "Ice, fire, lightning and acid wingmates, three tiers each. They turn a pea-shooter into a light show.",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <path d="M12 3l5 10H7z" />
+        <path d="M12 13v7" />
+        <circle cx="4.5" cy="15" r="2" />
+        <circle cx="19.5" cy="15" r="2" />
+        <path d="M4.5 18.5v2.5M19.5 18.5v2.5" />
+      </svg>
+    ),
+  },
+  {
+    title: "Bosses that fill the screen",
+    body: "Every sector ends with a colossal boss. One of them has a beam you will learn to respect.",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <path d="M2 11a10 10 0 0 1 20 0" />
+        <path d="M6 11a6 6 0 0 1 12 0" />
+        <circle cx="12" cy="9.5" r="1.5" />
+        <path d="M12 16l3 5H9z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Die richer",
+    body: "Every run feeds permanent upgrades in the Hangar. The sector resets — your arsenal doesn't.",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <path d="M4 20V9l8-5 8 5v11" />
+        <path d="M12 19v-8M8.5 14.5 12 11l3.5 3.5" />
+      </svg>
+    ),
+  },
+  {
+    title: "Premium, full stop",
+    body: (
+      <>
+        <span className={styles.goldText}>$2.99 once.</span> No ads, no in-app purchases, no energy timers. Plays
+        offline.
+      </>
+    ),
+    gold: true,
+    icon: (
+      <svg {...ICON_PROPS}>
+        <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" />
+        <path d="M9 12l2 2 4-4" />
+      </svg>
+    ),
+  },
+];
+
+const CREW = [
+  { role: "design", who: "Salih" },
+  { role: "code", who: "Salih" },
+  { role: "art / vfx", who: "Salih" },
+  { role: "balance", who: "Salih" },
+  { role: "marketing", who: "Salih" },
+  { role: "coffee runs", who: "also Salih" },
+];
+
+const pad = (n: number) => String(n).padStart(2, "0");
 
 export default function Home() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <Starfield variant="hero" />
       <RevealObserver />
       <div className={styles.nebula} aria-hidden="true" />
 
-      <div className={styles.frame}>
-        <header className={styles.hero}>
-          <span className="node" aria-hidden="true" />
-          <span className={`${styles.eyebrow} ${styles.heroEyebrow}`}>
-            <span className={styles.pulse} aria-hidden="true" /> Coming soon <b>· iOS + Android</b>
-          </span>
-          <h1 className={styles.h1}>
-            <span className={styles.row}>Almost</span>
-            <span className={styles.row}>In <OrbitMark />rbit</span>
-          </h1>
-          <p className={styles.tagline}>
-            A handcrafted roguelite space shooter. <strong>One thumb, endless swarms, zero ads.</strong>
-          </p>
+      <StudioNav current="/" />
 
-          <div className={styles.cta}>
-            <div className={styles.stores}>
-              <span className={styles.store}>
-                <svg viewBox="-1.2 0 24 24" aria-hidden="true">
-                  <path d="M17.05 12.54c-.03-2.89 2.36-4.28 2.47-4.35-1.35-1.97-3.44-2.24-4.18-2.27-1.78-.18-3.47 1.05-4.37 1.05-.9 0-2.29-1.02-3.77-1-1.94.03-3.72 1.13-4.72 2.86-2.01 3.49-.51 8.66 1.45 11.49.96 1.39 2.1 2.94 3.6 2.89 1.45-.06 1.99-.93 3.74-.93s2.24.93 3.77.9c1.56-.03 2.54-1.41 3.49-2.8 1.1-1.61 1.55-3.17 1.58-3.25-.04-.02-3.03-1.16-3.06-4.59zM14.16 4.06c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.74-.74.86-1.39 2.23-1.22 3.55 1.29.1 2.6-.65 3.41-1.63z" />
-                </svg>
-                <span>
-                  <small>Coming soon on</small>
-                  <b>App Store</b>
-                </span>
-              </span>
-              <span className={styles.store}>
-                <svg viewBox="3.49 3.35 17.31 17.31" aria-hidden="true">
-                  <path d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653Z" />
-                </svg>
-                <span>
-                  <small>Coming soon on</small>
-                  <b>Google Play</b>
-                </span>
-              </span>
-            </div>
+      <main className={styles.main}>
+        <div className={styles.spine} aria-hidden="true" />
 
-            <span className={styles.price}>$2.99 · pay once, own everything</span>
+        {/* ── HERO ─────────────────────────────────────────── */}
+        <section className={styles.hero} aria-labelledby="hero-title">
+          <div className={styles.heroCopy}>
+            <p className={styles.pill}>
+              <span className={styles.node} aria-hidden="true" />
+              <span className={styles.pulse} aria-hidden="true" />
+              <span>Out now · iPhone + Android</span>
+            </p>
+            <Image
+              className={styles.logo}
+              src="/aio/logo.png"
+              alt="Almost in Orbit"
+              width={800}
+              height={757}
+              sizes="(max-width: 720px) 260px, 360px"
+              preload
+            />
+            <h1 id="hero-title" className={styles.h1}>
+              A handcrafted roguelite space shooter.
+            </h1>
+            <p className={styles.sub}>One thumb. Endless swarms. Zero ads.</p>
+            <StoreBadges size="hero" />
+            <p className={styles.price}>$2.99 · Pay once, own everything</p>
           </div>
-        </header>
 
-        {/* ── VIDEO ────────────────────────────────────────── */}
-        <section className={styles.section} id="run">
-          <span className="node" aria-hidden="true" />
-          <div className={styles.runGrid}>
-            <div data-reveal>
-              <span className={styles.eyebrow}>01 · gameplay</span>
-              <h2 className={styles.heading}>Watch a full run</h2>
-              <p className={styles.lede}>
-                Raw gameplay, captured straight from the device. No cuts, no cinematics — just a ship, a bad
-                neighbourhood, and one thumb doing all the work.
-              </p>
-            </div>
-            <GameplayVideo />
+          <div className={styles.heroMedia}>
+            <svg className={styles.orbit} viewBox="0 0 640 420" fill="none" aria-hidden="true">
+              <ellipse
+                cx="320"
+                cy="210"
+                rx="300"
+                ry="86"
+                transform="rotate(-22 320 210)"
+                stroke="currentColor"
+                strokeWidth="1"
+                strokeDasharray="2 6"
+              />
+              <circle cx="596" cy="96" r="4" fill="currentColor" />
+            </svg>
+            <PhoneVideo
+              src={TRAILER.src}
+              poster={TRAILER.poster}
+              width={TRAILER.width}
+              height={TRAILER.height}
+              label="Almost in Orbit official trailer"
+              caption={`Official trailer · ${TRAILER.duration}`}
+            />
           </div>
         </section>
 
-        {/* ── FEATURES ─────────────────────────────────────── */}
-        <section className={styles.section} id="game">
-          <span className="node" aria-hidden="true" />
-          <span data-reveal className={styles.eyebrow}>
-            02 · the game
-          </span>
-          <h2 data-reveal className={styles.heading}>
+        {/* ── 01 · THE GAME ────────────────────────────────── */}
+        <section className={`${styles.section} ${styles.game}`} id="game" aria-labelledby="game-title">
+          <p className={styles.eyebrow}>
+            <span className={styles.node} aria-hidden="true" />
+            <span>
+              <b className={styles.num}>01</b> · the game
+            </span>
+          </p>
+          <h2 id="game-title" className={`${styles.h2} ${styles.gameTitle}`} data-reveal>
             Short runs. Long consequences.
           </h2>
+
           <div className={styles.cards}>
-            <article data-reveal className={styles.card}>
-              <svg viewBox="0 0 32 32" aria-hidden="true">
-                <circle cx={6} cy={26} r={2.5} />
-                <circle cx={16} cy={16} r={2.5} />
-                <circle cx={8} cy={8} r={2.5} />
-                <circle cx={26} cy={6} r={2.5} />
-                <circle cx={26} cy={24} r={2.5} />
-                <path d="M7.5 23.8 14.5 18M9.7 9.8l4.6 4.4M18.2 14.2 23.9 8M18 17.8l6 4.6" />
-              </svg>
-              <h3>Chart the sector</h3>
-              <p>
-                Every run draws a fresh branching map. Battles, elites, shops, meteor fields, places to catch your
-                breath — your route, your risk.
-              </p>
-            </article>
-            <article data-reveal className={styles.card}>
-              <svg viewBox="0 0 32 32" aria-hidden="true">
-                <path d="M16 4l4.5 6.5h-9z" />
-                <path d="M7 15l4.5 6.5h-9z" />
-                <path d="M25 15l4.5 6.5h-9z" />
-                <path d="M16 19l4.5 6.5h-9z" />
-              </svg>
-              <h3>Swarms with choreography</h3>
-              <p>
-                Eight formation patterns, from snaking trains to pincer dives. Full-clear a wave and it drops a
-                fire-rate boost.
-              </p>
-            </article>
-            <article data-reveal className={styles.card}>
-              <svg viewBox="0 0 32 32" aria-hidden="true">
-                <circle cx={16} cy={16} r={3} />
-                <ellipse cx={16} cy={16} rx={12} ry={5.5} transform="rotate(-20 16 16)" />
-                <circle cx={26.5} cy={11.5} r={2} />
-                <circle cx={5.5} cy={20} r={2} />
-              </svg>
-              <h3>Stack your drones</h3>
-              <p>Ice, fire, lightning and poison wingmates, three tiers each. They turn a pea-shooter into a light show.</p>
-            </article>
-            <article data-reveal className={styles.card}>
-              <svg viewBox="0 0 32 32" aria-hidden="true">
-                <path d="M16 3 5 12v8l11 9 11-9v-8L16 3z" />
-                <path d="M16 10v18M11 14h10" />
-              </svg>
-              <h3>Bosses that fill the screen</h3>
-              <p>
-                A shielded capital ship. A carrier with a mean door habit. A dreadnought whose beam you will learn to
-                respect.
-              </p>
-            </article>
-            <article data-reveal className={styles.card}>
-              <svg viewBox="0 0 32 32" aria-hidden="true">
-                <path d="M27 16a11 11 0 1 1-3.4-7.9" />
-                <path d="M27 4v5.5h-5.5" />
-                <path d="M16 22v-9M12 16.5 16 12.5l4 4" />
-              </svg>
-              <h3>Die richer</h3>
-              <p>Every run feeds permanent upgrades between climbs. The sector resets — your arsenal doesn&apos;t.</p>
-            </article>
-            <article data-reveal className={styles.card}>
-              <svg viewBox="0 0 32 32" aria-hidden="true">
-                <path d="M16 3l10 4v8c0 7-4.5 11.5-10 14C10.5 26.5 6 22 6 15V7l10-4z" />
-                <path d="M11.5 16l3 3 6-6.5" />
-              </svg>
-              <h3>Premium, full stop</h3>
-              <p>
-                <b>$2.99 once.</b> No ads, no in-app purchases, no energy timers. The whole game, yours.
-              </p>
-            </article>
+            <span className={`${styles.tick} ${styles.tickTL}`} aria-hidden="true" />
+            <span className={`${styles.tick} ${styles.tickTR}`} aria-hidden="true" />
+            <span className={`${styles.tick} ${styles.tickBL}`} aria-hidden="true" />
+            <span className={`${styles.tick} ${styles.tickBR}`} aria-hidden="true" />
+            {FEATURES.map((feature, i) => (
+              <article key={feature.title} className={styles.cell} data-reveal>
+                <span className={styles.cellIndex} aria-hidden="true">
+                  {pad(i + 1)}
+                </span>
+                <span className={`${styles.icon} ${feature.gold ? styles.iconGold : ""}`}>{feature.icon}</span>
+                <h3>{feature.title}</h3>
+                <p>{feature.body}</p>
+              </article>
+            ))}
           </div>
         </section>
 
-        {/* ── SCREENSHOTS ──────────────────────────────────── */}
-        <section className={styles.section} id="screens">
-          <span className="node" aria-hidden="true" />
-          <Screenshots items={screenshots} />
+        {/* ── 02 · SCREENS ─────────────────────────────────── */}
+        <section className={styles.section} id="screens" aria-labelledby="screens-title">
+          <Screenshots
+            items={screenshots}
+            eyebrow={
+              <p className={styles.eyebrow}>
+                <span className={styles.node} aria-hidden="true" />
+                <span>
+                  <b className={styles.num}>02</b> · screens
+                </span>
+              </p>
+            }
+            heading={
+              <h2 id="screens-title" className={styles.h2}>
+                Straight from the device.
+              </h2>
+            }
+          />
         </section>
 
-        {/* ── PRESS ────────────────────────────────────────── */}
-        <section className={styles.section} id="press">
-          <span className="node" aria-hidden="true" />
-          <div data-reveal className={styles.pressBand}>
-            <div>
-              <span className={styles.eyebrow}>04 · press</span>
-              <h2 className={styles.heading}>Writing about mobile games?</h2>
-              <p className={styles.lede}>
-                The press kit has a factsheet, clean screenshots and the trailer — everything zipped and ready.
-              </p>
+        {/* ── 03 · NEXT FROM THE STUDIO ────────────────────── */}
+        <section className={styles.section} id="next" aria-labelledby="next-title">
+          <h2 id="next-title" className={`${styles.eyebrow} ${styles.eyebrowTitle}`}>
+            <span className={styles.node} aria-hidden="true" />
+            <span>
+              <b className={styles.num}>03</b> · next from the studio
+            </span>
+          </h2>
+
+          <div className={`museum ${museumFontVars} ${styles.teaser}`} data-reveal>
+            <div className={styles.teaserArt}>
+              <RevealFrame
+                painting={greatWave}
+                size="teaser"
+                seam
+                sizes="(max-width: 720px) 90vw, (max-width: 1100px) 440px, 440px"
+                className={styles.teaserFrame}
+              />
+              <span className={styles.placard}>
+                <span className={styles.placardArtist}>{greatWave.artist}</span>
+                <span className={styles.placardTitle}>{greatWave.title}</span>
+              </span>
             </div>
-            <Link className={styles.btn} href="/press">
-              Get the press kit
+
+            <div className={styles.teaserCopy}>
+              <Image
+                className={styles.teaserIcon}
+                src="/cpa/icon.png"
+                alt="Collect Pixel Art app icon"
+                width={512}
+                height={512}
+                sizes="72px"
+              />
+              <h3 className={styles.teaserTitle}>Collect Pixel Art</h3>
+              <p className={styles.teaserLede}>Restore famous paintings, pixel by pixel.</p>
+              <span className={styles.chip}>Coming soon · iPhone + Android</span>
+              <div>
+                <Link href="/collect-pixel-art" className={styles.gbtn}>
+                  Take a look <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 04 · PRESS ───────────────────────────────────── */}
+        <section className={styles.section} id="press" aria-labelledby="press-title">
+          <p className={`${styles.eyebrow} ${styles.eyebrowTitle}`}>
+            <span className={styles.node} aria-hidden="true" />
+            <span>
+              <b className={styles.num}>04</b> · press
+            </span>
+          </p>
+          <div className={styles.pressBand} data-reveal>
+            <div>
+              <h2 id="press-title" className={`${styles.h2} ${styles.pressTitle}`}>
+                Writing about mobile games?
+              </h2>
+              <p>Factsheet, fresh screenshots and the trailer — all in one place.</p>
+            </div>
+            <Link href="/press" className={styles.btn}>
+              Open the press kit
             </Link>
           </div>
         </section>
 
-        {/* ── STUDIO ───────────────────────────────────────── */}
-        <section className={styles.section} id="studio">
-          <span className="node node--boss" aria-hidden="true" />
-          <div className={styles.studioGrid}>
-            <div data-reveal>
-              <span className={styles.eyebrow}>05 · the studio</span>
-              <h2 className={styles.heading}>Final boss: the developer</h2>
-              <p className={styles.lede}>
-                Simple Ideas is Salih — a one-person studio in İzmir, Türkiye. Five years of shipping mobile apps, a
-                psychology degree, and a lifelong shmup habit that finally became a game.
-              </p>
-              <p className={styles.lede}>
-                Almost in Orbit is the studio&apos;s first title: designed, coded, balanced and launched by the same
-                pair of hands. Open to collaborations and interesting mobile work.
-              </p>
-              <a className={styles.mail} href="mailto:salih@simpleideas.net">
-                salih@simpleideas.net
-              </a>
-            </div>
-            <div data-reveal className={styles.manifest} aria-label="Crew manifest">
-              <h3>Crew manifest</h3>
-              <ul>
-                <li>
-                  <span>design</span>
-                  <span className={styles.dots} />
-                  <span className={styles.who}>Salih</span>
+        {/* ── 05 · THE STUDIO ──────────────────────────────── */}
+        <section className={styles.studio} id="studio" aria-labelledby="studio-title">
+          <div className={styles.studioCopy}>
+            <p className={styles.eyebrow}>
+              <span className={`${styles.node} ${styles.nodeBoss}`} aria-hidden="true" />
+              <span>
+                <b className={styles.num}>05</b> · the studio
+              </span>
+            </p>
+            <h2 id="studio-title" className={`${styles.h2} ${styles.studioTitle}`} data-reveal>
+              Final boss: the developer
+            </h2>
+            <p data-reveal>
+              Simple Ideas is Salih — a one-person studio in İzmir, Türkiye. Five years of shipping mobile apps, a
+              psychology degree, and a lifelong shmup habit that finally became a game.
+            </p>
+            <p data-reveal>
+              Almost in Orbit is the studio&apos;s first title: designed, coded, balanced and launched by the same pair
+              of hands. Collect Pixel Art is next.
+            </p>
+            <a className={styles.mail} href={`mailto:${CONTACT_EMAIL}`}>
+              {CONTACT_EMAIL}
+            </a>
+          </div>
+
+          <div className={styles.manifest} data-reveal>
+            <span className={`${styles.tick} ${styles.tickTL} ${styles.tickSm}`} aria-hidden="true" />
+            <span className={`${styles.tick} ${styles.tickBR} ${styles.tickSm}`} aria-hidden="true" />
+            <h3>Crew manifest</h3>
+            <ul>
+              {CREW.map((row) => (
+                <li key={row.role}>
+                  <span>{row.role}</span>
+                  <span className={styles.leader} aria-hidden="true" />
+                  <span className={styles.who}>{row.who}</span>
                 </li>
-                <li>
-                  <span>code</span>
-                  <span className={styles.dots} />
-                  <span className={styles.who}>Salih</span>
-                </li>
-                <li>
-                  <span>art / vfx</span>
-                  <span className={styles.dots} />
-                  <span className={styles.who}>Salih</span>
-                </li>
-                <li>
-                  <span>balance</span>
-                  <span className={styles.dots} />
-                  <span className={styles.who}>Salih</span>
-                </li>
-                <li>
-                  <span>marketing</span>
-                  <span className={styles.dots} />
-                  <span className={styles.who}>Salih</span>
-                </li>
-                <li>
-                  <span>coffee runs</span>
-                  <span className={styles.dots} />
-                  <span className={styles.who}>also Salih</span>
-                </li>
-              </ul>
-              <p className={styles.crewNote}>crew size: 1 · morale: high</p>
-            </div>
+              ))}
+            </ul>
+            <p className={styles.crewNote}>crew size: 1 · morale: high</p>
           </div>
         </section>
+      </main>
 
-        {/* ── FOOTER ───────────────────────────────────────── */}
-        <footer className={styles.footer}>
-          <p className={styles.footBrand}>Simple Ideas</p>
-          <ul className={styles.footLinks}>
-            <li>
-              <Link href="/press">Press kit</Link>
-            </li>
-            <li>
-              <Link href="/privacy">Privacy</Link>
-            </li>
-            <li>
-              <Link href="/support">Support</Link>
-            </li>
-            <li>
-              <a href="mailto:salih@simpleideas.net">salih@simpleideas.net</a>
-            </li>
-          </ul>
-          <p className={styles.fine}>
-            © 2026 Simple Ideas. Apple and the App Store are trademarks of Apple Inc. Google Play is a trademark of
-            Google LLC.
-          </p>
-        </footer>
-      </div>
+      <SiteFooter variant="space" />
     </>
   );
 }

@@ -1,0 +1,164 @@
+.footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--f-line);
+  background: var(--f-bg);
+  color: var(--f-dim);
+  font-size: 14px;
+}
+.space {
+  --f-line: rgba(140, 155, 181, 0.16);
+  --f-bg: transparent;
+  --f-ink: var(--ink);
+  --f-dim: var(--dim);
+  --f-hover: var(--cyan);
+  --f-brand-font: var(--disp);
+  --f-link-font: var(--mono);
+  --f-fine-font: var(--body);
+  --f-link-weight: 400;
+}
+.museum {
+  --f-line: var(--m-line);
+  --f-bg: var(--m-foot);
+  --f-ink: var(--m-ink);
+  --f-dim: var(--m-dim);
+  --f-hover: var(--m-ink);
+  --f-brand-font: var(--font-source-sans), "Source Sans 3", system-ui, sans-serif;
+  --f-link-font: var(--font-source-sans), "Source Sans 3", system-ui, sans-serif;
+  --f-fine-font: var(--font-source-sans), "Source Sans 3", system-ui, sans-serif;
+  --f-link-weight: 600;
+}
+
+.inner {
+  max-width: 1232px;
+  margin: 0 auto;
+  padding: 56px 40px 64px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px;
+  align-items: start;
+}
+.museum .inner {
+  max-width: 1296px;
+  padding: 56px 48px 64px;
+}
+
+.brand {
+  margin: 0 0 20px;
+  font-family: var(--f-brand-font);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--f-ink);
+}
+.museum .brand {
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.badges {
+  margin-bottom: 20px;
+}
+.fine {
+  margin: 0;
+  max-width: 52ch;
+  font-family: var(--f-fine-font);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--f-dim);
+}
+.museum .fine {
+  font-size: 13px;
+}
+
+.links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  gap: 4px 32px;
+  justify-self: end;
+  min-width: 380px;
+}
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--f-link-font);
+  font-weight: var(--f-link-weight);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--f-dim);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.link:hover {
+  color: var(--f-hover);
+}
+.mail {
+  text-transform: none;
+  letter-spacing: 0.08em;
+}
+.museum .mail {
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 720px) {
+  .inner,
+  .museum .inner {
+    display: block;
+    padding: 44px 20px 56px;
+  }
+  .brand,
+  .museum .brand {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+  .links {
+    min-width: 0;
+    gap: 0 16px;
+    margin-bottom: 20px;
+    justify-self: start;
+  }
+  .link {
+    font-size: 11px;
+  }
+  .museum .link {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+  }
+  .mail {
+    letter-spacing: 0.06em;
+  }
+  .fine {
+    font-size: 12px;
+  }
+  .museum .fine {
+    font-size: 12.5px;
+  }
+  /* mobile order: brand → links → badges → fine print */
+  .brandCol {
+    display: contents;
+  }
+  .brand {
+    order: 0;
+  }
+  .links {
+    order: 1;
+  }
+  .badges {
+    order: 2;
+  }
+  .fine {
+    order: 3;
+  }
+  .inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

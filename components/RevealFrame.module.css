@@ -1,0 +1,134 @@
+.wrap {
+  display: block;
+  width: 100%;
+}
+button.wrap {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+}
+
+/* gilded frame: gold field, light outer line, inner moulding ring, dark lip around the canvas */
+.frame {
+  display: block;
+  background: var(--m-gold);
+  border: 1px solid var(--m-gold-hi);
+  transition: transform 0.4s ease;
+}
+.lip {
+  display: block;
+  border: 1px solid var(--m-gold-lip);
+  background: var(--m-card);
+}
+.box {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: var(--m-card);
+}
+
+.hero {
+  padding: 18px;
+  box-shadow:
+    inset 0 0 0 5px var(--m-gold-lo),
+    inset 0 0 0 6px rgba(255, 241, 210, 0.35),
+    0 34px 56px -34px rgba(0, 0, 0, 0.8);
+}
+.hero .lip {
+  padding: 4px;
+}
+.teaser {
+  padding: 14px;
+  box-shadow: 0 24px 40px -28px rgba(0, 0, 0, 0.7);
+}
+.teaser .lip {
+  padding: 3px;
+}
+.small {
+  padding: 10px;
+  box-shadow:
+    inset 0 0 0 3px var(--m-gold-lo),
+    inset 0 0 0 4px rgba(255, 241, 210, 0.35),
+    0 24px 40px -26px rgba(0, 0, 0, 0.8);
+}
+.small .lip {
+  padding: 3px;
+}
+
+.pixel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.orig {
+  object-fit: cover;
+  clip-path: inset(0 0 calc(100% - var(--reveal, 100%)) 0);
+  transition: clip-path 0.8s var(--ease);
+}
+.seam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--reveal, 100%);
+  height: 2px;
+  margin-top: -1px;
+  background: var(--m-gold-hi);
+  box-shadow: 0 0 14px rgba(217, 191, 125, 0.9);
+  transition: top 0.8s var(--ease);
+}
+
+/* collection wall: pixel first, the original returns top-down on hover / focus / tap */
+.interactive .orig {
+  clip-path: inset(0 0 100% 0);
+  transition-duration: 0.9s;
+}
+.interactive:hover .orig,
+.interactive:focus-visible .orig,
+.open .orig {
+  clip-path: inset(0 0 0 0);
+}
+.interactive:hover .frame,
+.interactive:focus-visible .frame {
+  transform: translateY(-3px);
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding: 12px;
+    box-shadow:
+      inset 0 0 0 4px var(--m-gold-lo),
+      inset 0 0 0 5px rgba(255, 241, 210, 0.35),
+      0 30px 50px -30px rgba(0, 0, 0, 0.8);
+  }
+  .hero .lip {
+    padding: 3px;
+  }
+  .teaser {
+    padding: 11px;
+  }
+  .small {
+    padding: 7px;
+    box-shadow:
+      inset 0 0 0 2px var(--m-gold-lo),
+      inset 0 0 0 3px rgba(255, 241, 210, 0.35),
+      0 20px 32px -22px rgba(0, 0, 0, 0.8);
+  }
+  .small .lip {
+    padding: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orig,
+  .seam,
+  .frame {
+    transition: none;
+  }
+}

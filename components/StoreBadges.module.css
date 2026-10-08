@@ -1,0 +1,59 @@
+.row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.badge {
+  display: inline-flex;
+  border-radius: 8px;
+  transition: opacity 0.2s ease;
+}
+.badge:hover {
+  opacity: 0.9;
+}
+.apple,
+.google {
+  width: auto;
+}
+
+/* hero: App Store 52px, Google Play 71px (1.36×) */
+.hero {
+  gap: 14px;
+}
+.hero .apple {
+  height: 52px;
+}
+.hero .google {
+  height: 71px;
+}
+
+/* footer: 36px / 49px */
+.small {
+  gap: 10px;
+}
+.small .badge {
+  border-radius: 6px;
+}
+.small .apple {
+  height: 36px;
+}
+.small .google {
+  height: 49px;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    gap: 8px;
+    margin-left: -4px;
+  }
+  .hero .apple {
+    height: 46px;
+  }
+  .hero .google {
+    height: 63px;
+  }
+  .small {
+    gap: 8px;
+    margin-left: -4px;
+  }
+}

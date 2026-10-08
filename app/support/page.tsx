@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Starfield } from "@/components/Starfield";
+import { StudioNav } from "@/components/StudioNav";
+import { SiteFooter } from "@/components/SiteFooter";
 import subStyles from "../subpages.module.css";
 import styles from "./support.module.css";
 
@@ -14,12 +15,10 @@ export default function SupportPage() {
     <>
       <Starfield variant="sub" />
       <div className={subStyles.nebula} aria-hidden="true" />
-      <div className={subStyles.frame}>
+      <StudioNav current="/support" />
+      <main className={subStyles.frame}>
         <header className={subStyles.pageHead}>
           <span className="node" aria-hidden="true" />
-          <Link className={subStyles.back} href="/">
-            ← Almost in Orbit
-          </Link>
           <span className={subStyles.eyebrow}>Support</span>
           <h1 className={subStyles.h1}>One inbox, one human</h1>
           <p className={subStyles.lede}>
@@ -68,26 +67,8 @@ export default function SupportPage() {
           <h3 className={styles.h3}>Do I need an account?</h3>
           <p>No accounts, no logins, no passwords to reset. Download and play.</p>
         </section>
-
-        <footer className={subStyles.footer}>
-          <p className={subStyles.footBrand}>Simple Ideas</p>
-          <ul className={subStyles.footLinks}>
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/press">Press kit</Link>
-            </li>
-            <li>
-              <Link href="/privacy">Privacy</Link>
-            </li>
-            <li>
-              <a href="mailto:salih@simpleideas.net">salih@simpleideas.net</a>
-            </li>
-          </ul>
-          <p className={subStyles.fine}>© 2026 Simple Ideas.</p>
-        </footer>
-      </div>
+      </main>
+      <SiteFooter variant="space" />
     </>
   );
 }

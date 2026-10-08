@@ -1,94 +1,142 @@
 "use client";
 
-import { useRef, useState, type PointerEvent } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import type { Screenshot } from "@/lib/screenshots";
 import styles from "./Screenshots.module.css";
 
-export interface ScreenshotItem {
-  src: string;
-  alt: string;
-  fileLabel: string;
+const pad = (n: number) => String(n).padStart(2, "0");
+
+interface ScreenshotsProps {
+  items: Screenshot[];
+  /** Section eyebrow + heading, rendered in the strip header next to the controls. */
+  eyebrow: ReactNode;
+  heading: ReactNode;
 }
 
-export function Screenshots({ items }: { items: ScreenshotItem[] }) {
-  const stripRef = useRef<HTMLDivElement>(null);
-  const drag = useRef({ down: false, sx: 0, sl: 0 });
-  const [failed, setFailed] = useState<boolean[]>(() => items.map(() => false));
+/**
+ * 02 · screens — a horizontal strip of portrait shots (1290:2796). Arrow buttons + a
+ * "01 — 05 / 12" counter on desktop; scroll-snap swipe with pager dots on phones.
+ */
+export function Screenshots({ items, eyebrow, heading }: ScreenshotsProps) {
+  const stripRef = useRef<HTMLUListElement>(null);
+  const [range, setRange] = useState({ first: 1, last: Math.min(5, items.length) });
 
-  function nav(dir: number) {
+  const measure = useCallback(() => {
+    const strip = stripRef.current;
+    if (!strip) return;
+    const box = strip.getBoundingClientRect();
+    let first = -1;
+    let last = -1;
+    Array.from(strip.children).forEach((li, i) => {
+      const r = li.getBoundingClientRect();
+      if (r.left >= box.left - 1 && r.right <= box.right + 1) {
+        if (first < 0) first = i;
+        last = i;
+      }
+    });
+    if (first >= 0) setRange({ first: first + 1, last: last + 1 });
+  }, []);
+
+  useEffect(() => {
+    const strip = stripRef.current;
+    if (!strip) return;
+    let raf = 0;
+    const schedule = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(measure);
+    };
+    measure();
+    strip.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      strip.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      cancelAnimationFrame(raf);
+    };
+  }, [measure]);
+
+  function nav(dir: 1 | -1) {
     const strip = stripRef.current;
     if (!strip) return;
     strip.scrollBy({ left: dir * strip.clientWidth * 0.8, behavior: "smooth" });
   }
 
-  function onPointerDown(e: PointerEvent<HTMLDivElement>) {
-    if (e.pointerType !== "mouse") return;
-    const strip = stripRef.current;
-    if (!strip) return;
-    drag.current = { down: true, sx: e.clientX, sl: strip.scrollLeft };
-    strip.setPointerCapture(e.pointerId);
-  }
-  function onPointerMove(e: PointerEvent<HTMLDivElement>) {
-    if (!drag.current.down) return;
-    const strip = stripRef.current;
-    if (!strip) return;
-    strip.scrollLeft = drag.current.sl - (e.clientX - drag.current.sx);
-  }
-  function onPointerEnd() {
-    drag.current.down = false;
-  }
-
-  function markFailed(i: number) {
-    setFailed((prev) => prev.map((v, idx) => (idx === i ? true : v)));
-  }
-
   return (
     <>
-      <div className={styles.secHead}>
-        <div>
-          <span data-reveal className={styles.eyebrow}>
-            03 · screens
+      <div className={styles.head}>
+        <div className={styles.headText}>
+          {eyebrow}
+          {heading}
+        </div>
+        <div className={styles.controls}>
+          <span className={styles.counter}>
+            {pad(range.first)} — {pad(range.last)} / {pad(items.length)}
           </span>
-          <h2 data-reveal className={styles.heading}>
-            In the cockpit
-          </h2>
-        </div>
-        <div data-reveal className={styles.stripNav}>
-          <button className={styles.snav} data-dir={-1} aria-label="Previous screenshots" onClick={() => nav(-1)}>
-            ‹
+          <button type="button" className={styles.arrow} aria-label="Previous screenshots" onClick={() => nav(-1)}>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M15 5l-7 7 7 7" />
+            </svg>
           </button>
-          <button className={styles.snav} data-dir={1} aria-label="Next screenshots" onClick={() => nav(1)}>
-            ›
+          <button type="button" className={styles.arrow} aria-label="Next screenshots" onClick={() => nav(1)}>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M9 5l7 7-7 7" />
+            </svg>
           </button>
         </div>
+        <span className={styles.swipe} aria-hidden="true">
+          Swipe →
+        </span>
       </div>
-      <div
-        className={styles.strip}
-        ref={stripRef}
-        aria-label="Gameplay screenshots"
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerEnd}
-        onPointerCancel={onPointerEnd}
-      >
+
+      <ul className={styles.strip} ref={stripRef} aria-label="Gameplay screenshots">
         {items.map((item, i) => (
-          <figure key={item.src} className={`${styles.shot} ${failed[i] ? styles.empty : ""}`}>
-            <img
-              loading="lazy"
-              src={item.src}
-              alt={item.alt}
-              onError={() => markFailed(i)}
-              onLoad={(e) => {
-                if (e.currentTarget.naturalWidth === 0) markFailed(i);
-              }}
-            />
-            <div className={styles.ph}>
-              <i />
-              <code>{item.fileLabel}</code>
-            </div>
-          </figure>
+          <li key={item.src} className={styles.item}>
+            <figure className={styles.fig}>
+              <div className={styles.shot}>
+                <Image
+                  className={styles.img}
+                  src={item.src}
+                  alt={item.alt}
+                  width={720}
+                  height={1560}
+                  sizes="(max-width: 720px) 172px, 196px"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption className={styles.cap}>
+                <span className={styles.num}>{pad(i + 1)}</span> {item.caption}
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+
+      <div className={styles.dots} aria-hidden="true">
+        {items.map((item, i) => (
+          <span key={item.src} className={i + 1 === range.first ? styles.dotOn : styles.dot} />
         ))}
       </div>
-      <span className={styles.swipeHint}>swipe →</span>
     </>
   );
 }

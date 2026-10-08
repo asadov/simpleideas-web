@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Starfield } from "@/components/Starfield";
+import { StudioNav } from "@/components/StudioNav";
+import { SiteFooter } from "@/components/SiteFooter";
 import subStyles from "../subpages.module.css";
 
 export const metadata: Metadata = {
   title: "Privacy policy — Almost in Orbit",
-  description: "Privacy policy for Almost in Orbit. The short version: the game collects no data at all.",
+  description:
+    "Privacy policy for Almost in Orbit. No accounts, ads or analytics of our own; the Unity engine the game is built on sends Unity technical diagnostics.",
 };
 
 export default function PrivacyPage() {
@@ -13,28 +15,43 @@ export default function PrivacyPage() {
     <>
       <Starfield variant="sub" />
       <div className={subStyles.nebula} aria-hidden="true" />
-      <div className={subStyles.frame}>
+      <StudioNav current="/privacy" />
+      <main className={subStyles.frame}>
         <header className={subStyles.pageHead}>
           <span className="node" aria-hidden="true" />
-          <Link className={subStyles.back} href="/">
-            ← Almost in Orbit
-          </Link>
-          <span className={subStyles.eyebrow}>Privacy policy · effective July 10, 2026</span>
-          <h1 className={subStyles.h1}>We collect nothing</h1>
+          <span className={subStyles.eyebrow}>Privacy policy · updated October 8, 2026</span>
+          <h1 className={subStyles.h1}>Short and honest</h1>
           <p className={subStyles.lede}>
-            This page exists because app stores require one. It&apos;s refreshingly short, because there&apos;s
-            nothing to disclose.
+            Almost in Orbit has no accounts, no ads and no analytics of its own. The one thing that does leave your
+            device comes from the engine the game is built on — here is exactly what that is.
           </p>
         </header>
 
         <section className={subStyles.section}>
           <span className="node" aria-hidden="true" />
-          <h2>What Almost in Orbit collects</h2>
+          <h2>What the game itself collects</h2>
           <p>
-            Nothing. The game contains no analytics, no advertising, no tracking, no crash-reporting SDKs and no
-            third-party services of any kind. There are no accounts and no logins. The game never asks for personal
-            information and sends no data to us — it doesn&apos;t even talk to our servers, because there
-            aren&apos;t any.
+            Nothing. There are no accounts or logins, no advertising and no analytics or tracking SDKs, and the game
+            never asks for personal information. Our own code never sends anything over the network — Simple Ideas
+            doesn&apos;t run any game servers.
+          </p>
+        </section>
+
+        <section className={subStyles.section}>
+          <span className="node" aria-hidden="true" />
+          <h2>Unity engine diagnostics</h2>
+          <p>
+            Almost in Orbit is made with the Unity engine. With the settings used in the current version,
+            Unity&apos;s built-in engine diagnostics can send technical data to Unity Technologies while your device
+            is online: crash reports, error logs and basic performance signals, along with device details such as
+            the phone model and operating system version. As with any internet connection, Unity also receives your
+            device&apos;s IP address when this happens.
+          </p>
+          <p>
+            Unity uses this data to keep its engine stable, and it gives us crash and performance reports for the
+            game. We don&apos;t use it for advertising, we don&apos;t use it to track you across apps, and we
+            don&apos;t sell any data. Unity&apos;s side of this is covered by the{" "}
+            <a href="https://unity.com/legal/privacy-policy">Unity Privacy Policy</a>.
           </p>
         </section>
 
@@ -61,40 +78,25 @@ export default function PrivacyPage() {
         <section className={subStyles.section}>
           <span className="node" aria-hidden="true" />
           <h2>Children</h2>
-          <p>The game collects no data from anyone — including children.</p>
+          <p>
+            The game itself collects no personal information from anyone, including children. The Unity engine
+            diagnostics described above apply to every player.
+          </p>
         </section>
 
         <section className={subStyles.section}>
           <span className="node" aria-hidden="true" />
           <h2>If this ever changes</h2>
           <p>
-            If a future update changes any of the above, we&apos;ll update this page and the date at the top, and
-            note it in the store update notes. Questions?{" "}
+            If an update changes any of the above — including switching engine diagnostics off — we&apos;ll update
+            this page and the date at the top, and note it in the store update notes. Questions?{" "}
             <a className={subStyles.mail} href="mailto:salih@simpleideas.net">
               salih@simpleideas.net
             </a>
           </p>
         </section>
-
-        <footer className={subStyles.footer}>
-          <p className={subStyles.footBrand}>Simple Ideas</p>
-          <ul className={subStyles.footLinks}>
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/press">Press kit</Link>
-            </li>
-            <li>
-              <Link href="/support">Support</Link>
-            </li>
-            <li>
-              <a href="mailto:salih@simpleideas.net">salih@simpleideas.net</a>
-            </li>
-          </ul>
-          <p className={subStyles.fine}>© 2026 Simple Ideas.</p>
-        </footer>
-      </div>
+      </main>
+      <SiteFooter variant="space" />
     </>
   );
 }

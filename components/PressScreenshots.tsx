@@ -1,40 +1,32 @@
-"use client";
-
-import { useState } from "react";
+import Image from "next/image";
+import type { Screenshot } from "@/lib/screenshots";
 import styles from "./PressScreenshots.module.css";
 
-export interface ScreenshotItem {
-  src: string;
-  alt: string;
-  fileLabel: string;
-}
+const pad = (n: number) => String(n).padStart(2, "0");
 
-export function PressScreenshots({ items }: { items: ScreenshotItem[] }) {
-  const [failed, setFailed] = useState<boolean[]>(() => items.map(() => false));
-
-  function markFailed(i: number) {
-    setFailed((prev) => prev.map((v, idx) => (idx === i ? true : v)));
-  }
-
+export function PressScreenshots({ items }: { items: Screenshot[] }) {
   return (
-    <div className={styles.shots}>
+    <ul className={styles.grid} aria-label="Screenshots">
       {items.map((item, i) => (
-        <figure key={item.src} className={`${styles.shot} ${failed[i] ? styles.empty : ""}`}>
-          <img
-            loading="lazy"
-            src={item.src}
-            alt={item.alt}
-            onError={() => markFailed(i)}
-            onLoad={(e) => {
-              if (e.currentTarget.naturalWidth === 0) markFailed(i);
-            }}
-          />
-          <div className={styles.ph}>
-            <i />
-            <code>{item.fileLabel}</code>
-          </div>
-        </figure>
+        <li key={item.src}>
+          <figure className={styles.fig}>
+            <a className={styles.shot} href={item.src} target="_blank" rel="noopener">
+              <Image
+                className={styles.img}
+                src={item.src}
+                alt={item.alt}
+                width={720}
+                height={1560}
+                sizes="(max-width: 720px) 45vw, 176px"
+                loading="lazy"
+              />
+            </a>
+            <figcaption className={styles.cap}>
+              <span className={styles.num}>{pad(i + 1)}</span> {item.caption}
+            </figcaption>
+          </figure>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

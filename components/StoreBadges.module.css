@@ -16,7 +16,7 @@
   width: auto;
 }
 
-/* hero: App Store 52px, Google Play 71px (1.36×) */
+/* hero: both badges 52px — neither official SVG carries clear-space, so equal heights read as equal */
 .hero {
   gap: 14px;
 }
@@ -24,10 +24,10 @@
   height: 52px;
 }
 .hero .google {
-  height: 71px;
+  height: 52px;
 }
 
-/* footer: 36px / 49px */
+/* footer: 36px */
 .small {
   gap: 10px;
 }
@@ -38,22 +38,20 @@
   height: 36px;
 }
 .small .google {
-  height: 49px;
+  height: 36px;
 }
 
 @media (max-width: 720px) {
   .hero {
     gap: 8px;
-    margin-left: -4px;
   }
   .hero .apple {
     height: 46px;
   }
   .hero .google {
-    height: 63px;
+    height: 46px;
   }
   .small {
     gap: 8px;
-    margin-left: -4px;
   }
 }

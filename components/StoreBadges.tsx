@@ -2,8 +2,8 @@ import { STORE } from "@/lib/site";
 import styles from "./StoreBadges.module.css";
 
 /**
- * Official store badges (unaltered artwork). The Google Play SVG carries its own clear-space,
- * so it renders 1.36× taller than the App Store badge to make the visible badges match.
+ * Official store badges (unaltered artwork), rendered at the same height. Both SVGs fill their
+ * viewBox edge to edge (no built-in clear-space), so equal heights give equal visible badges.
  */
 export function StoreBadges({ size = "hero" }: { size?: "hero" | "small" }) {
   return (

@@ -12,6 +12,7 @@ import styles from "./cpa.module.css";
 const SITE = "https://simpleideas.net";
 const PAGE_URL = `${SITE}/collect-pixel-art`;
 const OG_IMAGE = `${SITE}/cpa/og.jpg`;
+const PRIVACY_PATH = "/collect-pixel-art/privacy";
 const NOTIFY = `mailto:${CONTACT_EMAIL}?subject=Collect%20Pixel%20Art%20%E2%80%94%20notify%20me`;
 
 const DESCRIPTION =
@@ -176,6 +177,9 @@ export default function CollectPixelArtPage() {
                   </span>
                 </Link>
               </div>
+              <p className={styles.legal}>
+                <Link href={PRIVACY_PATH}>Privacy policy</Link>
+              </p>
             </div>
 
             <div className={styles.heroArt}>
@@ -297,7 +301,7 @@ export default function CollectPixelArtPage() {
         </section>
       </main>
 
-      <SiteFooter variant="museum" />
+      <SiteFooter variant="museum" privacyHref={PRIVACY_PATH} />
     </div>
   );
 }

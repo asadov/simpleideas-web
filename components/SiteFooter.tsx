@@ -11,7 +11,14 @@ const LINKS = [
   { href: "/support", label: "Support" },
 ] as const;
 
-export function SiteFooter({ variant = "space" }: { variant?: "space" | "museum" }) {
+/** `privacyHref`: each game has its own policy, so the "Privacy" link follows the page's game. */
+export function SiteFooter({
+  variant = "space",
+  privacyHref = "/privacy",
+}: {
+  variant?: "space" | "museum";
+  privacyHref?: string;
+}) {
   return (
     <footer className={`${styles.footer} ${variant === "museum" ? styles.museum : styles.space}`}>
       <div className={styles.inner}>
@@ -29,8 +36,8 @@ export function SiteFooter({ variant = "space" }: { variant?: "space" | "museum"
         </div>
         <ul className={styles.links}>
           {LINKS.map((link) => (
-            <li key={link.href}>
-              <Link href={link.href} className={styles.link}>
+            <li key={link.label}>
+              <Link href={link.href === "/privacy" ? privacyHref : link.href} className={styles.link}>
                 {link.label}
               </Link>
             </li>

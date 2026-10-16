@@ -145,6 +145,26 @@
   margin-left: 8px;
   font-style: normal;
 }
+.legal {
+  margin: 20px 0 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+.legal a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--m-dim);
+  text-decoration: underline;
+  text-decoration-color: rgba(188, 174, 152, 0.4);
+  text-underline-offset: 4px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+.legal a:hover {
+  color: var(--m-ink);
+  text-decoration-color: currentColor;
+}
 .heroArt {
   display: flex;
   flex-direction: column;

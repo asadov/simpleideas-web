@@ -1,0 +1,175 @@
+/*
+ * Pixel Art Collect privacy policy: a plain reading page in the game's museum palette.
+ * Self-contained on purpose (system fonts, own colours and spacing) so it reads the same under any
+ * site design and on a phone opened straight from the game.
+ */
+
+.page {
+  --bg: #f3e8cd;
+  --surface: #fbf6ec;
+  --text: #302922;
+  --muted: #665c4e;
+  --link: #702b35;
+  --gold: #b99a52;
+  --line: #d5c5a2;
+  --focus: var(--gold);
+
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-wrap: break-word;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  .page {
+    --bg: #1c1814;
+    --surface: #262019;
+    --text: #ede0be;
+    --muted: #b5a88e;
+    --link: #d9b96e;
+    --line: #3d3429;
+    color-scheme: dark;
+  }
+}
+
+/* the site's body colour would otherwise show in iOS overscroll */
+:global(body):has(.page) {
+  background: #f3e8cd;
+}
+@media (prefers-color-scheme: dark) {
+  :global(body):has(.page) {
+    background: #1c1814;
+  }
+}
+
+.page ::selection {
+  background: rgba(185, 154, 82, 0.35);
+}
+
+.page a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ── top bar ───────────────────────────────────────────── */
+.bar {
+  border-bottom: 1px solid var(--line);
+}
+.bar .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.brand {
+  margin: 0;
+  font-family: ui-serif, "New York", Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.lang {
+  display: flex;
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  font-size: 0.85rem;
+}
+.page .lang a {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 4px 14px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.page .lang a[aria-current="page"] {
+  background: var(--link);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+/* ── policy text ───────────────────────────────────────── */
+.main {
+  flex: 1;
+  padding-top: 28px;
+  padding-bottom: 40px;
+}
+
+.main h1,
+.main h2,
+.main h3 {
+  font-family: ui-serif, "New York", Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.main h1 {
+  font-size: 2rem;
+  margin: 0 0 0.25rem;
+}
+.main h2 {
+  font-size: 1.35rem;
+  margin: 2.25rem 0 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+}
+.main h3 {
+  font-size: 1.05rem;
+  margin: 1.5rem 0 0.25rem;
+}
+.main p,
+.main ul {
+  margin: 0 0 1rem;
+}
+.main ul {
+  padding-left: 1.25rem;
+}
+.main li {
+  margin: 0.25rem 0;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.box {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 0 0 1.25rem;
+}
+.main .box > :last-child {
+  margin-bottom: 0;
+}
+
+/* ── footer ────────────────────────────────────────────── */
+.foot {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.foot .wrap {
+  padding-top: 16px;
+  padding-bottom: 24px;
+}
+.foot p {
+  margin: 0;
+}

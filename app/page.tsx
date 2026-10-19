@@ -317,7 +317,7 @@ export default function Home() {
             <div className={styles.teaserCopy}>
               <Image
                 className={styles.teaserIcon}
-                src="/cpa/icon.png"
+                src="/cpa/icon-dark.png"
                 alt="Pixel Art Collect app icon"
                 width={512}
                 height={512}

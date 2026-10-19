@@ -149,7 +149,7 @@ export default function CollectPixelArtPage() {
             <div className={styles.heroCopy}>
               <Image
                 className={styles.appIcon}
-                src="/cpa/icon.png"
+                src="/cpa/icon-dark.png"
                 alt="Pixel Art Collect app icon"
                 width={512}
                 height={512}

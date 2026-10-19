@@ -318,12 +318,12 @@ export default function Home() {
               <Image
                 className={styles.teaserIcon}
                 src="/cpa/icon.png"
-                alt="Collect Pixel Art app icon"
+                alt="Pixel Art Collect app icon"
                 width={512}
                 height={512}
                 sizes="72px"
               />
-              <h3 className={styles.teaserTitle}>Collect Pixel Art</h3>
+              <h3 className={styles.teaserTitle}>Pixel Art Collect</h3>
               <p className={styles.teaserLede}>Restore famous paintings, pixel by pixel.</p>
               <span className={styles.chip}>Coming soon · iPhone + Android</span>
               <div>
@@ -374,7 +374,7 @@ export default function Home() {
             </p>
             <p data-reveal>
               Almost in Orbit is the studio&apos;s first title: designed, coded, balanced and launched by the same pair
-              of hands. Collect Pixel Art is next.
+              of hands. Pixel Art Collect is next.
             </p>
             <a className={styles.mail} href={`mailto:${CONTACT_EMAIL}`}>
               {CONTACT_EMAIL}

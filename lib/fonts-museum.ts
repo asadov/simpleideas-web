@@ -1,7 +1,7 @@
 import { Marcellus, Source_Sans_3, Source_Serif_4 } from "next/font/google";
 
 /*
- * Collect Pixel Art "classic museum" fonts. Import this module only from routes that
+ * Pixel Art Collect "classic museum" fonts. Import this module only from routes that
  * render museum UI; apply `museumFontVars` on the wrapper that needs them.
  */
 

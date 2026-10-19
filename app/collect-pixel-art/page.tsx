@@ -13,26 +13,26 @@ const SITE = "https://simpleideas.net";
 const PAGE_URL = `${SITE}/collect-pixel-art`;
 const OG_IMAGE = `${SITE}/cpa/og.jpg`;
 const PRIVACY_PATH = "/collect-pixel-art/privacy";
-const NOTIFY = `mailto:${CONTACT_EMAIL}?subject=Collect%20Pixel%20Art%20%E2%80%94%20notify%20me`;
+const NOTIFY = `mailto:${CONTACT_EMAIL}?subject=Pixel%20Art%20Collect%20%E2%80%94%20notify%20me`;
 
 const DESCRIPTION =
   "Restore the world's great paintings, pixel by pixel. Tap a colour, collect what matches and watch the original return from the top down. Coming soon to iPhone and Android from Simple Ideas.";
 
 export const metadata: Metadata = {
-  title: "Collect Pixel Art — coming soon from Simple Ideas",
+  title: "Pixel Art Collect — coming soon from Simple Ideas",
   description: DESCRIPTION,
   alternates: { canonical: PAGE_URL },
   openGraph: {
     type: "website",
     url: PAGE_URL,
     siteName: "Simple Ideas",
-    title: "Collect Pixel Art",
+    title: "Pixel Art Collect",
     description: DESCRIPTION,
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Collect Pixel Art — coming soon to iPhone and Android" }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Pixel Art Collect — coming soon to iPhone and Android" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Collect Pixel Art",
+    title: "Pixel Art Collect",
     description: DESCRIPTION,
     images: [OG_IMAGE],
   },
@@ -45,7 +45,7 @@ export const viewport: Viewport = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "VideoGame",
-  name: "Collect Pixel Art",
+  name: "Pixel Art Collect",
   url: PAGE_URL,
   image: OG_IMAGE,
   description: DESCRIPTION,
@@ -150,7 +150,7 @@ export default function CollectPixelArtPage() {
               <Image
                 className={styles.appIcon}
                 src="/cpa/icon.png"
-                alt="Collect Pixel Art app icon"
+                alt="Pixel Art Collect app icon"
                 width={512}
                 height={512}
                 sizes="96px"
@@ -158,7 +158,7 @@ export default function CollectPixelArtPage() {
               />
               <p className={styles.eyebrow}>A new game from Simple Ideas</p>
               <h1 id="cpa-title" className={styles.h1}>
-                Collect Pixel Art
+                Pixel Art Collect
               </h1>
               <p className={styles.lede}>Restore the world&apos;s great paintings, pixel by pixel.</p>
               <p className={styles.body}>

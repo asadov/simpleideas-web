@@ -5,7 +5,7 @@ import styles from "./SiteFooter.module.css";
 
 const LINKS = [
   { href: "/", label: "Almost in Orbit" },
-  { href: "/collect-pixel-art", label: "Collect Pixel Art" },
+  { href: "/collect-pixel-art", label: "Pixel Art Collect" },
   { href: "/press", label: "Press kit" },
   { href: "/privacy", label: "Privacy" },
   { href: "/support", label: "Support" },

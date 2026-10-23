@@ -7,7 +7,7 @@ export function PolicyTr() {
   return (
     <article>
       <h1>Gizlilik Politikası</h1>
-      <p className={styles.meta}>iPhone ve iPad için Pixel Art Collect · Yürürlük tarihi: 16 Ekim 2026</p>
+      <p className={styles.meta}>iPhone ve iPad için Pixel Art Collect · Yürürlük tarihi: 23 Ekim 2026</p>
 
       <p>
         Bu politika, Pixel Art Collect oyununun (“oyun”) hangi bilgileri, neden işlediğini ve hangi seçeneklere sahip
@@ -29,11 +29,13 @@ export function PolicyTr() {
             Oyun Google AdMob aracılığıyla reklam gösterir. Reklam kimliğiniz yalnızca izlemeye izin verirseniz
             kullanılır; AEA, Birleşik Krallık ve İsviçre’de kişiselleştirilmiş reklamlar onayınızı gerektirir.
           </li>
-          <li>Oyunda analitik, çökme raporlama veya atıf (attribution) SDK’sı yoktur.</li>
           <li>
-            Bağlı hesabınızı oyunda istediğiniz zaman silebilirsiniz:{" "}
-            <strong>Ayarlar › Oyuncu hesabı › Hesabı sil</strong>. Misafir olarak oynuyorsanız bize e-posta gönderin,
-            anonim oyuncu kimliğinizi silelim.
+            Ayrı bir analitik, çökme raporlama veya atıf (attribution) SDK’sı kullanmayız. Reklam ve satın alma
+            hizmetleri, aşağıda açıkladığımız teknik verileri toplar.
+          </li>
+          <li>
+            Oyuncu hesabınızı, misafir hesap dahil, oyunda istediğiniz zaman silebilirsiniz:{" "}
+            <strong>Ayarlar › Oyuncu hesabı › Hesabı sil</strong>.
           </li>
         </ul>
       </div>
@@ -57,7 +59,7 @@ export function PolicyTr() {
       </p>
       <p>
         Hesabınızı hiç bağlamazsanız veritabanımızda sizinle ilgili hiçbir şey saklanmaz (bkz. 1.3). Rastgele oyuncu
-        kimliğiniz ve giriş tarihleri ise silinmesini isteyene kadar Firebase Authentication’da kalır (bkz. 6).
+        kimliğiniz ve giriş tarihleri ise hesabınızı silene kadar Firebase Authentication’da kalır (bkz. 6).
       </p>
 
       <h3>1.2 Satın almalar (Apple Uygulama İçi Satın Alma)</h3>
@@ -66,7 +68,7 @@ export function PolicyTr() {
         Apple Hesabı e-posta adresinizi veya fatura adresinizi almayız.
       </p>
       <p>
-        Bir ürün satın aldığınızda oyun, satın almaya oyuncu kimliğinizden türetilmiş anonim bir belirteç ekler.
+        Bir ürün satın aldığınızda oyun, satın almaya oyuncu kimliğinizin kriptografik özetinden türetilmiş bir belirteç ekler.
         Sunucumuz işlem kimliğiyle Apple’a satın almanın güncel durumunu (iadeler dahil) sorar ve ürünü teslim etmeden
         önce satın almanın oyuncu hesabınıza ait olduğunu doğrular. Apple da iade gibi değişiklikleri sunucumuza bildirir.
       </p>
@@ -150,8 +152,9 @@ export function PolicyTr() {
       </p>
       <p>
         Bir tabloyu paylaştığınızda oyun görseli cihazınızda oluşturur ve iOS paylaşım sayfasını açar. Görselin nereye
-        gideceğine siz ve seçtiğiniz uygulama karar verir; biz almayız. Oyun fotoğraf arşivinizi, kişilerinizi veya
-        konumunuzu okumaz.
+        gideceğine siz ve seçtiğiniz uygulama karar verir; biz almayız. Oyun fotoğraf arşivinizi veya kişilerinizi okumaz
+        ve konum hizmetlerini kullanmaz. Google, 1.4’te açıklandığı gibi reklam ve onay işlemleri için IP adresinizden
+        genel (şehir düzeyinde) konumunuzu tahmin eder.
       </p>
 
       <h3>1.6 Diğer web sitelerine bağlantılar</h3>
@@ -162,8 +165,8 @@ export function PolicyTr() {
 
       <h3>1.7 Yapmadıklarımız</h3>
       <p>
-        Oyunda analitik, çökme raporlama, atıf veya pazarlama SDK’sı yoktur. (1.4’te açıklanan Google Mobile Ads SDK kendi
-        çökme kayıtlarını ve performans verilerini toplar.) Adınızı, e-posta adresinizi, telefon numaranızı,
+        Ayrı bir analitik, çökme raporlama veya atıf SDK’sı kullanmayız. 1.4’te açıklanan Google Mobile Ads SDK ile
+        3’te açıklanan satın alma SDK’sı (Unity IAP) kendi teknik verilerini toplar. Adınızı, e-posta adresinizi, telefon numaranızı,
         kişilerinizi, fotoğraflarınızı veya konumunuzu istemeyiz. Kişisel bilgilerinizi para karşılığında satmayız. Bazı
         yasalar (örneğin ABD’nin bazı eyaletlerinde) 1.4’te açıklanan reklamcılığı hedefli reklamcılık için “paylaşım”
         sayabilir; izlemeye izin vermeyerek bunu sınırlayabilirsiniz (bkz. 1.4).
@@ -195,7 +198,15 @@ export function PolicyTr() {
         </li>
         <li>
           <strong>Apple</strong> — ödemeleri ve Apple ile Giriş Yap’ı{" "}
-          <a href="https://www.apple.com/legal/privacy/">Apple Gizlilik Politikası</a> kapsamında işler.
+          <a href="https://www.apple.com/legal/privacy/tr/">Apple Gizlilik Politikası</a> kapsamında işler.
+        </li>
+        <li>
+          <strong>Unity Technologies (Unity IAP SDK)</strong> — uygulama içi satın alma hizmetini yürütmek ve
+          iyileştirmek için teknik satın alma olaylarını alır. Bunlar ürün, fiyat, para birimi, Apple işlem kimliği ve
+          makbuz, oyuncu kimliğinizin özetinden türetilmiş belirteç, cihaz tanımlayıcısı (IDFV), oturum tanımlayıcısı,
+          cihaz modeli, işletim sistemi, dil ile uygulama ve SDK sürümlerini içerir. Bkz.{" "}
+          <a href="https://unity.com/legal/game-player-and-app-user-privacy-policy">Unity Gizlilik Politikası</a> ve{" "}
+          <a href="https://docs.unity.com/en-us/iap/privacy-and-consent/overview">Unity IAP gizlilik bilgileri</a>.
         </li>
         <li>
           <strong>Google (AdMob ve User Messaging Platform) ve Google’ın çalıştığı reklam teknolojisi iş ortakları</strong>{" "}
@@ -205,12 +216,18 @@ export function PolicyTr() {
           <strong>Resmî makamlar</strong> — yasanın gerektirdiği durumlarda.
         </li>
       </ul>
-      <p>Bilgilerinizi bunlar dışında kimseyle paylaşmayız.</p>
+      <p>
+        Google, oyuncu hesabı ve cüzdan verilerimizi kendi veri işleme şartları kapsamında bizim adımıza işler. Apple,
+        ödemeleri ve Apple ile Giriş’i kendi gizlilik politikasına göre yürütür. Google ve reklam ortakları reklam
+        verilerini kendi politikaları kapsamında işler. Unity, satın alma verilerini Unity Veri İşleme Eki kapsamında;
+        bağımsız veri sorumlusu olarak hareket ettiği durumlarda ise kendi gizlilik politikasına göre işler. Bu şartlar
+        ve politikalar, her sağlayıcının veri koruma yükümlülüklerini açıklar.
+      </p>
 
       <h2>4. Yurt dışına aktarım</h2>
       <p>
-        Veritabanımız ve sunucu işlevlerimiz Frankfurt, Almanya’dadır. Firebase Authentication küresel bir Google
-        hizmetidir; Google ve reklam teknolojisi iş ortakları bilgileri Amerika Birleşik Devletleri’nde ve başka
+        Veritabanımız ve sunucu işlevlerimiz Frankfurt, Almanya’dadır. Firebase Authentication Amerika Birleşik
+        Devletleri’nden işletilir. Google, reklam teknolojisi iş ortakları ve Unity bilgileri Amerika Birleşik Devletleri’nde ve başka
         ülkelerde işleyebilir. Bu şirketler, AEA ve Birleşik Krallık’tan yapılan aktarımlar için Avrupa Komisyonu’nun
         Standart Sözleşme Maddeleri gibi güvenceler kullanır.
       </p>
@@ -218,9 +235,8 @@ export function PolicyTr() {
       <h2>5. Bilgileri ne kadar süre saklıyoruz</h2>
       <ul>
         <li>
-          <strong>Oyuncu hesabı ve bulut cüzdanı:</strong> hesabınız var olduğu sürece. Kendiliğinden silinmezler. Bağlı
-          hesabınızı oyunda istediğiniz zaman silebilirsiniz; misafir oyuncu kimliğini ise bize e-posta gönderdiğinizde
-          sileriz (bkz. 6).
+          <strong>Oyuncu hesabı ve bulut cüzdanı:</strong> hesabınız var olduğu sürece. Kendiliğinden silinmezler.
+          Hesabınızı, bağlı ya da misafir olsun, oyunda istediğiniz zaman silebilirsiniz (bkz. 6).
         </li>
         <li>
           <strong>Satın alma kayıtları:</strong> hesabınızı sildiğinizde, tamamlanan her satın almanın kaydı (ürün, Apple
@@ -231,11 +247,16 @@ export function PolicyTr() {
         <li>
           <strong>Sunucu kayıtları:</strong> sunucumuz yalnızca hata türünü kaydeder; oyuncu kimliğinizi veya giriş
           belirteçlerinizi asla kaydetmez. Google Cloud teknik istek kayıtlarını (IP adresi ve isteğin zamanı gibi)
-          sınırlı bir süre, genellikle 30 gün saklar.
+          sınırlı bir süre, genellikle 30 gün saklar. Firebase, girişte kaydettiği IP adreslerini birkaç hafta saklar.
         </li>
         <li>
           <strong>Reklam verileri:</strong> Google ve reklam teknolojisi iş ortakları tarafından kendi politikalarına göre
           saklanır.
+        </li>
+        <li>
+          <strong>Unity’ye gönderilen teknik satın alma verileri:</strong> 3. bölümde bağlantısı verilen Unity veri işleme
+          şartları ve gizlilik politikasına göre saklanır. Bizim adımıza işlenen satın alma verilerine ilişkin talepler
+          için bize ulaşabilirsiniz (bkz. 7).
         </li>
         <li>
           <strong>Cihazınızdaki veriler:</strong> oyunu silene kadar.
@@ -253,9 +274,11 @@ export function PolicyTr() {
       </p>
       <p>
         Hesabınızı hiç bağlamadıysanız (misafir) veritabanımızda sizinle ilgili hiçbir şey yoktur; yalnızca anonim oyuncu
-        kimliğiniz ve giriş tarihleri Firebase Authentication’da kalır (bkz. 1.1). Misafir hesabı oyunun içinden
-        silinemez: {MAIL} adresine yazın, silelim. Misafir hesabında ad veya e-posta adresi bulunmadığından, hesabı
-        bulmamızı sağlayacak bilgiler isteyebiliriz (bkz. 7).
+        kimliğiniz ve giriş tarihleri Firebase Authentication’da kalır (bkz. 1.1). Bunu da oyunun içinden silebilirsiniz:{" "}
+        <strong>Ayarlar › Oyuncu hesabı › Hesabı sil</strong> yolunu izleyip onaylayın; giriş yapmanız gerekmez. Anonim
+        oyuncu kimliğinizi sileriz ve oyun yeni bir misafir hesapla devam eder. Oyunu artık açamıyorsanız {MAIL} adresine
+        yazın. Misafir hesabında ad veya e-posta adresi bulunmadığından, hesabı bulmamızı sağlayacak bilgiler isteyebiliriz
+        (bkz. 7).
       </p>
       <p>
         Silinen satın almalar, aynı Apple Hesabıyla bile daha sonra geri yüklenemez. Hesabı silmek satın almaları iptal

@@ -7,7 +7,7 @@ export function PolicyEn() {
   return (
     <article>
       <h1>Privacy Policy</h1>
-      <p className={styles.meta}>Pixel Art Collect for iPhone and iPad · Effective date: 16 October 2026</p>
+      <p className={styles.meta}>Pixel Art Collect for iPhone and iPad · Effective date: 23 October 2026</p>
 
       <p>
         This policy explains what information the Pixel Art Collect game (“the game”) processes, why, and what choices
@@ -29,11 +29,13 @@ export function PolicyEn() {
             The game shows ads through Google AdMob. Ads use your Advertising Identifier only if you allow tracking, and
             in the EEA, the UK and Switzerland personalised ads need your consent.
           </li>
-          <li>The game contains no analytics, crash-reporting or attribution SDKs.</li>
           <li>
-            You can delete a linked account in the game at any time:{" "}
-            <strong>Settings › Player account › Delete account</strong>. If you play as a guest, email us and we will
-            delete your anonymous player ID.
+            We do not use separate analytics, crash-reporting or attribution SDKs. Advertising and purchase services
+            collect their own technical data, as explained below.
+          </li>
+          <li>
+            You can delete your player account in the game at any time, including a guest account:{" "}
+            <strong>Settings › Player account › Delete account</strong>.
           </li>
         </ul>
       </div>
@@ -56,7 +58,7 @@ export function PolicyEn() {
       </p>
       <p>
         If you never link your account, nothing about you is stored in our database (see 1.3). Your random player ID and
-        its sign-in dates still remain in Firebase Authentication until you ask us to delete them (see 6).
+        its sign-in dates still remain in Firebase Authentication until you delete your account (see 6).
       </p>
 
       <h3>1.2 Purchases (Apple In-App Purchase)</h3>
@@ -65,7 +67,7 @@ export function PolicyEn() {
         your Apple Account email address or your billing address.
       </p>
       <p>
-        When you buy an item, the game attaches to the purchase an anonymous token derived from your player ID. Our
+        When you buy an item, the game attaches to the purchase a hashed token derived from your player ID. Our
         server uses the transaction ID to ask Apple for the current state of the purchase (including refunds) and checks
         that the purchase belongs to your player account before it delivers the item. Apple also sends our server
         notifications about changes such as refunds.
@@ -149,8 +151,9 @@ export function PolicyEn() {
       </p>
       <p>
         When you share a painting, the game creates the image on your device and opens the iOS share sheet. Where it goes
-        next is up to you and the app you choose; we do not receive it. The game does not read your photo library,
-        contacts or location.
+        next is up to you and the app you choose; we do not receive it. The game does not read your photo library or
+        contacts and does not use location services. Google estimates your general (city-level) location from your IP
+        address for ads and consent handling, as described in 1.4.
       </p>
 
       <h3>1.6 Links to other websites</h3>
@@ -161,8 +164,8 @@ export function PolicyEn() {
 
       <h3>1.7 What we do not do</h3>
       <p>
-        The game contains no analytics, crash-reporting, attribution or marketing SDKs. (The Google Mobile Ads SDK
-        described in 1.4 collects its own crash logs and performance data.) We do not ask for your name, email address,
+        We do not use separate analytics, crash-reporting or attribution SDKs. The Google Mobile Ads SDK described in
+        1.4 and the purchase SDK (Unity IAP) described in 3 collect their own technical data. We do not ask for your name, email address,
         phone number, contacts, photos or location. We do not sell your personal information for money. Some laws (for
         example in certain US states) may treat the advertising described in 1.4 as “sharing” for targeted advertising;
         you can limit it by not allowing tracking (see 1.4).
@@ -196,6 +199,14 @@ export function PolicyEn() {
           <a href="https://www.apple.com/legal/privacy/">Apple Privacy Policy</a>.
         </li>
         <li>
+          <strong>Unity Technologies (Unity IAP SDK)</strong> — receives technical purchase events to operate and
+          improve its in-app purchase service. These include the product, price, currency, Apple transaction ID and
+          receipt, a hashed player token, device identifier (IDFV), session identifier, device model, operating system,
+          language, and app and SDK versions. See the{" "}
+          <a href="https://unity.com/legal/game-player-and-app-user-privacy-policy">Unity Privacy Policy</a> and{" "}
+          <a href="https://docs.unity.com/en-us/iap/privacy-and-consent/overview">Unity IAP privacy information</a>.
+        </li>
+        <li>
           <strong>Google (AdMob and the User Messaging Platform) and the ad technology partners Google works with</strong>{" "}
           — as described in 1.4.
         </li>
@@ -203,12 +214,18 @@ export function PolicyEn() {
           <strong>Authorities</strong> — when the law requires it.
         </li>
       </ul>
-      <p>We do not share your information with anyone else.</p>
+      <p>
+        Google processes our player-account and wallet data on our behalf under its data processing terms. Apple
+        handles payments and Sign in with Apple under its own privacy policy. Google and its advertising partners
+        process advertising data under their own policies. Unity processes purchase data under the Unity Data
+        Processing Addendum and, where it acts as an independent controller, its privacy policy. These terms and
+        policies describe each provider’s data protection obligations.
+      </p>
 
       <h2>4. International transfers</h2>
       <p>
-        Our database and server functions are located in Frankfurt, Germany. Firebase Authentication is a global Google
-        service, and Google and its ad technology partners may process information in the United States and other
+        Our database and server functions are located in Frankfurt, Germany. Firebase Authentication is operated from
+        the United States. Google, its ad technology partners and Unity may process information in the United States and other
         countries. These companies use safeguards such as the European Commission’s Standard Contractual Clauses for
         transfers from the EEA and the UK.
       </p>
@@ -217,8 +234,8 @@ export function PolicyEn() {
       <ul>
         <li>
           <strong>Player account and cloud wallet:</strong> for as long as your account exists. They are not deleted
-          automatically. You can delete a linked account in the game at any time, and we delete a guest player ID when
-          you email us (see 6).
+          automatically. You can delete your account in the game at any time, whether it is linked or a guest account
+          (see 6).
         </li>
         <li>
           <strong>Purchase records:</strong> when you delete your account, the record of each completed purchase
@@ -229,10 +246,14 @@ export function PolicyEn() {
         <li>
           <strong>Server logs:</strong> our server logs only the type of error, never your player ID or sign-in tokens.
           Google Cloud keeps technical request logs (such as IP address and time of the request) for a limited period,
-          normally 30 days.
+          normally 30 days. Firebase keeps the IP addresses it logs at sign-in for a few weeks.
         </li>
         <li>
           <strong>Advertising data:</strong> kept by Google and its ad technology partners under their own policies.
+        </li>
+        <li>
+          <strong>Technical purchase data sent to Unity:</strong> retained under Unity’s data processing terms and
+          privacy policy linked in 3. Contact us for requests concerning purchase data processed on our behalf (see 7).
         </li>
         <li>
           <strong>Data on your device:</strong> until you delete the game.
@@ -251,15 +272,17 @@ export function PolicyEn() {
       </p>
       <p>
         If you never linked your account (guest), our database holds nothing about you; only your anonymous player ID and
-        its sign-in dates remain in Firebase Authentication (see 1.1). A guest account cannot be deleted from within the
-        game: email us at {MAIL} and we will delete it. Because a guest account has no name or email address, we may ask
-        you for information that helps us find it (see 7).
+        its sign-in dates remain in Firebase Authentication (see 1.1). You can delete it in the game too: open{" "}
+        <strong>Settings › Player account › Delete account</strong> and confirm; no sign-in is needed. We then delete
+        your anonymous player ID, and the game continues with a new guest account. If you can no longer open the game,
+        email us at {MAIL}. Because a guest account has no name or email address, we may ask you for information that
+        helps us find it (see 7).
       </p>
       <p>
         Deleted purchases cannot be restored later, even with the same Apple Account. Deleting your account does not
         cancel or refund purchases; refunds are handled by Apple at{" "}
         <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>. You can also stop using Sign in with
-        Apple with the game in iOS Settings, under your Apple Account › Sign-In &amp; Security › Sign in with Apple. If
+        Apple with the game in iOS Settings, under your Apple Account › Sign in with Apple. If
         you can no longer open the game, email us and we will help.
       </p>
 

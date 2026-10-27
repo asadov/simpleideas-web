@@ -3,7 +3,7 @@ import styles from "./StudioNav.module.css";
 
 const LINKS = [
   { href: "/", label: "Almost in Orbit" },
-  { href: "/collect-pixel-art", label: "Pixel Art Collect", chip: "Soon" },
+  { href: "/collect-pixel-art", label: "Pixel Art Collect" },
   { href: "/press", label: "Press kit" },
   { href: "/support", label: "Support" },
 ] as const;
@@ -46,7 +46,6 @@ export function StudioNav({
               aria-current={link.href === current ? "page" : undefined}
             >
               {link.label}
-              {"chip" in link ? <span className={styles.chip}>{link.chip}</span> : null}
             </Link>
           ))}
         </nav>

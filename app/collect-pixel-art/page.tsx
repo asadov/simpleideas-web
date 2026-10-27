@@ -13,13 +13,13 @@ const SITE = "https://simpleideas.net";
 const PAGE_URL = `${SITE}/collect-pixel-art`;
 const OG_IMAGE = `${SITE}/cpa/og.jpg`;
 const PRIVACY_PATH = "/collect-pixel-art/privacy";
-const NOTIFY = `mailto:${CONTACT_EMAIL}?subject=Pixel%20Art%20Collect%20%E2%80%94%20notify%20me`;
+const APP_STORE_URL = "https://apps.apple.com/app/id6818600929";
 
 const DESCRIPTION =
-  "Restore the world's great paintings, pixel by pixel. Tap a colour, collect what matches and watch the original return from the top down. Coming soon to iPhone and Android from Simple Ideas.";
+  "Restore the world's great paintings, pixel by pixel. Tap a colour, collect what matches and watch the original return from the top down. Get Pixel Art Collect for iPhone and iPad. Android coming soon.";
 
 export const metadata: Metadata = {
-  title: "Pixel Art Collect — coming soon from Simple Ideas",
+  title: "Pixel Art Collect — for iPhone and iPad",
   description: DESCRIPTION,
   alternates: { canonical: PAGE_URL },
   openGraph: {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "Simple Ideas",
     title: "Pixel Art Collect",
     description: DESCRIPTION,
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Pixel Art Collect — coming soon to iPhone and Android" }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Pixel Art Collect — restore great paintings, pixel by pixel" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -49,9 +49,10 @@ const jsonLd = {
   url: PAGE_URL,
   image: OG_IMAGE,
   description: DESCRIPTION,
-  gamePlatform: ["iOS", "Android"],
+  gamePlatform: ["iOS", "iPadOS"],
   applicationCategory: "GameApplication",
-  operatingSystem: "iOS, Android",
+  operatingSystem: "iOS, iPadOS",
+  downloadUrl: APP_STORE_URL,
   author: {
     "@type": "Organization",
     name: "Simple Ideas",
@@ -165,19 +166,20 @@ export default function CollectPixelArtPage() {
                 Each masterpiece crumbles into a wall of coloured pixels. Tap a colour, collect what matches, and watch
                 the original return from the top down.
               </p>
-              <span className={styles.pill}>Coming soon · iPhone + Android</span>
+              <span className={styles.pill}>For iPhone and iPad</span>
               <div className={styles.actions}>
-                <a href={NOTIFY} className={styles.gb}>
-                  Tell me when it&apos;s out
+                <a href={APP_STORE_URL} className={styles.gb}>
+                  Download on the App Store
                 </a>
                 <Link href="/" className={styles.tl}>
-                  Meanwhile, play Almost in Orbit
+                  Explore Almost in Orbit
                   <span className={styles.arrow} aria-hidden="true">
                     →
                   </span>
                 </Link>
               </div>
               <p className={styles.legal}>
+                Android coming soon.{" · "}
                 <Link href={PRIVACY_PATH}>Privacy policy</Link>
               </p>
             </div>
@@ -292,11 +294,12 @@ export default function CollectPixelArtPage() {
               <i />
             </span>
             <h2 id="cta-title" className={`${styles.h2} ${styles.ctaTitle}`}>
-              Coming soon to iPhone and Android.
+              Your next masterpiece awaits.
             </h2>
-            <a href={NOTIFY} className={styles.gb}>
-              Tell me when it&apos;s out
+            <a href={APP_STORE_URL} className={styles.gb}>
+              Download on the App Store
             </a>
+            <p className={styles.legal}>For iPhone and iPad. Android coming soon.</p>
           </div>
         </section>
       </main>

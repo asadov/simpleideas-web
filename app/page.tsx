@@ -325,7 +325,7 @@ export default function Home() {
               />
               <h3 className={styles.teaserTitle}>Pixel Art Collect</h3>
               <p className={styles.teaserLede}>Restore famous paintings, pixel by pixel.</p>
-              <span className={styles.chip}>Coming soon · iPhone + Android</span>
+              <span className={styles.chip}>For iPhone and iPad</span>
               <div>
                 <Link href="/collect-pixel-art" className={styles.gbtn}>
                   Take a look <span aria-hidden="true">→</span>
@@ -374,7 +374,7 @@ export default function Home() {
             </p>
             <p data-reveal>
               Almost in Orbit is the studio&apos;s first title: designed, coded, balanced and launched by the same pair
-              of hands. Pixel Art Collect is next.
+              of hands. Pixel Art Collect is a puzzle game about restoring paintings.
             </p>
             <a className={styles.mail} href={`mailto:${CONTACT_EMAIL}`}>
               {CONTACT_EMAIL}

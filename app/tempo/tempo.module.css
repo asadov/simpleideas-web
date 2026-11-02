@@ -1,0 +1,158 @@
+/*
+ * Tempo for Apple Watch: product/support page and privacy policy.
+ * Self-contained on purpose (system fonts, own colours and spacing) in the watch app's
+ * black-and-orange palette, so it reads the same under any site design.
+ */
+
+.page {
+  --bg: #000;
+  --surface: #1c1c1e;
+  --text: #f5f5f7;
+  --muted: #a1a1a6;
+  --accent: #ff9f0a;
+  --line: #2c2c2e;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-wrap: break-word;
+  color-scheme: dark;
+}
+
+/* the site's body colour would otherwise show in iOS overscroll */
+:global(body):has(.page) {
+  background: #000;
+}
+
+.page a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.page a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ── top bar ───────────────────────────────────────────── */
+.bar {
+  border-bottom: 1px solid var(--line);
+}
+.bar .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.brand {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.page .home {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+/* ── content ───────────────────────────────────────────── */
+.main {
+  flex: 1;
+  padding-top: 32px;
+  padding-bottom: 48px;
+}
+
+.main h1,
+.main h2,
+.main h3 {
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.main h1 {
+  margin: 0 0 8px;
+  font-size: 2.4rem;
+}
+.main h2 {
+  margin: 40px 0 12px;
+  font-size: 1.35rem;
+}
+.main h3 {
+  margin: 24px 0 4px;
+  font-size: 1.05rem;
+}
+.main p {
+  margin: 0 0 12px;
+}
+.main ul {
+  margin: 0 0 12px;
+  padding-left: 1.25em;
+}
+.main li {
+  margin-bottom: 6px;
+}
+
+.kicker {
+  margin: 0 0 4px;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.lede {
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+.page .button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 8px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+}
+.meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.box {
+  margin: 24px 0;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+/* ── footer ────────────────────────────────────────────── */
+.foot {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.foot .wrap {
+  padding-top: 16px;
+  padding-bottom: 24px;
+}
+.foot p {
+  margin: 0;
+}

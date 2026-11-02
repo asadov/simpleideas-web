@@ -4,6 +4,7 @@ import styles from "./StudioNav.module.css";
 const LINKS = [
   { href: "/", label: "Almost in Orbit" },
   { href: "/collect-pixel-art", label: "Pixel Art Collect" },
+  { href: "/tempo", label: "Tempo" },
   { href: "/press", label: "Press kit" },
   { href: "/support", label: "Support" },
 ] as const;

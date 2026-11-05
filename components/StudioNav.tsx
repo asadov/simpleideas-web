@@ -5,6 +5,7 @@ const LINKS = [
   { href: "/", label: "Almost in Orbit" },
   { href: "/collect-pixel-art", label: "Pixel Art Collect" },
   { href: "/tempo", label: "Tempo" },
+  { href: "/tuner", label: "Tuner Pro Studio" },
   { href: "/press", label: "Press kit" },
   { href: "/support", label: "Support" },
 ] as const;

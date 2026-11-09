@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CONTACT_EMAIL } from "@/lib/site";
+import { LegalLinks } from "@/components/LegalLinks";
 import styles from "./tuner.module.css";
 
 /** Top bar, content column and footer shared by the Tuner Pro Studio pages. */
@@ -28,6 +29,7 @@ export function TunerShell({ children }: { children: ReactNode }) {
             © 2026 <Link href="/">Simple Ideas</Link> · <Link href="/tuner/privacy">Privacy</Link> ·{" "}
             <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
           </p>
+          <LegalLinks />
         </div>
       </footer>
     </div>

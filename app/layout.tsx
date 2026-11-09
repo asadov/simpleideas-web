@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { spaceFontVars } from "@/lib/fonts";
+import { CookieNotice } from "@/components/CookieNotice";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,7 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={spaceFontVars}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <CookieNotice />
+      </body>
     </html>
   );
 }

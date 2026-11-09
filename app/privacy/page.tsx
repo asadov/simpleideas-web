@@ -25,6 +25,10 @@ export default function PrivacyPage() {
             Almost in Orbit has no accounts, no ads and no analytics of its own. The one thing that does leave your
             device comes from the engine the game is built on — here is exactly what that is.
           </p>
+          <p>
+            For the Simple Ideas website, support correspondence and your rights under Türkiye&apos;s KVKK, see our{" "}
+            <a href="/kvkk?lang=en">personal data notice</a> · <a href="/kvkk" lang="tr">KVKK aydınlatma metni</a>.
+          </p>
         </header>
 
         <section className={subStyles.section}>

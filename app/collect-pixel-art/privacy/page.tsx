@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/site";
+import { LegalLinks } from "@/components/LegalLinks";
 import { PolicyEn } from "./PolicyEn";
 import { PolicyTr } from "./PolicyTr";
 import styles from "./privacy.module.css";
@@ -80,6 +81,7 @@ export default async function PacPrivacyPage({ searchParams }: { searchParams: S
           <p>
             © 2026 <Link href="/">Simple Ideas</Link> · <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
           </p>
+          <LegalLinks lang={lang} />
         </div>
       </footer>
     </div>

@@ -28,6 +28,10 @@ export default function SupportPage() {
           <a className={subStyles.btn} href="mailto:salih@simpleideas.net?subject=Almost%20in%20Orbit%20%E2%80%94%20support">
             Email support
           </a>
+          <p>
+            We use your email address, message and any attachments to handle your request. Read the{" "}
+            <a href="/kvkk?lang=en#processing">personal data notice</a> before sending personal information.
+          </p>
         </header>
 
         <section className={subStyles.section}>

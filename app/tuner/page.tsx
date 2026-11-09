@@ -30,6 +30,9 @@ export default function TunerPage() {
       <a className={styles.button} href={SUPPORT_MAIL}>
         Email support
       </a>
+      <p className={styles.meta}>
+        Your email and message are used to answer your request. <a href="/kvkk?lang=en#processing">Personal data notice</a>.
+      </p>
 
       <h2>What it does</h2>
       <ul>

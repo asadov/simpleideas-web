@@ -27,6 +27,9 @@ export default function TempoPage() {
       <a className={styles.button} href={`mailto:${CONTACT_EMAIL}?subject=Tempo%20%E2%80%94%20support`}>
         Email support
       </a>
+      <p className={styles.meta}>
+        Your email and message are used to answer your request. <a href="/kvkk?lang=en#processing">Personal data notice</a>.
+      </p>
 
       <h2>What it does</h2>
       <ul>

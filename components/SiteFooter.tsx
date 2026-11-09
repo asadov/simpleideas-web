@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { StoreBadges } from "./StoreBadges";
+import { CookieSettingsButton } from "./CookieNotice";
 import styles from "./SiteFooter.module.css";
 
 const LINKS = [
@@ -9,6 +10,8 @@ const LINKS = [
   { href: "/press", label: "Press kit" },
   { href: "/privacy", label: "Privacy" },
   { href: "/support", label: "Support" },
+  { href: "/kvkk?lang=en", label: "KVKK data notice" },
+  { href: "/cookies?lang=en", label: "Cookies" },
 ] as const;
 
 /** `privacyHref`: each game has its own policy, so the "Privacy" link follows the page's game. */
@@ -37,11 +40,18 @@ export function SiteFooter({
         <ul className={styles.links}>
           {LINKS.map((link) => (
             <li key={link.label}>
-              <Link href={link.href === "/privacy" ? privacyHref : link.href} className={styles.link}>
-                {link.label}
-              </Link>
+              {link.href.startsWith("/kvkk") || link.href.startsWith("/cookies") ? (
+                <a href={link.href} className={styles.link}>{link.label}</a>
+              ) : (
+                <Link href={link.href === "/privacy" ? privacyHref : link.href} className={styles.link}>
+                  {link.label}
+                </Link>
+              )}
             </li>
           ))}
+          <li>
+            <CookieSettingsButton className={styles.link} />
+          </li>
           <li>
             <a href={`mailto:${CONTACT_EMAIL}`} className={`${styles.link} ${styles.mail}`}>
               {CONTACT_EMAIL}

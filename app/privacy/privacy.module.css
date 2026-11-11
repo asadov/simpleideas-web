@@ -1,0 +1,266 @@
+/*
+ * Almost in Orbit privacy policy: additions to the shared sub-page look (../subpages.module.css).
+ * The page is opened from inside the game, mostly on a phone: touch targets are 44px and the data
+ * table turns into stacked cards on narrow screens.
+ */
+
+.languages {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0 24px;
+}
+.languages a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 96px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--edge-strong);
+  border-radius: 10px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.languages a:hover {
+  border-color: var(--cyan);
+  color: var(--ink);
+}
+.languages a[aria-current="page"] {
+  border-color: var(--cyan);
+  background: rgba(0, 200, 255, 0.12);
+  color: var(--ink);
+}
+
+.meta {
+  margin-top: 16px;
+  font-size: 15px;
+  color: var(--dim);
+}
+
+.summary {
+  max-width: 64ch;
+  margin-top: 32px;
+  padding: 24px 28px;
+  border: 1px solid var(--edge-strong);
+  border-radius: 14px;
+  background: rgba(11, 16, 32, 0.72);
+}
+.summary h2,
+.contents h2 {
+  margin: 0 0 12px;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--glow);
+}
+.summary ul {
+  padding-left: 20px;
+}
+.summary li {
+  margin: 8px 0;
+}
+
+.contents {
+  max-width: 64ch;
+  margin-top: 32px;
+}
+.contents ol {
+  columns: 2;
+  column-gap: 32px;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: toc;
+}
+.contents li {
+  break-inside: avoid;
+  margin: 0;
+  counter-increment: toc;
+}
+.contents a {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  min-height: 36px;
+  padding: 6px 0;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.35;
+  text-decoration: none;
+}
+.contents a::before {
+  content: counter(toc, decimal-leading-zero);
+  flex: none;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
+}
+.contents a:hover {
+  color: var(--cyan);
+}
+
+/* a long legal page: tighter rhythm than the marketing sub-pages */
+.part {
+  padding: 36px 0;
+  scroll-margin-top: 16px;
+}
+.part :global(.node) {
+  top: 45px;
+}
+.part strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.part ul + p,
+.part p + ul {
+  margin-top: 12px;
+}
+.part a,
+.summary a {
+  overflow-wrap: anywhere;
+  text-underline-offset: 3px;
+}
+
+/* the data table needs more room than the 760px reading column */
+.wide {
+  max-width: 1040px;
+}
+.tableWrap {
+  margin-top: 8px;
+  border: 1px solid var(--edge-strong);
+  border-radius: 14px;
+  background: rgba(11, 16, 32, 0.72);
+  overflow: hidden;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.table th,
+.table td {
+  padding: 16px 18px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--edge);
+}
+.table tbody tr:last-child th,
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.table thead th {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--glow);
+  background: rgba(0, 200, 255, 0.06);
+}
+.table tbody th {
+  width: 18%;
+  color: var(--ink);
+  font-weight: 600;
+}
+.table td {
+  color: #c3d0e4;
+}
+.table td:nth-child(2) {
+  width: 38%;
+}
+.tableNote {
+  margin-top: 16px;
+}
+
+@media (max-width: 860px) {
+  .tableWrap {
+    border: 0;
+    border-radius: 0;
+    background: none;
+    overflow: visible;
+  }
+  .table,
+  .table tbody,
+  .table tr,
+  .table th,
+  .table td {
+    display: block;
+    width: auto;
+  }
+  .table td:nth-child(2),
+  .table tbody th {
+    width: auto;
+  }
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .table tbody tr {
+    margin-bottom: 12px;
+    padding: 18px 20px;
+    border: 1px solid var(--edge-strong);
+    border-radius: 14px;
+    background: rgba(11, 16, 32, 0.72);
+  }
+  .table tbody tr:last-child {
+    margin-bottom: 0;
+  }
+  .table th,
+  .table td {
+    padding: 0;
+    border-bottom: 0;
+  }
+  .table tbody th {
+    margin-bottom: 4px;
+    font-size: 17px;
+  }
+  .table td {
+    margin-top: 12px;
+  }
+  .table td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+  .table td:first-of-type {
+    margin-top: 6px;
+  }
+  .table td:first-of-type::before {
+    content: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .languages a {
+    flex: 1;
+  }
+  .summary {
+    padding: 20px;
+  }
+  .contents ol {
+    columns: 1;
+  }
+  .contents a {
+    min-height: 44px;
+    padding: 10px 0;
+  }
+  .part {
+    padding: 28px 0;
+  }
+}

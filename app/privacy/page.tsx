@@ -2,103 +2,130 @@ import type { Metadata } from "next";
 import { Starfield } from "@/components/Starfield";
 import { StudioNav } from "@/components/StudioNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { POLICY, POLICY_UPDATED, type PolicyLang } from "./policy";
 import subStyles from "../subpages.module.css";
+import styles from "./privacy.module.css";
 
-export const metadata: Metadata = {
-  title: "Privacy policy — Almost in Orbit",
-  description:
-    "Privacy policy for Almost in Orbit. No accounts, ads or analytics of our own; the Unity engine the game is built on sends Unity technical diagnostics.",
-};
+/*
+ * Almost in Orbit privacy policy. The game opens exactly https://simpleideas.net/privacy
+ * (MonetizationConfig.privacyPolicyUrl); the same address is in App Store Connect, Google Play and the
+ * AdMob consent message. Never move it without a 301.
+ *
+ * English is the default; `?lang=tr` selects Turkish. Both languages come from the server HTML
+ * (no client-side switch), like the Pixel Art Collect policy. The text lives in ./policy.tsx.
+ */
 
-export default function PrivacyPage() {
+const PAGE_PATH = "/privacy";
+const PAGE_URL = `https://www.simpleideas.net${PAGE_PATH}`;
+const URLS: Record<PolicyLang, string> = { en: PAGE_URL, tr: `${PAGE_URL}?lang=tr` };
+
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+async function readLang(searchParams: SearchParams): Promise<PolicyLang> {
+  const value = (await searchParams).lang;
+  return (Array.isArray(value) ? value[0] : value) === "tr" ? "tr" : "en";
+}
+
+export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
+  const lang = await readLang(searchParams);
+  const copy = POLICY[lang];
+  return {
+    title: copy.metaTitle,
+    description: copy.metaDescription,
+    alternates: {
+      canonical: URLS[lang],
+      languages: { en: URLS.en, tr: URLS.tr, "x-default": URLS.en },
+    },
+  };
+}
+
+export default async function PrivacyPage({ searchParams }: { searchParams: SearchParams }) {
+  const lang = await readLang(searchParams);
+  const copy = POLICY[lang];
+
   return (
     <>
       <Starfield variant="sub" />
       <div className={subStyles.nebula} aria-hidden="true" />
       <StudioNav current="/privacy" />
-      <main className={subStyles.frame}>
+      <main className={subStyles.frame} lang={lang}>
         <header className={subStyles.pageHead}>
           <span className="node" aria-hidden="true" />
-          <span className={subStyles.eyebrow}>Privacy policy · updated October 8, 2026</span>
-          <h1 className={subStyles.h1}>Short and honest</h1>
-          <p className={subStyles.lede}>
-            Almost in Orbit has no accounts, no ads and no analytics of its own. The one thing that does leave your
-            device comes from the engine the game is built on — here is exactly what that is.
+          <span className={subStyles.eyebrow} lang="en">{copy.eyebrow}</span>
+          <h1 className={subStyles.h1}>{copy.title}</h1>
+          <nav className={styles.languages} aria-label="Language / Dil">
+            <a href={PAGE_PATH} hrefLang="en" lang="en" aria-current={lang === "en" ? "page" : undefined}>
+              English
+            </a>
+            <a href={`${PAGE_PATH}?lang=tr`} hrefLang="tr" lang="tr" aria-current={lang === "tr" ? "page" : undefined}>
+              Türkçe
+            </a>
+          </nav>
+          <p className={subStyles.lede}>{copy.lede}</p>
+          <p className={styles.meta}>
+            {copy.updatedLabel}: <time dateTime={POLICY_UPDATED}>{copy.updatedText}</time>. {copy.scope}
           </p>
-          <p>
-            For the Simple Ideas website, support correspondence and your rights under Türkiye&apos;s KVKK, see our{" "}
-            <a href="/kvkk?lang=en">personal data notice</a> · <a href="/kvkk" lang="tr">KVKK aydınlatma metni</a>.
-          </p>
+
+          <div className={styles.summary}>
+            <h2>{copy.summaryTitle}</h2>
+            <ul>
+              {copy.summary.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </div>
+
+          <nav className={styles.contents} aria-label={copy.contentsLabel}>
+            <h2>{copy.contentsLabel}</h2>
+            <ol>
+              {copy.sections.map((section) => (
+                <li key={section.id}>
+                  <a href={`#${section.id}`}>{section.title}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
         </header>
 
-        <section className={subStyles.section}>
-          <span className="node" aria-hidden="true" />
-          <h2>What the game itself collects</h2>
-          <p>
-            Nothing. There are no accounts or logins, no advertising and no analytics or tracking SDKs, and the game
-            never asks for personal information. Our own code never sends anything over the network — Simple Ideas
-            doesn&apos;t run any game servers.
-          </p>
-        </section>
-
-        <section className={subStyles.section}>
-          <span className="node" aria-hidden="true" />
-          <h2>Unity engine diagnostics</h2>
-          <p>
-            Almost in Orbit is made with the Unity engine. With the settings used in the current version,
-            Unity&apos;s built-in engine diagnostics can send technical data to Unity Technologies while your device
-            is online: crash reports, error logs and basic performance signals, along with device details such as
-            the phone model and operating system version. As with any internet connection, Unity also receives your
-            device&apos;s IP address when this happens.
-          </p>
-          <p>
-            Unity uses this data to keep its engine stable, and it gives us crash and performance reports for the
-            game. We don&apos;t use it for advertising, we don&apos;t use it to track you across apps, and we
-            don&apos;t sell any data. Unity&apos;s side of this is covered by the{" "}
-            <a href="https://unity.com/legal/privacy-policy">Unity Privacy Policy</a>.
-          </p>
-        </section>
-
-        <section className={subStyles.section}>
-          <span className="node" aria-hidden="true" />
-          <h2>Your save data</h2>
-          <p>
-            Your progress, permanent upgrades and settings are stored locally on your device and never leave it. If
-            your phone backs itself up (iCloud, Google backup), your save may be included in that backup —
-            that&apos;s between you and your device, and we have no access to it. Delete the game and the save goes
-            with it.
-          </p>
-        </section>
-
-        <section className={subStyles.section}>
-          <span className="node" aria-hidden="true" />
-          <h2>Purchases</h2>
-          <p>
-            Almost in Orbit is a paid app with no in-app purchases. Payment is handled entirely by the Apple App
-            Store or Google Play under their own terms and privacy policies. We never see your payment details.
-          </p>
-        </section>
-
-        <section className={subStyles.section}>
-          <span className="node" aria-hidden="true" />
-          <h2>Children</h2>
-          <p>
-            The game itself collects no personal information from anyone, including children. The Unity engine
-            diagnostics described above apply to every player.
-          </p>
-        </section>
-
-        <section className={subStyles.section}>
-          <span className="node" aria-hidden="true" />
-          <h2>If this ever changes</h2>
-          <p>
-            If an update changes any of the above — including switching engine diagnostics off — we&apos;ll update
-            this page and the date at the top, and note it in the store update notes. Questions?{" "}
-            <a className={subStyles.mail} href="mailto:salih@simpleideas.net">
-              salih@simpleideas.net
-            </a>
-          </p>
-        </section>
+        {copy.sections.map((section) => (
+          <section
+            key={section.id}
+            id={section.id}
+            className={`${subStyles.section} ${styles.part} ${section.id === "data" ? styles.wide : ""}`}
+          >
+            <span className="node" aria-hidden="true" />
+            <h2>{section.title}</h2>
+            {section.id === "data" ? (
+              <>
+                <div className={styles.tableWrap}>
+                  <table className={styles.table} aria-label={copy.tableLabel}>
+                    <thead>
+                      <tr>
+                        <th scope="col">{copy.tableHead.data}</th>
+                        <th scope="col">{copy.tableHead.includes}</th>
+                        <th scope="col">{copy.tableHead.why}</th>
+                        <th scope="col">{copy.tableHead.who}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {copy.rows.map((row) => (
+                        <tr key={row.data}>
+                          <th scope="row">{row.data}</th>
+                          <td data-label={copy.tableHead.includes}>{row.includes}</td>
+                          <td data-label={copy.tableHead.why}>{row.why}</td>
+                          <td data-label={copy.tableHead.who}>{row.who}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className={styles.tableNote}>{copy.notCollected}</p>
+              </>
+            ) : (
+              section.body
+            )}
+          </section>
+        ))}
       </main>
       <SiteFooter variant="space" />
     </>

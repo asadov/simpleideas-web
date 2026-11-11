@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export type LegalLang = "tr" | "en";
 export type LegalSearchParams = Promise<Record<string, string | string[] | undefined>>;
 
-export const LEGAL_UPDATED = "2026-11-09";
+export const LEGAL_UPDATED = "2026-11-11";
 export const DATA_CONTROLLER = "Salih Salihoğlu (Simple Ideas)";
 
 export async function readLegalLang(searchParams: LegalSearchParams): Promise<LegalLang> {

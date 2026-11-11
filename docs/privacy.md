@@ -26,7 +26,7 @@ If optional analytics, advertising, external embeds or similar services are intr
 
 | Product | Existing app-linked policy |
 | --- | --- |
-| Almost in Orbit | `/privacy` |
+| Almost in Orbit | `/privacy`, Turkish `?lang=tr` |
 | Pixel Art Collect | `/collect-pixel-art/privacy`, Turkish `?lang=tr` |
 | Tempo | `/tempo/privacy` |
 | Tuner Pro Studio | `/tuner/privacy` |

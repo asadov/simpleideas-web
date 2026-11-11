@@ -74,8 +74,8 @@ export default async function KvkkPage({ searchParams }: { searchParams: LegalSe
           : "Visiting a product webpage is different from using the app. The links below explain each product’s data types, service providers, retention and deletion. This website notice does not replace in-app advertising or microphone permissions."}</p>
         <h3 id="almost-in-orbit">Almost in Orbit</h3>
         <p>{tr
-          ? "Reklamsız, ücretli sürümün politikası; cihazdaki oyun kayıtlarını, mağaza ödemelerini ve Unity motorunun teknik tanılama verilerini açıklar. Bu kapsam, farklı SDK’lar kullanan gelecekteki bir sürüm için otomatik olarak geçerli değildir."
-          : "The policy for the paid, ad-free release describes on-device saves, store payments and Unity engine technical diagnostics. That scope does not automatically cover a future release using different SDKs."} <a href="/privacy">{tr ? "Almost in Orbit gizlilik politikası (EN)" : "Almost in Orbit privacy policy"}</a>.</p>
+          ? "Ücretsiz sürümün (3.1 ve sonrası) politikası; Google AdMob reklamlarını, Google Analytics for Firebase kullanım analitiğini, mağaza satın alımlarını, cihazdaki oyun kayıtlarını ve oyun içindeki tercihleri açıklar. Aynı sayfa, önceki ücretli sürümlerde Unity motorunun teknik tanılama verilerini de kapsar."
+          : "The policy for the free release (3.1 and later) describes Google AdMob ads, Google Analytics for Firebase usage analytics, store purchases, on-device saves and the in-game choices. The same page also covers Unity engine technical diagnostics in the earlier paid versions."} <a href={tr ? "/privacy?lang=tr" : "/privacy"}>{tr ? "Almost in Orbit gizlilik politikası" : "Almost in Orbit privacy policy"}</a>.</p>
         <h3 id="pixel-art-collect">Pixel Art Collect</h3>
         <p>{tr
           ? "Oyuncu kimliği ve hesap doğrulama, isteğe bağlı Apple ile hesap bağlama, satın alma doğrulama ve bulut cüzdanı, Google AdMob reklamları ve ilgili teknik veriler ürün politikasında açıklanır. Anonim girişte oluşturulan oyuncu kimliği, hiçbir veri işlenmediği anlamına gelmez."

@@ -12,11 +12,13 @@ import { CONTACT_EMAIL } from "@/lib/site";
  * If the shipped SDKs, the in-game menu names or the analytics settings change, update BOTH
  * languages and POLICY_UPDATED, then recheck the App Privacy and Data safety answers.
  *
- * Planned for a later update (Salih, 11 Nov 2026), NOT in this text because it is not in the game yet:
- * Firebase Crashlytics (crash reports) and Game Center / Play Games sign-in. Before that build ships:
- * add a crash-data row and a Crashlytics paragraph, replace "no account" in the summary, the table
- * note and the rights section, and describe the store game account (what it is used for, cloud save
- * if any, how to sign out or delete).
+ * Published 11 Nov 2026 ahead of game build 20 (Salih's decision): Firebase Crashlytics and optional
+ * cloud save through Game Center (iCloud) and Play Games Saved Games. Crashlytics was checked against
+ * the uncommitted game code (FirebaseProductAnalytics.cs, manifest/plist defaults, new setting label).
+ * Cloud save was checked against Assets/_Scripts/CloudSave and the design note only; the platform
+ * backends and the Settings row did not exist yet. When they land, recheck the cloud save paragraphs
+ * (what is copied, sign-in, that the player identity goes nowhere) and remove the "added by a game
+ * update" sentence from `scope` and the old setting label once every distributed build has both.
  */
 
 export type PolicyLang = "en" | "tr";
@@ -68,12 +70,12 @@ const en: PolicyCopy = {
   lede: "Almost in Orbit is free to play, with ads and optional purchases. This page explains what leaves your device, who receives it and how to change your choices.",
   updatedLabel: "Last updated",
   updatedText: "11 November 2026",
-  scope: "Applies to version 3.1.0 and later. For version 3.0 and earlier (the paid version), see the last section.",
+  scope: "Applies to version 3.1.0 and later. For version 3.0 and earlier (the paid version), see the last section. Crash reports and cloud save are added by a game update; until you have that update, those parts do not apply to you.",
   summaryTitle: "In short",
   summary: [
-    "No account and no game server of ours. Your progress stays on your device.",
+    "No account with us and no game server of ours. Your progress is saved on your device; with Game Center or Play Games, a copy is kept in your own iCloud or Google account.",
     "Ads come from Google AdMob. Whether they are personalised depends on your choices: the consent message in Europe, the tracking permission on iPhone and the advertising ID setting on Android.",
-    "Gameplay statistics go to Google Analytics for Firebase. This is on by default and you can switch it off in Settings.",
+    "Gameplay statistics and crash reports go to Google (Firebase). This is on by default and you can switch it off in Settings.",
     "Purchases are handled by the App Store or Google Play. We never see your card details.",
     "The game is not directed to children under 13.",
     <>Questions and requests: {mail}</>,
@@ -99,7 +101,7 @@ const en: PolicyCopy = {
     {
       data: "Gameplay activity",
       includes:
-        "Events such as starting or finishing the tutorial, runs started and ended, map nodes, sectors and bosses reached, time played, hearts left and what defeated you, upgrades and ships bought with in-game gold, cards and run-shop choices, and opening the shop. Sent only while usage analytics is on.",
+        "Events such as starting or finishing the tutorial, runs started and ended, map nodes, sectors and bosses reached, time played, hearts left and what defeated you, upgrades and ships bought with in-game gold, cards and run-shop choices, and opening the shop. Sent only while usage and crash data is on.",
       why: "Balancing difficulty and seeing where players stop.",
       who: "Google (Firebase)",
     },
@@ -130,6 +132,20 @@ const en: PolicyCopy = {
       who: "Google (AdMob)",
     },
     {
+      data: "Crash reports",
+      includes:
+        "When the game crashes or hits an error: the error trace, device model, operating system and app version, random installation IDs created by Firebase, and your last few game events with the sector and map position. Sent only while usage and crash data is on.",
+      why: "Finding and fixing crashes.",
+      who: "Google (Firebase Crashlytics)",
+    },
+    {
+      data: "Cloud save (optional)",
+      includes:
+        "Only if you are signed in to Game Center or Play Games: a small file with your gold, permanent upgrades, ships, ion colour, win and run counts, Pressure progress and tutorial state.",
+      why: "Keeping your progress when you reinstall the game or change phone.",
+      who: "Apple (your iCloud) or Google (your Google account). It does not come to us.",
+    },
+    {
       data: "Messages you send us",
       includes: "Your email address, your message and anything you attach.",
       why: "Answering you.",
@@ -137,7 +153,7 @@ const en: PolicyCopy = {
     },
   ],
   notCollected:
-    "The game has no account and no chat. It does not ask for your name, email address, contacts, photos, microphone or location.",
+    "The game has no account of its own and no chat. It does not ask for your name, email address, contacts, photos, microphone or location.",
   sections: [
     {
       id: "controller",
@@ -166,21 +182,32 @@ const en: PolicyCopy = {
     },
     {
       id: "device",
-      title: "What stays on your device",
+      title: "Where your progress is kept",
       body: (
         <>
           <p>
-            Your progress, gold, upgrades, ships, settings and tutorial state are saved on your device only. We do not
-            run game servers and there is no cloud save. Your phone’s own backup (iCloud, Google backup) may
-            include the save; we have no access to it.
+            Your progress, gold, upgrades, ships, settings and tutorial state are saved on your device. We do not run
+            game servers.
           </p>
           <p>
-            The device also keeps your analytics setting, your advertising consent choices, whether Premium is active,
-            and the references of your most recent gold purchases so that a purchase is never delivered twice.
+            <strong>Cloud save is optional.</strong> If you are signed in to Game Center on iPhone or Play Games on
+            Android, the game keeps a copy of your permanent progress in your own iCloud or Google account, so it
+            survives a reinstall or a new phone. The copy holds your gold, permanent upgrades, ships, ion colour, win
+            and run counts, Pressure progress and tutorial state. Settings, privacy choices, Premium and a run in
+            progress are not included. The copy does not come to us, and the game does not pass your Game Center or
+            Play Games identity to analytics or ad services. Without sign-in the game plays from the save on your
+            device. Saves do not move between iPhone and Android.
           </p>
           <p>
-            Deleting the game deletes the save, including any gold you bought. Restoring Premium does not bring a
-            deleted save back.
+            The device also keeps your usage and crash data setting, your advertising consent choices, whether Premium
+            is active, and the references of your most recent gold purchases so that a purchase is never delivered
+            twice.
+          </p>
+          <p>
+            Deleting the game deletes the save on the device. With cloud save, your permanent progress, including gold
+            you bought, comes back when you sign in again; without it, it is gone. You can delete the cloud copy in
+            your iCloud or Play Games settings. Your phone’s own backup may also include the save; we have no access to
+            it.
           </p>
         </>
       ),
@@ -222,8 +249,9 @@ const en: PolicyCopy = {
         <>
           <ul>
             <li>
-              <strong>Usage analytics.</strong> In the game, open Settings, then Support and account, then Privacy and
-              usage data. Tap “Optional usage analytics” to switch it OFF or ON. It is ON by default.
+              <strong>Usage and crash data.</strong> In the game, open Settings, then Support and account, then Privacy
+              and usage data. Tap “Optional usage and crash data” (“Optional usage analytics” before the update) to switch
+              it OFF or ON. It is ON by default.
             </li>
             <li>
               <strong>Advertising consent.</strong> The same screen has “Advertising privacy choices”. Where
@@ -238,6 +266,10 @@ const en: PolicyCopy = {
             <li>
               <strong>Advertising ID on Android.</strong> You can reset or delete your advertising ID in your
               device’s Google settings, under Ads.
+            </li>
+            <li>
+              <strong>Cloud save.</strong> It works only while you are signed in to Game Center or Play Games. Sign out
+              there, or do not sign in, and your progress is kept on the device only.
             </li>
             <li>
               <strong>Fewer ads.</strong> Premium removes the full-screen ads.
@@ -280,7 +312,7 @@ const en: PolicyCopy = {
     },
     {
       id: "analytics",
-      title: "Usage analytics",
+      title: "Usage analytics and crash reports",
       body: (
         <>
           <p>
@@ -294,14 +326,21 @@ const en: PolicyCopy = {
             not claim they are anonymous.
           </p>
           <p>
+            Crash reports use Firebase Crashlytics and follow the same switch. A report holds the error trace, the
+            device model, operating system and app version, random installation IDs created by Firebase, and your last
+            few game events with the sector and map position, so we can see what happened before the crash. It holds no
+            name, no account and no advertising identifier.
+          </p>
+          <p>
             The advertising features inside Analytics follow your advertising choices: if you decline consent or
             tracking, Analytics is told not to use the data for advertising. In our Analytics settings, Google signals
             and ads personalisation are switched off.
           </p>
           <p>
-            Switching usage analytics OFF stops collection from that moment and resets the app-instance ID on your
+            Switching usage and crash data OFF stops both from that moment and resets the app-instance ID on your
             device. It does not delete what Google has already received; those records expire as described under
-            Retention.
+            Retention. A crash report already stored on the device but not yet sent may still be sent if you switch the
+            setting on again.
           </p>
         </>
       ),
@@ -360,8 +399,8 @@ const en: PolicyCopy = {
               iPhone, in Apple’s tracking prompt, and you can withdraw it at any time.
             </li>
             <li>
-              <strong>Legitimate interests.</strong> Usage analytics, to balance and improve the game; you can object
-              at any time by switching it off. Also ad delivery and measurement that does not need consent, fraud
+              <strong>Legitimate interests.</strong> Usage analytics and crash reports, to balance, fix and improve the
+              game; you can object at any time by switching them off. Also ad delivery and measurement that does not need consent, fraud
               prevention and answering support requests.
             </li>
             <li>
@@ -382,8 +421,8 @@ const en: PolicyCopy = {
         <>
           <ul>
             <li>
-              <strong>Google</strong> (AdMob, User Messaging Platform, Google Analytics for Firebase): ads, the consent
-              message and analytics. <a href={LINKS.google}>Google privacy policy</a>,{" "}
+              <strong>Google</strong> (AdMob, User Messaging Platform, Google Analytics for Firebase, Firebase
+              Crashlytics): ads, the consent message, analytics and crash reports. <a href={LINKS.google}>Google privacy policy</a>,{" "}
               <a href={LINKS.googlePartners}>how Google uses information from apps that use its services</a>,{" "}
               <a href={LINKS.firebase}>Firebase privacy and security</a>.
             </li>
@@ -392,7 +431,8 @@ const en: PolicyCopy = {
               in Google’s consent message, each with its own notice.
             </li>
             <li>
-              <strong>Apple</strong> (App Store) and <strong>Google Play</strong>: payments and purchase records.{" "}
+              <strong>Apple</strong> (App Store, Game Center, iCloud) and <strong>Google</strong> (Google Play, Play
+              Games): payments and purchase records, and the optional cloud save.{" "}
               <a href={LINKS.apple}>Apple privacy policy</a>, <a href={LINKS.google}>Google privacy policy</a>.
             </li>
             <li>
@@ -430,6 +470,12 @@ const en: PolicyCopy = {
             <li>
               <strong>Analytics:</strong> user-level and event-level data is kept for two months in our Analytics
               settings. Aggregated reports, which do not single you out, are kept longer.
+            </li>
+            <li>
+              <strong>Crash reports:</strong> Google keeps them for 90 days.
+            </li>
+            <li>
+              <strong>Cloud save:</strong> in your iCloud or Google account until you delete it.
             </li>
             <li>
               <strong>AdMob and the stores:</strong> under their own policies.
@@ -475,8 +521,9 @@ const en: PolicyCopy = {
           </p>
           <p>
             <strong>How to ask.</strong> Write to {mail} and tell us which game and what you want. The game has no
-            accounts, so analytics records are tied only to a random ID that we usually cannot connect to you. The
-            surest way to end that link is to switch usage analytics off, which resets the ID. We never ask for
+            account of its own, so analytics and crash records are tied only to random IDs that we usually cannot
+            connect to you. The surest way to end that link is to switch usage and crash data off, which resets the
+            analytics ID. We never ask for
             passwords or card details, and we answer within the time limits set by law.
           </p>
         </>
@@ -526,12 +573,12 @@ const tr: PolicyCopy = {
   lede: "Almost in Orbit ücretsiz oynanır; reklam ve isteğe bağlı satın alım içerir. Bu sayfa cihazınızdan nelerin çıktığını, kime gittiğini ve tercihlerinizi nasıl değiştireceğinizi anlatır.",
   updatedLabel: "Son güncelleme",
   updatedText: "11 Kasım 2026",
-  scope: "3.1.0 ve sonraki sürümler için geçerlidir. 3.0 ve önceki (ücretli) sürümler için son bölüme bakın.",
+  scope: "3.1.0 ve sonraki sürümler için geçerlidir. 3.0 ve önceki (ücretli) sürümler için son bölüme bakın. Çökme raporları ve bulut kayıt bir oyun güncellemesiyle eklenir; o güncellemeyi alana kadar bu kısımlar sizin için geçerli değildir.",
   summaryTitle: "Kısaca",
   summary: [
-    "Hesap yok, bize ait oyun sunucusu yok. İlerlemeniz cihazınızda kalır.",
+    "Bizde hesap açılmaz, bize ait oyun sunucusu yoktur. İlerlemeniz cihazınıza kaydedilir; Game Center veya Play Games kullanıyorsanız bir kopyası kendi iCloud ya da Google hesabınızda tutulur.",
     "Reklamlar Google AdMob’dan gelir. Kişiselleştirilip kişiselleştirilmeyeceği tercihlerinize bağlıdır: Avrupa’da izin mesajı, iPhone’da takip izni, Android’de reklam kimliği ayarı.",
-    "Oyun istatistikleri Google Analytics for Firebase’e gider. Varsayılan olarak açıktır, Ayarlar’dan kapatabilirsiniz.",
+    "Oyun istatistikleri ve çökme raporları Google’a (Firebase) gider. Varsayılan olarak açıktır, Ayarlar’dan kapatabilirsiniz.",
     "Satın alımları App Store veya Google Play yürütür. Kart bilgilerinizi hiç görmeyiz.",
     "Oyun 13 yaşından küçük çocuklara yönelik değildir.",
     <>Soru ve talepler: {mail}</>,
@@ -557,7 +604,7 @@ const tr: PolicyCopy = {
     {
       data: "Oyun etkinliği",
       includes:
-        "Öğreticiye başlama veya bitirme, başlayan ve biten koşular, ulaşılan harita düğümleri, sektörler ve boss’lar, oynama süresi, kalan kalp ve sizi neyin yendiği, oyun içi altınla alınan geliştirmeler ve gemiler, kart ve koşu mağazası seçimleri, mağazayı açma gibi olaylar. Yalnızca kullanım analitiği açıkken gönderilir.",
+        "Öğreticiye başlama veya bitirme, başlayan ve biten koşular, ulaşılan harita düğümleri, sektörler ve boss’lar, oynama süresi, kalan kalp ve sizi neyin yendiği, oyun içi altınla alınan geliştirmeler ve gemiler, kart ve koşu mağazası seçimleri, mağazayı açma gibi olaylar. Yalnızca kullanım ve çökme verileri açıkken gönderilir.",
       why: "Zorluğu dengelemek ve oyuncuların nerede bıraktığını görmek.",
       who: "Google (Firebase)",
     },
@@ -587,6 +634,20 @@ const tr: PolicyCopy = {
       who: "Google (AdMob)",
     },
     {
+      data: "Çökme raporları",
+      includes:
+        "Oyun çöktüğünde veya hata verdiğinde: hata izi, cihaz modeli, işletim sistemi ve uygulama sürümü, Firebase’in oluşturduğu rastgele kurulum kimlikleri ve sektör ile harita konumunu içeren son birkaç oyun olayı. Yalnızca kullanım ve çökme verileri açıkken gönderilir.",
+      why: "Çökmeleri bulmak ve düzeltmek.",
+      who: "Google (Firebase Crashlytics)",
+    },
+    {
+      data: "Bulut kayıt (isteğe bağlı)",
+      includes:
+        "Yalnızca Game Center veya Play Games’e giriş yaptıysanız: altınınızı, kalıcı geliştirmelerinizi, gemilerinizi, iyon renginizi, zafer ve koşu sayılarınızı, Basınç ilerlemenizi ve öğretici durumunuzu içeren küçük bir dosya.",
+      why: "Oyunu yeniden kurduğunuzda veya telefon değiştirdiğinizde ilerlemenizi korumak.",
+      who: "Apple (iCloud’unuz) veya Google (Google hesabınız). Bize gelmez.",
+    },
+    {
       data: "Bize gönderdiğiniz mesajlar",
       includes: "E-posta adresiniz, mesajınız ve eklediğiniz her şey.",
       why: "Size yanıt vermek.",
@@ -594,7 +655,7 @@ const tr: PolicyCopy = {
     },
   ],
   notCollected:
-    "Oyunda hesap ve sohbet yoktur. Oyun adınızı, e-posta adresinizi, kişilerinizi, fotoğraflarınızı, mikrofonunuzu veya konumunuzu istemez.",
+    "Oyunun kendine ait bir hesabı ve sohbeti yoktur. Oyun adınızı, e-posta adresinizi, kişilerinizi, fotoğraflarınızı, mikrofonunuzu veya konumunuzu istemez.",
   sections: [
     {
       id: "controller",
@@ -623,21 +684,31 @@ const tr: PolicyCopy = {
     },
     {
       id: "device",
-      title: "Cihazınızda kalanlar",
+      title: "İlerlemeniz nerede tutulur",
       body: (
         <>
           <p>
-            İlerlemeniz, altınınız, geliştirmeleriniz, gemileriniz, ayarlarınız ve öğretici durumunuz yalnızca
-            cihazınızda saklanır. Oyun sunucusu çalıştırmıyoruz, bulut kaydı yoktur. Telefonunuzun kendi yedeği
-            (iCloud, Google yedeği) oyun kaydını içerebilir; bizim ona erişimimiz yoktur.
+            İlerlemeniz, altınınız, geliştirmeleriniz, gemileriniz, ayarlarınız ve öğretici durumunuz cihazınıza
+            kaydedilir. Oyun sunucusu çalıştırmıyoruz.
           </p>
           <p>
-            Cihaz ayrıca analitik ayarınızı, reklam izni tercihlerinizi, Premium’un etkin olup olmadığını ve bir satın
-            alımın iki kez teslim edilmemesi için son altın alımlarınızın referanslarını tutar.
+            <strong>Bulut kayıt isteğe bağlıdır.</strong> iPhone’da Game Center’a veya Android’de Play Games’e giriş
+            yaptıysanız oyun, kalıcı ilerlemenizin bir kopyasını kendi iCloud ya da Google hesabınızda tutar; böylece
+            oyunu yeniden kurduğunuzda veya telefon değiştirdiğinizde kaybolmaz. Kopyada altınınız, kalıcı
+            geliştirmeleriniz, gemileriniz, iyon renginiz, zafer ve koşu sayılarınız, Basınç ilerlemeniz ve öğretici
+            durumunuz bulunur. Ayarlar, gizlilik tercihleri, Premium ve yarım kalan koşu kopyaya girmez. Kopya bize
+            gelmez; oyun Game Center veya Play Games kimliğinizi analitik ya da reklam hizmetlerine iletmez. Giriş
+            yapmadıysanız oyun cihazınızdaki kayıtla çalışır. Kayıt iPhone ile Android arasında taşınmaz.
           </p>
           <p>
-            Oyunu silmek, satın aldığınız altın dahil oyun kaydını siler. Premium’u geri yüklemek silinen kaydı geri
-            getirmez.
+            Cihaz ayrıca kullanım ve çökme verileri ayarınızı, reklam izni tercihlerinizi, Premium’un etkin olup
+            olmadığını ve bir satın alımın iki kez teslim edilmemesi için son altın alımlarınızın referanslarını tutar.
+          </p>
+          <p>
+            Oyunu silmek cihazdaki kaydı siler. Bulut kayıt varsa, satın aldığınız altın dahil kalıcı ilerlemeniz
+            yeniden giriş yaptığınızda geri gelir; yoksa kaybolur. Buluttaki kopyayı iCloud veya Play Games
+            ayarlarınızdan silebilirsiniz. Telefonunuzun kendi yedeği de oyun kaydını içerebilir; bizim ona erişimimiz
+            yoktur.
           </p>
         </>
       ),
@@ -680,9 +751,9 @@ const tr: PolicyCopy = {
         <>
           <ul>
             <li>
-              <strong>Kullanım analitiği.</strong> Oyunda Ayarlar’ı, ardından Destek ve hesap bölümünden Gizlilik ve
-              kullanım verileri’ni açın. “İsteğe bağlı kullanım analitiği” satırına dokunarak KAPALI veya
-              AÇIK yapın. Varsayılan olarak AÇIKTIR.
+              <strong>Kullanım ve çökme verileri.</strong> Oyunda Ayarlar’ı, ardından Destek ve hesap bölümünden
+              Gizlilik ve kullanım verileri’ni açın. “İsteğe bağlı kullanım ve çökme verileri” (güncellemeden önce
+              “İsteğe bağlı kullanım analitiği”) satırına dokunarak KAPALI veya AÇIK yapın. Varsayılan olarak AÇIKTIR.
             </li>
             <li>
               <strong>Reklam izni.</strong> Aynı ekranda “Reklam gizlilik tercihleri” bulunur. Google’ın
@@ -697,6 +768,10 @@ const tr: PolicyCopy = {
             <li>
               <strong>Android’de reklam kimliği.</strong> Reklam kimliğinizi cihazınızın Google ayarlarındaki Reklamlar
               bölümünden sıfırlayabilir veya silebilirsiniz.
+            </li>
+            <li>
+              <strong>Bulut kayıt.</strong> Yalnızca Game Center veya Play Games’e giriş yapmışken çalışır. Oradan
+              çıkış yaparsanız ya da hiç giriş yapmazsanız ilerlemeniz yalnızca cihazda tutulur.
             </li>
             <li>
               <strong>Daha az reklam.</strong> Premium tam ekran reklamları kaldırır.
@@ -737,7 +812,7 @@ const tr: PolicyCopy = {
     },
     {
       id: "analytics",
-      title: "Kullanım analitiği",
+      title: "Kullanım analitiği ve çökme raporları",
       body: (
         <>
           <p>
@@ -752,14 +827,21 @@ const tr: PolicyCopy = {
             takma tanımlayıcılıdır; anonim olduklarını iddia etmiyoruz.
           </p>
           <p>
+            Çökme raporları Firebase Crashlytics ile gönderilir ve aynı ayara bağlıdır. Bir rapor hata izini, cihaz
+            modelini, işletim sistemi ve uygulama sürümünü, Firebase’in oluşturduğu rastgele kurulum kimliklerini ve
+            çökmeden önce ne olduğunu görebilmemiz için sektör ile harita konumunu içeren son birkaç oyun olayını
+            taşır. Ad, hesap veya reklam tanımlayıcısı içermez.
+          </p>
+          <p>
             Analytics içindeki reklam özellikleri reklam tercihlerinizi izler: izni veya takibi reddederseniz
             Analytics’e verinin reklam için kullanılmaması bildirilir. Analytics ayarlarımızda Google sinyalleri ve
             reklam kişiselleştirme kapalıdır.
           </p>
           <p>
-            Kullanım analitiğini KAPALI yapmak toplamayı o andan itibaren durdurur ve cihazınızdaki uygulama örneği
-            kimliğini sıfırlar. Google’a daha önce ulaşmış kayıtları silmez; bunlar Saklama bölümünde anlatıldığı gibi
-            süresi dolunca silinir.
+            Kullanım ve çökme verilerini KAPALI yapmak ikisini de o andan itibaren durdurur ve cihazınızdaki uygulama
+            örneği kimliğini sıfırlar. Google’a daha önce ulaşmış kayıtları silmez; bunlar Saklama bölümünde
+            anlatıldığı gibi süresi dolunca silinir. Cihazda duran ama henüz gönderilmemiş bir çökme raporu, ayarı
+            yeniden açarsanız gönderilebilir.
           </p>
         </>
       ),
@@ -818,8 +900,8 @@ const tr: PolicyCopy = {
               penceresinde verir veya reddedersiniz; istediğiniz zaman geri alabilirsiniz.
             </li>
             <li>
-              <strong>Meşru menfaat.</strong> Oyunu dengelemek ve geliştirmek için kullanım analitiği; kapatarak
-              istediğiniz zaman itiraz edebilirsiniz. Ayrıca rıza gerektirmeyen reklam sunumu ve ölçümü, sahteciliğin
+              <strong>Meşru menfaat.</strong> Oyunu dengelemek, düzeltmek ve geliştirmek için kullanım analitiği ve
+              çökme raporları; kapatarak istediğiniz zaman itiraz edebilirsiniz. Ayrıca rıza gerektirmeyen reklam sunumu ve ölçümü, sahteciliğin
               önlenmesi ve destek taleplerinin yanıtlanması.
             </li>
             <li>
@@ -840,8 +922,8 @@ const tr: PolicyCopy = {
         <>
           <ul>
             <li>
-              <strong>Google</strong> (AdMob, User Messaging Platform, Google Analytics for Firebase): reklamlar, izin
-              mesajı ve analitik. <a href={`${LINKS.google}?hl=tr`}>Google gizlilik politikası</a>,{" "}
+              <strong>Google</strong> (AdMob, User Messaging Platform, Google Analytics for Firebase, Firebase
+              Crashlytics): reklamlar, izin mesajı, analitik ve çökme raporları. <a href={`${LINKS.google}?hl=tr`}>Google gizlilik politikası</a>,{" "}
               <a href={`${LINKS.googlePartners}?hl=tr`}>Google’ın, hizmetlerini kullanan uygulamalardan gelen bilgileri nasıl kullandığı</a>,{" "}
               <a href={LINKS.firebase}>Firebase gizlilik ve güvenlik</a>.
             </li>
@@ -850,7 +932,8 @@ const tr: PolicyCopy = {
               izin mesajında, her biri kendi bildirimiyle listelenir.
             </li>
             <li>
-              <strong>Apple</strong> (App Store) ve <strong>Google Play</strong>: ödemeler ve satın alma kayıtları.{" "}
+              <strong>Apple</strong> (App Store, Game Center, iCloud) ve <strong>Google</strong> (Google Play, Play
+              Games): ödemeler, satın alma kayıtları ve isteğe bağlı bulut kayıt.{" "}
               <a href={`${LINKS.apple}tr/`}>Apple gizlilik politikası</a>,{" "}
               <a href={`${LINKS.google}?hl=tr`}>Google gizlilik politikası</a>.
             </li>
@@ -889,6 +972,12 @@ const tr: PolicyCopy = {
             <li>
               <strong>Analitik:</strong> kullanıcı ve olay düzeyindeki veriler Analytics ayarlarımızda iki ay
               saklanır. Sizi tek başınıza göstermeyen toplu raporlar daha uzun tutulur.
+            </li>
+            <li>
+              <strong>Çökme raporları:</strong> Google 90 gün saklar.
+            </li>
+            <li>
+              <strong>Bulut kayıt:</strong> siz silene kadar iCloud veya Google hesabınızda.
             </li>
             <li>
               <strong>AdMob ve mağazalar:</strong> kendi politikalarına göre.
@@ -935,9 +1024,9 @@ const tr: PolicyCopy = {
           </p>
           <p>
             <strong>Nasıl başvurulur.</strong> {mail} adresine yazın; hangi oyun olduğunu ve ne istediğinizi belirtin.
-            Oyunda hesap olmadığı için analitik kayıtları yalnızca rastgele bir kimliğe bağlıdır ve bu kimliği
-            çoğunlukla sizinle eşleştiremeyiz. Bu bağı kesmenin en kesin yolu kullanım analitiğini kapatmaktır; bu,
-            kimliği sıfırlar. Hiçbir zaman şifre veya kart bilgisi istemeyiz ve yasal süreler içinde yanıt veririz.
+            Oyunun kendine ait hesabı olmadığı için analitik ve çökme kayıtları yalnızca rastgele kimliklere bağlıdır
+            ve bu kimlikleri çoğunlukla sizinle eşleştiremeyiz. Bu bağı kesmenin en kesin yolu kullanım ve çökme
+            verilerini kapatmaktır; bu, analitik kimliğini sıfırlar. Hiçbir zaman şifre veya kart bilgisi istemeyiz ve yasal süreler içinde yanıt veririz.
           </p>
         </>
       ),

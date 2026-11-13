@@ -1,0 +1,83 @@
+/*
+ * Screenshot row for the Tempo and Tuner pages. Uses the page's own custom properties
+ * (--line, --surface, --muted) so it inherits each app's palette.
+ */
+
+.row {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 16px;
+  margin: 32px -16px 8px;
+  padding: 4px 16px 12px;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+/* narrow screens: the next screen always peeks in, so the row reads as scrollable */
+.watch {
+  grid-auto-columns: 40%;
+}
+.phone {
+  grid-auto-columns: 56%;
+}
+
+.item {
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+.fig {
+  margin: 0;
+}
+
+/* plain device outline: a dark case around the screen, no product rendering */
+.frame {
+  padding: 6px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.watch .frame {
+  border-radius: 30% / 25%;
+  padding: 8px;
+}
+.watch .img {
+  border-radius: 26% / 22%;
+}
+
+.phone .frame {
+  border-radius: 15% / 7%;
+}
+.phone .img {
+  border-radius: 13% / 6%;
+}
+
+.cap {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* wide enough for the whole row: no sideways scroll, no bleed into the gutter */
+@media (min-width: 720px) {
+  .row {
+    grid-auto-columns: 1fr;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    overflow-x: visible;
+  }
+}

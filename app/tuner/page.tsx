@@ -1,8 +1,33 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/site";
+import { AppScreens, type AppScreen } from "@/components/AppScreens";
 import { TunerShell } from "./TunerShell";
 import styles from "./tuner.module.css";
+
+/* Real iPhone simulator captures of the 1.0.0 (4) build (6.9-inch, stored at 720 × 1564). */
+const SCREENS: AppScreen[] = [
+  {
+    src: "/tuner/screens/1-chromatic-in-tune.png",
+    alt: "Chromatic mode with the needle centred: A4, 440.0 Hz, +0.1 cent and an In tune label.",
+    caption: "Chromatic: note, frequency and cents on a ±50 cent needle",
+  },
+  {
+    src: "/tuner/screens/2-chromatic-off.png",
+    alt: "Chromatic mode with the needle to the left in amber: E2, 81.6 Hz, −18.0 cent and the hint Flat · Tune up.",
+    caption: "18 cents flat: it tells you which way to turn",
+  },
+  {
+    src: "/tuner/screens/3-guitar-checks.png",
+    alt: "Guitar mode in Standard tuning: E4 in tune on a guitar headstock, with green checks on G3, B3 and E4.",
+    caption: "Guitar mode: every tuned string keeps its green check",
+  },
+  {
+    src: "/tuner/screens/4-settings.png",
+    alt: "Settings sheet: note spelling with sharps or flats, In-tune haptics and In-tune chime switched on, in-tune tolerance ±0.5 cent and the Normal noise filter.",
+    caption: "Settings: tolerance, noise filter, tap and chime",
+  },
+];
 
 /*
  * Tuner Pro Studio: product page and support page in one. This address is the app's
@@ -33,6 +58,8 @@ export default function TunerPage() {
       <p className={styles.meta}>
         Your email and message are used to answer your request. <a href="/kvkk?lang=en#processing">Personal data notice</a>.
       </p>
+
+      <AppScreens items={SCREENS} shape="phone" label="Tuner Pro Studio screenshots" />
 
       <h2>What it does</h2>
       <ul>

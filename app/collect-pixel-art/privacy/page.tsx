@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { LegalLinks } from "@/components/LegalLinks";
+import { StudioNav } from "@/components/StudioNav";
 import { PolicyEn } from "./PolicyEn";
 import { PolicyTr } from "./PolicyTr";
 import styles from "./privacy.module.css";
@@ -60,6 +61,7 @@ export default async function PacPrivacyPage({ searchParams }: { searchParams: S
 
   return (
     <div className={styles.page} lang={lang}>
+      <StudioNav variant="themed" current="/collect-pixel-art" />
       <header className={styles.bar}>
         <div className={styles.wrap}>
           <p className={styles.brand}>Pixel Art Collect</p>

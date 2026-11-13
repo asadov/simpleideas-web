@@ -1,3 +1,4 @@
+/* Link rules are scoped under .header so a host page's own `a` styles (Tempo, Tuner, policies) cannot override them. */
 .header {
   position: relative;
   z-index: 2;
@@ -11,6 +12,21 @@
   --nav-dim: var(--dim);
   --nav-accent: var(--cyan);
   --nav-mark: var(--cyan);
+  --nav-brand-font: var(--disp);
+  --nav-link-font: var(--mono);
+  --nav-link-size: 12px;
+  --nav-link-weight: 400;
+  --nav-link-track: 0.16em;
+}
+/* Pages with their own palette (Tempo, Tuner Pro Studio, the policy pages): the same bar, links and type as
+   the space variant, coloured from the host page's --bg / --text / --muted / --line / --accent (or --link). */
+.themed {
+  --nav-line: var(--line);
+  --nav-bg: var(--bg);
+  --nav-ink: var(--text);
+  --nav-dim: var(--muted);
+  --nav-accent: var(--accent, var(--link));
+  --nav-mark: var(--accent, var(--link));
   --nav-brand-font: var(--disp);
   --nav-link-font: var(--mono);
   --nav-link-size: 12px;
@@ -46,7 +62,7 @@
   padding: 0 48px;
 }
 
-.brand {
+.header .brand {
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -72,7 +88,7 @@
   align-items: center;
   gap: 4px;
 }
-.link {
+.header .link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -88,10 +104,10 @@
   white-space: nowrap;
   transition: color 0.2s ease;
 }
-.link:hover {
+.header .link:hover {
   color: var(--nav-ink);
 }
-.link[aria-current="page"] {
+.header .link[aria-current="page"] {
   color: var(--nav-ink);
   box-shadow: inset 0 -1px 0 var(--nav-accent);
 }
@@ -141,7 +157,7 @@
 }
 
 @media (max-width: 720px) {
-  .brand {
+  .header .brand {
     gap: 10px;
     font-size: 14px;
   }
@@ -149,7 +165,7 @@
     width: 16px;
     height: 16px;
   }
-  .link {
+  .header .link {
     gap: 6px;
     padding: 0 10px;
     font-size: 11px;

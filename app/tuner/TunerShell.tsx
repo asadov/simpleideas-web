@@ -2,26 +2,16 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { LegalLinks } from "@/components/LegalLinks";
+import { StudioNav } from "@/components/StudioNav";
 import type { LegalLang } from "@/lib/legal";
 import styles from "./tuner.module.css";
 
-/** Top bar, content column and footer shared by the Tuner Pro Studio pages. */
+/** Studio nav (in the Tuner Pro Studio palette), content column and footer shared by the Tuner Pro Studio pages. */
 export function TunerShell({ children, lang = "en" }: { children: ReactNode; lang?: LegalLang }) {
   const tr = lang === "tr";
   return (
     <div className={styles.page} lang={lang}>
-      <header className={styles.bar}>
-        <div className={styles.wrap}>
-          <p className={styles.brand}>
-            <Link href="/tuner" style={{ color: "inherit", textDecoration: "none" }}>
-              Tuner Pro Studio
-            </Link>
-          </p>
-          <Link href="/" className={styles.home}>
-            Simple Ideas
-          </Link>
-        </div>
-      </header>
+      <StudioNav variant="themed" current="/tuner" />
 
       <main className={`${styles.wrap} ${styles.main}`}>{children}</main>
 

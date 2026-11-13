@@ -1,4 +1,10 @@
 .page {
+  /* palette tokens, also read by the studio nav's "themed" variant */
+  --bg: #f5f3ee;
+  --text: #283039;
+  --muted: #55636b;
+  --line: #d9dbd8;
+  --accent: #11657b;
   min-height: 100vh;
   background: #f5f3ee;
   color: #283039;
@@ -11,7 +17,7 @@
   padding: 24px 32px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 24px;
   border-bottom: 1px solid #d9dbd8;
 }

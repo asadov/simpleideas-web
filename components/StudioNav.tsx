@@ -28,12 +28,14 @@ export function StudioNav({
   variant = "space",
   current,
 }: {
-  variant?: "space" | "museum";
+  /** space: Almost in Orbit and studio pages; museum: Pixel Art Collect; themed: follows the host page's palette. */
+  variant?: "space" | "museum" | "themed";
   /** Pathname of the current page, used for aria-current. */
   current: string;
 }) {
   return (
-    <header className={`${styles.header} ${variant === "museum" ? styles.museum : styles.space}`}>
+    // lang="en": the labels are English, and on Turkish pages uppercase would otherwise turn "i" into "İ".
+    <header className={`${styles.header} ${styles[variant]}`} lang="en">
       <div className={styles.inner}>
         <Link href="/" className={styles.brand} aria-label="Simple Ideas — home">
           <span className={styles.mark}>

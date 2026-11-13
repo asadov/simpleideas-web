@@ -114,6 +114,8 @@ export default function PressPage() {
             <li>Ice, fire, lightning and acid drones, three tiers each, for wildly different builds</li>
             <li>Three multi-phase bosses, one at the end of every sector</li>
             <li>Permanent upgrades persist between runs — the sector resets, your arsenal doesn&apos;t</li>
+            <li>A fleet of seven ships with a dodge roll, a mini elite hidden in every battle, and flight training</li>
+            <li>Optional cloud save through Game Center or Play Games</li>
             <li>
               Free to play: no ads during play, no banners, no energy timers. One permanent Premium purchase removes
               forced ads. Core gameplay works offline

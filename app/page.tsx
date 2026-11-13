@@ -112,7 +112,7 @@ const FEATURES = [
   },
   {
     title: "Stack your drones",
-    body: "Ice, fire, lightning and acid wingmates, three tiers each. They turn a pea-shooter into a light show.",
+    body: "Ice, fire, lightning and acid wingmates, three tiers each, every type with its own signature shot. They turn a pea-shooter into a light show.",
     icon: (
       <svg {...ICON_PROPS}>
         <path d="M12 3l5 10H7z" />
@@ -137,7 +137,7 @@ const FEATURES = [
   },
   {
     title: "Die richer",
-    body: "Every run feeds permanent upgrades in the Hangar. The sector resets — your arsenal doesn't.",
+    body: "Every run feeds permanent upgrades and a fleet of seven ships. The sector resets — your arsenal doesn't.",
     icon: (
       <svg {...ICON_PROPS}>
         <path d="M4 20V9l8-5 8 5v11" />

@@ -57,11 +57,18 @@ export default function SupportPage() {
 
           <h3 className={styles.h3}>I bought the game when it was paid. Do I get Premium?</h3>
           <p>
-            Yes, at no extra charge. On iOS 16 or later it turns on automatically with the same Apple Account. On
-            Android it turns on when you update the game on the same device where you played the paid version. For
-            anything else, such as iOS 15, a reinstall or a new Android device, email us and we&apos;ll sort it out; we
-            may ask for a store receipt or order number. The details are in the{" "}
+            Yes, at no extra charge. On iOS 16 or later it turns on automatically with the same Apple Account; if it
+            doesn&apos;t show, tap Restore purchases in Settings. On Android it turns on when you update the game on the
+            same device where you played the paid version. For anything else, such as iOS 15, or a reinstall or new
+            phone on Android, email us with your App Store receipt or Google Play order number and we&apos;ll sort it
+            out. The “Bought the paid version? Support” button in Settings brings you here. The details are in the{" "}
             <Link href="/terms#earlier-buyers">terms of use</Link>.
+          </p>
+
+          <h3 className={styles.h3}>Where do I get Premium or gold?</h3>
+          <p>
+            Tap the gold counter with the + at the top left of the main menu. Both are optional: everything gold buys
+            can also be earned by playing.
           </p>
 
           <h3 className={styles.h3}>How do I restore Premium?</h3>
@@ -81,12 +88,15 @@ export default function SupportPage() {
           <p>
             On your device. If you&apos;re signed in to Game Center on iPhone or Play Games on Android, the game also
             keeps a copy of your permanent progress in your own iCloud or Google account, so it survives a reinstall or
-            a new phone. That copy never comes to us, and saves don&apos;t move between iPhone and Android.
+            a new phone. If you&apos;re signed in already, it connects by itself; otherwise tap Connect on the Cloud save
+            card in Settings. While it&apos;s on, tap the card to turn it off or to delete the cloud copy; your progress
+            stays on the device either way. That copy never comes to us, and saves don&apos;t move between
+            iPhone and Android.
           </p>
 
           <h3 className={styles.h3}>How do I turn off analytics or change my ad choices?</h3>
           <p>
-            In the game, open Settings, then Support and account, then Privacy and usage data. The{" "}
+            In the game, open Settings, then Privacy and usage data. The{" "}
             <Link href="/privacy#choices">privacy policy</Link> explains each choice.
           </p>
 

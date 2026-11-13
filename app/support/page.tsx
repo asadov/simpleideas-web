@@ -55,27 +55,53 @@ export default function SupportPage() {
           <span className="node" aria-hidden="true" />
           <h2>Common questions</h2>
 
-          <h3 className={styles.h3}>Does one purchase cover both iOS and Android?</h3>
+          <h3 className={styles.h3}>I bought the game when it was paid. Do I get Premium?</h3>
           <p>
-            No — the App Store and Google Play are separate stores with separate purchases. Buying the game on one
-            platform doesn&apos;t unlock it on the other.
+            Yes, at no extra charge. On iOS 16 or later it turns on automatically with the same Apple Account. On
+            Android it turns on when you update the game on the same device where you played the paid version. For
+            anything else, such as iOS 15, a reinstall or a new Android device, email us and we&apos;ll sort it out; we
+            may ask for a store receipt or order number. The details are in the{" "}
+            <Link href="/terms#earlier-buyers">terms of use</Link>.
+          </p>
+
+          <h3 className={styles.h3}>How do I restore Premium?</h3>
+          <p>
+            Open Settings in the game and tap Restore purchases, signed in to the same App Store or Google Play account
+            you bought it with. Restoring needs a connection. The store can&apos;t restore gold packs, because they are used
+            up when delivered; the gold is part of your save, so cloud save brings it back.
+          </p>
+
+          <h3 className={styles.h3}>Does Premium carry over between iPhone and Android?</h3>
+          <p>
+            No — the App Store and Google Play are separate stores with separate purchases. Premium or gold bought on
+            one platform doesn&apos;t unlock anything on the other.
           </p>
 
           <h3 className={styles.h3}>Where is my progress stored?</h3>
           <p>
-            On your device. There&apos;s no account and no cloud service — your save travels with your phone&apos;s
-            own backup when you switch devices.
+            On your device. If you&apos;re signed in to Game Center on iPhone or Play Games on Android, the game also
+            keeps a copy of your permanent progress in your own iCloud or Google account, so it survives a reinstall or
+            a new phone. That copy never comes to us, and saves don&apos;t move between iPhone and Android.
+          </p>
+
+          <h3 className={styles.h3}>How do I turn off analytics or change my ad choices?</h3>
+          <p>
+            In the game, open Settings, then Support and account, then Privacy and usage data. The{" "}
+            <Link href="/privacy#choices">privacy policy</Link> explains each choice.
           </p>
 
           <h3 className={styles.h3}>Can I get a refund?</h3>
           <p>
-            Refunds are handled by Apple and Google through their standard store processes, on their terms. We
-            can&apos;t process refunds directly, but if something&apos;s broken, email us first — we&apos;d rather
-            fix it.
+            Refunds for Premium, gold packs or the paid game are handled by Apple and Google through their standard
+            store processes, on their terms. We can&apos;t process refunds directly, but if something&apos;s broken,
+            email us first — we&apos;d rather fix it.
           </p>
 
           <h3 className={styles.h3}>Do I need an account?</h3>
-          <p>No accounts, no logins, no passwords to reset. Download and play.</p>
+          <p>
+            No account with us, no logins, no passwords to reset. Signing in to Game Center or Play Games is optional
+            and only used for cloud save.
+          </p>
         </section>
 
         <section className={subStyles.section}>

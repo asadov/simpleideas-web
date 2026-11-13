@@ -11,7 +11,7 @@ import styles from "./press.module.css";
 export const metadata: Metadata = {
   title: "Press kit — Almost in Orbit",
   description:
-    "Press kit for Almost in Orbit: factsheet, descriptions, trailer, screenshots and media contact. A premium roguelite space shooter for iPhone and Android by Simple Ideas.",
+    "Press kit for Almost in Orbit: factsheet, descriptions, trailer, screenshots and media contact. A free-to-play roguelite space shooter for iPhone and Android by Simple Ideas.",
   alternates: { canonical: "/press" },
 };
 
@@ -50,7 +50,7 @@ export default function PressPage() {
             </div>
             <div>
               <dt className={styles.dt}>Release</dt>
-              <dd className={styles.dd}>September 30, 2026 (App Store) · out now on Google Play</dd>
+              <dd className={styles.dd}>September 30, 2026 (App Store) · out now on Google Play · free to play since version 3.1</dd>
             </div>
             <div>
               <dt className={styles.dt}>Platforms</dt>
@@ -58,7 +58,7 @@ export default function PressPage() {
             </div>
             <div>
               <dt className={styles.dt}>Price</dt>
-              <dd className={styles.dd}>$2.99 — premium, no ads, no IAP, plays offline</dd>
+              <dd className={styles.dd}>Free to play · optional Premium (one-time) and gold packs · no energy timers</dd>
             </div>
             <div>
               <dt className={styles.dt}>Genre</dt>
@@ -89,7 +89,7 @@ export default function PressPage() {
           <p>
             <strong>Short.</strong> Almost in Orbit is a handcrafted roguelite space shooter for phones —
             one-thumb controls, branching sector maps, stackable elemental drones and three screen-filling bosses.
-            $2.99, no ads, no in-app purchases. Out now on iPhone and Android.
+            Free to play on iPhone and Android, with no ads during play and no energy timers.
           </p>
           <p>
             <strong>Long.</strong> Almost in Orbit strips the roguelite run down to something you can play with one
@@ -98,8 +98,8 @@ export default function PressPage() {
             or duck into a shop to reroll your build. Elemental drones — ice, fire, lightning and acid, three tiers
             each — stack into wildly different loadouts, and every sector ends in a multi-phase boss built to fill a
             phone screen. Death sends you home with currency for permanent upgrades, so every run makes the next one
-            meaner. It&apos;s a premium game the old way: pay once, own everything, made start to finish by one
-            person.
+            meaner. It&apos;s free to play with no energy timers, and everything gold packs buy can also be earned by
+            playing. Made start to finish by one person.
           </p>
         </section>
 
@@ -114,7 +114,10 @@ export default function PressPage() {
             <li>Ice, fire, lightning and acid drones, three tiers each, for wildly different builds</li>
             <li>Three multi-phase bosses, one at the end of every sector</li>
             <li>Permanent upgrades persist between runs — the sector resets, your arsenal doesn&apos;t</li>
-            <li>Premium: $2.99 once. No ads, no in-app purchases, no energy timers. Plays offline</li>
+            <li>
+              Free to play: no ads during play, no banners, no energy timers. One permanent Premium purchase removes
+              forced ads. Core gameplay works offline
+            </li>
           </ul>
         </section>
 

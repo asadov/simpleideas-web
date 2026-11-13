@@ -20,7 +20,7 @@ const SITE = "https://www.simpleideas.net";
 export const metadata: Metadata = {
   title: "Almost in Orbit — a handcrafted roguelite space shooter",
   description:
-    "Out now on iPhone and Android. A handcrafted roguelite space shooter: one thumb, endless swarms, zero ads. $2.99 — no in-app purchases, no energy timers, plays offline.",
+    "Play free on iPhone and Android. A handcrafted roguelite space shooter: one thumb, endless swarms, three colossal bosses. No ads during play, no energy timers.",
   alternates: { canonical: `${SITE}/` },
   openGraph: {
     type: "website",
@@ -28,21 +28,21 @@ export const metadata: Metadata = {
     siteName: "Simple Ideas",
     title: "Almost in Orbit",
     description:
-      "Out now on iPhone and Android. A handcrafted roguelite space shooter — one thumb, endless swarms, zero ads. $2.99, pay once.",
+      "Play free on iPhone and Android. A handcrafted roguelite space shooter — one thumb, endless swarms, three colossal bosses.",
     images: [
       {
-        url: `${SITE}/og-image.png`,
+        url: `${SITE}/og-image-free.png`,
         width: 1200,
         height: 630,
-        alt: "Almost in Orbit — out now on iPhone and Android",
+        alt: "Almost in Orbit — play free on iPhone and Android",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Almost in Orbit",
-    description: "Out now on iPhone and Android. A handcrafted roguelite space shooter — one thumb, endless swarms, zero ads.",
-    images: [`${SITE}/og-image.png`],
+    description: "Play free on iPhone and Android. A handcrafted roguelite space shooter — one thumb, endless swarms, three colossal bosses.",
+    images: [`${SITE}/og-image-free.png`],
   },
 };
 
@@ -51,9 +51,9 @@ const jsonLd = {
   "@type": "VideoGame",
   name: "Almost in Orbit",
   url: `${SITE}/`,
-  image: `${SITE}/og-image.png`,
+  image: `${SITE}/og-image-free.png`,
   description:
-    "A handcrafted roguelite space shooter for iPhone and Android. One-thumb controls, branching sector maps, stackable elemental drones and three colossal bosses. Out now — premium, no ads, no in-app purchases.",
+    "A handcrafted roguelite space shooter for iPhone and Android. One-thumb controls, branching sector maps, stackable elemental drones and three colossal bosses. Free to play, with optional in-app purchases.",
   genre: ["Roguelite", "Shoot 'em up"],
   gamePlatform: ["iOS", "Android"],
   applicationCategory: "GameApplication",
@@ -68,7 +68,7 @@ const jsonLd = {
   publisher: { "@type": "Organization", name: "Simple Ideas" },
   offers: {
     "@type": "Offer",
-    price: "2.99",
+    price: "0",
     priceCurrency: "USD",
     availability: "https://schema.org/InStock",
     url: `${SITE}/`,
@@ -146,11 +146,11 @@ const FEATURES = [
     ),
   },
   {
-    title: "Premium, full stop",
+    title: "Free to play",
     body: (
       <>
-        <span className={styles.goldText}>$2.99 once.</span> No ads, no in-app purchases, no energy timers. Plays
-        offline.
+        <span className={styles.goldText}>Play free.</span> No ads during play, no banners, no energy timers. A
+        one-time Premium purchase removes the occasional ad after a defeat.
       </>
     ),
     gold: true,
@@ -196,7 +196,7 @@ export default function Home() {
             <p className={styles.pill}>
               <span className={styles.node} aria-hidden="true" />
               <span className={styles.pulse} aria-hidden="true" />
-              <span>Out now · iPhone + Android</span>
+              <span>Play free · iPhone + Android</span>
             </p>
             <Image
               className={styles.logo}
@@ -210,9 +210,9 @@ export default function Home() {
             <h1 id="hero-title" className={styles.h1}>
               A handcrafted roguelite space shooter.
             </h1>
-            <p className={styles.sub}>One thumb. Endless swarms. Zero ads.</p>
+            <p className={styles.sub}>One thumb. Endless swarms. One more run.</p>
             <StoreBadges size="hero" />
-            <p className={styles.price}>$2.99 · Pay once, own everything</p>
+            <p className={styles.price}>Free to play · No energy timers</p>
           </div>
 
           <div className={styles.heroMedia}>

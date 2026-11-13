@@ -7,7 +7,8 @@
   margin: 0;
 }
 
-/* 330px frame · 10px bezel · outer radius 40 · screen radius 30 · exact 9:16 screen (310 × 551) */
+/* 330px frame · 10px bezel · outer radius 40 · screen radius 30 · the screen takes the video's own
+   aspect ratio (set inline from width/height), 9:16 only as a fallback */
 .frame {
   position: relative;
   width: 330px;
@@ -35,7 +36,6 @@
   object-fit: cover;
 }
 
-.sound,
 .play {
   position: absolute;
   display: inline-flex;
@@ -49,16 +49,9 @@
   cursor: pointer;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
-.sound:hover,
 .play:hover {
   border-color: var(--glow);
   color: var(--glow);
-}
-.sound {
-  right: 14px;
-  bottom: 14px;
-  width: 44px;
-  height: 44px;
 }
 .play {
   left: 50%;

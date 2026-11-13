@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Press kit — Almost in Orbit",
   description:
     "Press kit for Almost in Orbit: factsheet, descriptions, trailer, screenshots and media contact. A premium roguelite space shooter for iPhone and Android by Simple Ideas.",
+  alternates: { canonical: "/press" },
 };
 
 export default function PressPage() {
@@ -23,7 +24,7 @@ export default function PressPage() {
       <main className={subStyles.frame}>
         <header className={styles.pageHead}>
           <span className="node" aria-hidden="true" />
-          <span className={subStyles.eyebrow}>Press kit · updated October 8, 2026</span>
+          <span className={subStyles.eyebrow}>Press kit · updated November 13, 2026</span>
           <h1 className={subStyles.h1}>Everything you need to cover the game</h1>
           <p className={subStyles.lede}>
             Factsheet, descriptions, the trailer, screenshots and a direct line to the developer. All of it is free to use in
@@ -70,7 +71,7 @@ export default function PressPage() {
             <div>
               <dt className={styles.dt}>Website</dt>
               <dd className={styles.dd}>
-                <a href="https://simpleideas.net">simpleideas.net</a>
+                <a href="https://www.simpleideas.net">simpleideas.net</a>
               </dd>
             </div>
             <div>
@@ -108,7 +109,7 @@ export default function PressPage() {
           <ul>
             <li>Branching, regenerating sector maps across three sectors — battles, elites, shops, rest stops and mystery nodes</li>
             <li>
-              Choreographed enemy swarms in twelve formation patterns; wiping out a whole swarm can drop a power-up
+              Choreographed enemy swarms in twelve formation patterns, from spirals to figure-eights; wiping out a whole swarm can drop a power-up
             </li>
             <li>Ice, fire, lightning and acid drones, three tiers each, for wildly different builds</li>
             <li>Three multi-phase bosses, one at the end of every sector</li>
@@ -121,7 +122,9 @@ export default function PressPage() {
           <span className="node" aria-hidden="true" />
           <h2 className={styles.h2}>Media</h2>
           <div className={styles.panel}>
-            <span className={styles.chip}>Trailer · {TRAILER.duration} · vertical 9:16</span>
+            <span className={styles.chip}>
+              Trailer · {TRAILER.duration} · vertical {TRAILER.width}×{TRAILER.height} · no sound
+            </span>
             <video
               className={styles.trailer}
               src={TRAILER.src}
@@ -133,7 +136,7 @@ export default function PressPage() {
               preload="metadata"
             />
             <p className={styles.mut}>
-              Made for shorts and stories. <a href={TRAILER.src} download>Download the MP4</a> (720×1280).
+              Made for shorts and stories. <a href={TRAILER.src} download>Download the MP4</a> ({TRAILER.width}×{TRAILER.height}, no sound).
             </p>
           </div>
           <PressScreenshots items={screenshots} />

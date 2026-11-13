@@ -15,7 +15,7 @@ import { CONTACT_EMAIL, STORE, TRAILER } from "@/lib/site";
 import { museumFontVars } from "@/lib/fonts-museum";
 import styles from "./page.module.css";
 
-const SITE = "https://simpleideas.net";
+const SITE = "https://www.simpleideas.net";
 
 export const metadata: Metadata = {
   title: "Almost in Orbit — a handcrafted roguelite space shooter",
@@ -102,7 +102,7 @@ const FEATURES = [
   },
   {
     title: "Swarms with choreography",
-    body: "Twelve formation patterns, from snaking trains to pincer dives. Wipe out a whole swarm and it may drop a power-up.",
+    body: "Twelve formation patterns, from spirals and pendulums to figure-eights. Wipe out a whole swarm and it may drop a power-up.",
     icon: (
       <svg {...ICON_PROPS}>
         <path d="M12 2.5l2 2-2 2-2-2zM7.5 8l2 2-2 2-2-2zM16.5 8l2 2-2 2-2-2zM4 14.5l2 2-2 2-2-2zM20 14.5l2 2-2 2-2-2z" />
@@ -204,7 +204,7 @@ export default function Home() {
               alt="Almost in Orbit"
               width={800}
               height={757}
-              sizes="(max-width: 720px) 260px, 360px"
+              sizes="(max-width: 720px) 208px, 360px"
               preload
             />
             <h1 id="hero-title" className={styles.h1}>
@@ -290,12 +290,12 @@ export default function Home() {
           />
         </section>
 
-        {/* ── 03 · NEXT FROM THE STUDIO ────────────────────── */}
+        {/* ── 03 · ALSO FROM THE STUDIO ────────────────────── */}
         <section className={styles.section} id="next" aria-labelledby="next-title">
           <h2 id="next-title" className={`${styles.eyebrow} ${styles.eyebrowTitle}`}>
             <span className={styles.node} aria-hidden="true" />
             <span>
-              <b className={styles.num}>03</b> · next from the studio
+              <b className={styles.num}>03</b> · also from the studio
             </span>
           </h2>
 

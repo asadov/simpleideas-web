@@ -1,6 +1,6 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { CookieSettingsButton } from "./CookieNotice";
+import { StudioNav } from "./StudioNav";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { LEGAL_UPDATED, type LegalLang } from "@/lib/legal";
 import styles from "./LegalShell.module.css";
@@ -14,8 +14,8 @@ export function LegalShell({ children, lang, path, title, intro }: {
 }) {
   return (
     <div className={styles.page} lang={lang}>
+      <StudioNav variant="themed" current={path} />
       <header className={styles.bar}>
-        <Link href="/" className={styles.brand}>Simple Ideas</Link>
         <nav className={styles.languages} aria-label="Dil / Language">
           <a href={`${path}?lang=tr`} lang="tr" hrefLang="tr" aria-current={lang === "tr" ? "page" : undefined}>TR</a>
           <a href={`${path}?lang=en`} lang="en" hrefLang="en" aria-current={lang === "en" ? "page" : undefined}>EN</a>
@@ -28,7 +28,7 @@ export function LegalShell({ children, lang, path, title, intro }: {
           <p className={styles.intro}>{intro}</p>
           <p className={styles.date}>
             {lang === "tr" ? "Son güncelleme: " : "Last updated: "}
-            <time dateTime={LEGAL_UPDATED}>{lang === "tr" ? "11 Kasım 2026" : "11 November 2026"}</time>
+            <time dateTime={LEGAL_UPDATED}>{lang === "tr" ? "13 Kasım 2026" : "13 November 2026"}</time>
           </p>
         </header>
         <article className={styles.article}>{children}</article>

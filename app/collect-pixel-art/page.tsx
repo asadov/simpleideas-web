@@ -9,7 +9,7 @@ import { CONTACT_EMAIL } from "@/lib/site";
 import { museumFontVars } from "@/lib/fonts-museum";
 import styles from "./cpa.module.css";
 
-const SITE = "https://simpleideas.net";
+const SITE = "https://www.simpleideas.net";
 const PAGE_URL = `${SITE}/collect-pixel-art`;
 const OG_IMAGE = `${SITE}/cpa/og.jpg`;
 const PRIVACY_PATH = "/collect-pixel-art/privacy";
@@ -179,7 +179,7 @@ export default function CollectPixelArtPage() {
                 </Link>
               </div>
               <p className={styles.legal}>
-                Android coming soon.{" · "}
+                Free to play, with ads and optional in-app purchases. Android coming soon.{" · "}
                 <Link href={PRIVACY_PATH}>Privacy policy</Link>
               </p>
             </div>
@@ -299,7 +299,9 @@ export default function CollectPixelArtPage() {
             <a href={APP_STORE_URL} className={styles.gb}>
               Download on the App Store
             </a>
-            <p className={styles.legal}>For iPhone and iPad. Android coming soon.</p>
+            <p className={styles.legal}>
+              Free for iPhone and iPad, with ads and optional in-app purchases. Android coming soon.
+            </p>
           </div>
         </section>
       </main>

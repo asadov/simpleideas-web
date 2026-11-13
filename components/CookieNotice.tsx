@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import {
   COOKIE_NOTICE_STORAGE_KEY,
   createCookieNoticeRecord,
@@ -14,7 +14,8 @@ const OPEN_SETTINGS_EVENT = "simpleideas:open-cookie-settings";
 const COPY = {
   en: {
     title: "Privacy & cookies",
-    notice: "This website does not use advertising or analytics cookies. If you dismiss this notice, we remember that choice only in this browser for up to 180 days.",
+    notice: "This website does not use advertising or analytics cookies.",
+    noticeDetail: "If you dismiss this notice, we remember that choice only in this browser for up to 180 days.",
     acknowledge: "Got it",
     settings: "Cookie settings",
     policy: "Cookie notice",
@@ -39,7 +40,8 @@ const COPY = {
   },
   tr: {
     title: "Gizlilik ve çerezler",
-    notice: "Bu web sitesi reklam veya analiz çerezi kullanmaz. Bu bildirimi kapatmayı seçerseniz tercihinizi yalnızca bu tarayıcıda en fazla 180 gün hatırlarız.",
+    notice: "Bu web sitesi reklam veya analiz çerezi kullanmaz.",
+    noticeDetail: "Bu bildirimi kapatmayı seçerseniz tercihinizi yalnızca bu tarayıcıda en fazla 180 gün hatırlarız.",
     acknowledge: "Anladım",
     settings: "Çerez ayarları",
     policy: "Çerez aydınlatması",
@@ -97,46 +99,82 @@ export function CookieSettingsButton({ className, lang }: { className?: string; 
   );
 }
 
+/** What this browser has stored for the notice. A string so useSyncExternalStore can compare snapshots. */
+type StoredStatus = "saved" | "none" | "invalid" | "unavailable";
+const STORE_CHANGED_EVENT = "simpleideas:cookie-notice-store";
+
+function readStoredStatus(): StoredStatus {
+  try {
+    const raw = window.localStorage.getItem(COOKIE_NOTICE_STORAGE_KEY);
+    if (raw === null) return "none";
+    // Expiry is checked here too, so a record that runs out while the tab is open counts as gone.
+    return parseCookieNoticeRecord(raw) ? "saved" : "invalid";
+  } catch {
+    return "unavailable";
+  }
+}
+
+function subscribeToStore(onChange: () => void) {
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === COOKIE_NOTICE_STORAGE_KEY || event.key === null) onChange();
+  };
+  const onVisibility = () => {
+    if (document.visibilityState === "visible") onChange();
+  };
+  window.addEventListener("storage", onStorage);
+  window.addEventListener(STORE_CHANGED_EVENT, onChange);
+  document.addEventListener("visibilitychange", onVisibility);
+  return () => {
+    window.removeEventListener("storage", onStorage);
+    window.removeEventListener(STORE_CHANGED_EVENT, onChange);
+    document.removeEventListener("visibilitychange", onVisibility);
+  };
+}
+
+function subscribeToLanguage(onChange: () => void) {
+  window.addEventListener("popstate", onChange);
+  window.addEventListener("languagechange", onChange);
+  document.addEventListener("visibilitychange", onChange);
+  return () => {
+    window.removeEventListener("popstate", onChange);
+    window.removeEventListener("languagechange", onChange);
+    document.removeEventListener("visibilitychange", onChange);
+  };
+}
+
+const serverStatus = (): StoredStatus | null => null;
+const serverLanguage = (): CookieLanguage => "en";
+
 export function CookieNotice() {
-  const [lang, setLang] = useState<CookieLanguage>("en");
-  const [showNotice, setShowNotice] = useState(false);
-  const [saved, setSaved] = useState(false);
-  const [storageUnavailable, setStorageUnavailable] = useState(false);
+  // null on the server and during hydration: the notice only appears once the browser has been read.
+  const status = useSyncExternalStore<StoredStatus | null>(subscribeToStore, readStoredStatus, serverStatus);
+  const pageLang = useSyncExternalStore(subscribeToLanguage, browserLanguage, serverLanguage);
+  const [dialogLang, setDialogLang] = useState<CookieLanguage | null>(null);
+  const [dismissedForVisit, setDismissedForVisit] = useState(false);
+  const [writeFailed, setWriteFailed] = useState(false);
   const [feedback, setFeedback] = useState<"cleared" | "clearFailed" | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
   const bodyOverflowRef = useRef<string | null>(null);
+  const lang = dialogLang ?? pageLang;
   const copy = COPY[lang];
+  const saved = status === "saved";
+  const storageUnavailable = status === "unavailable" || writeFailed;
+  const showNotice = status !== null && !saved && !dismissedForVisit;
 
-  function refreshRecord() {
-    try {
-      const raw = window.localStorage.getItem(COOKIE_NOTICE_STORAGE_KEY);
-      const record = parseCookieNoticeRecord(raw);
-      // Delete only our own obsolete record. A first visit creates no browser storage.
-      if (raw !== null && !record) window.localStorage.removeItem(COOKIE_NOTICE_STORAGE_KEY);
-      setSaved(record !== null);
-      setStorageUnavailable(false);
-      return record !== null;
-    } catch {
-      setSaved(false);
-      setStorageUnavailable(true);
-      return false;
-    }
-  }
-
-  function openSettings(nextLang = browserLanguage(), trigger?: HTMLElement) {
-    setLang(nextLang);
+  const openSettings = useCallback((nextLang: CookieLanguage, trigger?: HTMLElement) => {
+    setDialogLang(nextLang);
     setFeedback(null);
-    refreshRecord();
     const dialog = dialogRef.current;
     if (!dialog || dialog.open) return;
     returnFocusRef.current = trigger ?? (document.activeElement instanceof HTMLElement ? document.activeElement : null);
     bodyOverflowRef.current = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     dialog.showModal();
-  }
+  }, []);
 
   function restoreAfterDialog() {
+    setDialogLang(null);
     if (bodyOverflowRef.current !== null) {
       document.body.style.overflow = bodyOverflowRef.current;
       bodyOverflowRef.current = null;
@@ -145,65 +183,51 @@ export function CookieNotice() {
     returnFocusRef.current = null;
   }
 
+  // Delete only our own obsolete record. A first visit creates no browser storage.
   useEffect(() => {
-    setLang(browserLanguage());
-    setShowNotice(!refreshRecord());
+    if (status !== "invalid") return;
+    try {
+      window.localStorage.removeItem(COOKIE_NOTICE_STORAGE_KEY);
+      window.dispatchEvent(new Event(STORE_CHANGED_EVENT));
+    } catch {
+      // Storage became unavailable; the next read reports it.
+    }
+  }, [status]);
 
+  useEffect(() => {
     const onOpen = (event: Event) => {
       const detail = (event as CustomEvent<OpenSettingsDetail>).detail;
       openSettings(detail?.lang ?? browserLanguage(), detail?.trigger);
     };
-    const onStorage = (event: StorageEvent) => {
-      if (event.key === COOKIE_NOTICE_STORAGE_KEY || event.key === null) setShowNotice(!refreshRecord());
-    };
-    const onLanguage = () => setLang(browserLanguage());
-    const onVisibility = () => {
-      if (document.visibilityState !== "visible") return;
-      setLang(browserLanguage());
-      // Re-check expiry on return without reopening a notice dismissed for this visit.
-      try {
-        const raw = window.localStorage.getItem(COOKIE_NOTICE_STORAGE_KEY);
-        if (raw !== null && !parseCookieNoticeRecord(raw)) setShowNotice(!refreshRecord());
-      } catch {
-        setStorageUnavailable(true);
-      }
-    };
-
     window.addEventListener(OPEN_SETTINGS_EVENT, onOpen);
-    window.addEventListener("storage", onStorage);
-    window.addEventListener("popstate", onLanguage);
-    window.addEventListener("languagechange", onLanguage);
-    document.addEventListener("visibilitychange", onVisibility);
-    return () => {
-      window.removeEventListener(OPEN_SETTINGS_EVENT, onOpen);
-      window.removeEventListener("storage", onStorage);
-      window.removeEventListener("popstate", onLanguage);
-      window.removeEventListener("languagechange", onLanguage);
-      document.removeEventListener("visibilitychange", onVisibility);
-      restoreAfterDialog();
-    };
-  }, []);
+    return () => window.removeEventListener(OPEN_SETTINGS_EVENT, onOpen);
+  }, [openSettings]);
+
+  useEffect(
+    () => () => {
+      if (bodyOverflowRef.current !== null) document.body.style.overflow = bodyOverflowRef.current;
+    },
+    [],
+  );
 
   function acknowledge() {
     try {
       window.localStorage.setItem(COOKIE_NOTICE_STORAGE_KEY, JSON.stringify(createCookieNoticeRecord()));
-      setSaved(true);
-      setStorageUnavailable(false);
-      setShowNotice(false);
+      setWriteFailed(false);
+      window.dispatchEvent(new Event(STORE_CHANGED_EVENT));
       dialogRef.current?.close();
     } catch {
-      setSaved(false);
-      setStorageUnavailable(true);
+      setWriteFailed(true);
     }
   }
 
   function clearRecord() {
     try {
       window.localStorage.removeItem(COOKIE_NOTICE_STORAGE_KEY);
-      setSaved(false);
-      setStorageUnavailable(false);
+      setWriteFailed(false);
+      setDismissedForVisit(false);
       setFeedback("cleared");
-      setShowNotice(true);
+      window.dispatchEvent(new Event(STORE_CHANGED_EVENT));
     } catch {
       setFeedback("clearFailed");
     }
@@ -215,7 +239,10 @@ export function CookieNotice() {
         <section className={styles.notice} lang={lang} aria-labelledby="cookie-notice-title">
           <div className={styles.noticeText}>
             <h2 id="cookie-notice-title">{copy.title}</h2>
-            <p>{copy.notice}</p>
+            {/* The retention sentence is hidden on phones to keep the card small; the settings dialog repeats it. */}
+            <p>
+              {copy.notice} <span className={styles.noticeDetail}>{copy.noticeDetail}</span>
+            </p>
             <a href={`/cookies?lang=${lang}`}>{copy.policy}</a>
             <span aria-hidden="true"> · </span>
             <a href={`/kvkk?lang=${lang}`}>{copy.kvkk}</a>
@@ -229,7 +256,7 @@ export function CookieNotice() {
               {copy.acknowledge}
             </button>
             {storageUnavailable ? (
-              <button type="button" className={styles.textButton} onClick={() => setShowNotice(false)}>{copy.dismissForNow}</button>
+              <button type="button" className={styles.textButton} onClick={() => setDismissedForVisit(true)}>{copy.dismissForNow}</button>
             ) : null}
           </div>
         </section>

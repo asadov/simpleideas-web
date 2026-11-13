@@ -8,7 +8,7 @@ export const CONTACT_EMAIL = "salih@simpleideas.net";
 export const TRAILER = {
   src: "/assets/reel.mp4",
   poster: "/assets/poster.jpg",
-  width: 1080,
-  height: 1920,
+  width: 720,
+  height: 1280,
   duration: "0:26",
 };

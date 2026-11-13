@@ -1,11 +1,13 @@
 import Link from "next/link";
+import { NavScroll } from "./NavScroll";
 import styles from "./StudioNav.module.css";
 
 const LINKS = [
   { href: "/", label: "Almost in Orbit" },
   { href: "/collect-pixel-art", label: "Pixel Art Collect" },
-  { href: "/tempo", label: "Tempo" },
-  { href: "/tuner", label: "Tuner Pro Studio" },
+  // "Soon" until the app is live on the App Store; remove the chip on launch day.
+  { href: "/tempo", label: "Tempo", chip: "Soon" },
+  { href: "/tuner", label: "Tuner Pro Studio", chip: "Soon" },
   { href: "/press", label: "Press kit" },
   { href: "/support", label: "Support" },
 ] as const;
@@ -26,12 +28,14 @@ export function StudioNav({
   variant = "space",
   current,
 }: {
-  variant?: "space" | "museum";
+  /** space: Almost in Orbit and studio pages; museum: Pixel Art Collect; themed: follows the host page's palette. */
+  variant?: "space" | "museum" | "themed";
   /** Pathname of the current page, used for aria-current. */
   current: string;
 }) {
   return (
-    <header className={`${styles.header} ${variant === "museum" ? styles.museum : styles.space}`}>
+    // lang="en": the labels are English, and on Turkish pages uppercase would otherwise turn "i" into "İ".
+    <header className={`${styles.header} ${styles[variant]}`} lang="en">
       <div className={styles.inner}>
         <Link href="/" className={styles.brand} aria-label="Simple Ideas — home">
           <span className={styles.mark}>
@@ -39,7 +43,7 @@ export function StudioNav({
           </span>
           <span>Simple Ideas</span>
         </Link>
-        <nav aria-label="Studio" className={styles.nav}>
+        <NavScroll label="Studio" className={styles.nav}>
           {LINKS.map((link) => (
             <Link
               key={link.href}
@@ -48,9 +52,10 @@ export function StudioNav({
               aria-current={link.href === current ? "page" : undefined}
             >
               {link.label}
+              {"chip" in link ? <span className={styles.chip}>{link.chip}</span> : null}
             </Link>
           ))}
-        </nav>
+        </NavScroll>
       </div>
     </header>
   );

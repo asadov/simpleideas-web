@@ -6,7 +6,7 @@ import styles from "./PhoneVideo.module.css";
 interface PhoneVideoProps {
   src: string;
   poster: string;
-  /** Intrinsic pixel size of the video (9:16). */
+  /** Intrinsic pixel size of the video; the phone screen takes this aspect ratio. */
   width: number;
   height: number;
   label: string;
@@ -14,13 +14,12 @@ interface PhoneVideoProps {
 }
 
 /**
- * The hero phone: an exact 9:16 screen inside a 10px bezel. The trailer autoplays muted
- * (started programmatically so prefers-reduced-motion users get the poster + a play button
- * instead of a flash of motion), with a 44px sound toggle overlaid bottom-right.
+ * The hero phone: a screen with the video's own aspect ratio inside a 10px bezel. The trailer is picture only
+ * (the site's video files carry no audio track, by choice) and autoplays muted, started programmatically so
+ * prefers-reduced-motion users get the poster + a play button instead of a flash of motion.
  */
 export function PhoneVideo({ src, poster, width, height, label, caption }: PhoneVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [soundOn, setSoundOn] = useState(false);
   // Optimistic: no play button in the server HTML; it appears only if playback can't/shouldn't start.
   const [playing, setPlaying] = useState(true);
   // Set only by the viewer's own pause (or reduced motion) — browser/offscreen pauses don't count.
@@ -74,18 +73,6 @@ export function PhoneVideo({ src, poster, width, height, label, caption }: Phone
     };
   }, []);
 
-  function toggleSound() {
-    const v = videoRef.current;
-    if (!v) return;
-    const next = !soundOn;
-    v.muted = !next;
-    setSoundOn(next);
-    if (next && v.paused) {
-      holdRef.current = false;
-      v.play().catch(() => {});
-    }
-  }
-
   function togglePlay() {
     const v = videoRef.current;
     if (!v) return;
@@ -102,7 +89,7 @@ export function PhoneVideo({ src, poster, width, height, label, caption }: Phone
   return (
     <figure className={styles.wrap}>
       <div className={styles.frame}>
-        <div className={styles.screen}>
+        <div className={styles.screen} style={{ aspectRatio: `${width} / ${height}` }}>
           <video
             ref={videoRef}
             className={styles.video}
@@ -123,46 +110,6 @@ export function PhoneVideo({ src, poster, width, height, label, caption }: Phone
               </svg>
             </button>
           ) : null}
-          <button
-            type="button"
-            className={styles.sound}
-            aria-pressed={soundOn}
-            aria-label={soundOn ? "Turn sound off" : "Turn sound on"}
-            onClick={toggleSound}
-          >
-            {soundOn ? (
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M4 9.5v5h3.5L12 18V6L7.5 9.5z" />
-                <path d="M15 9a4 4 0 0 1 0 6" />
-                <path d="M17.5 6.5a7.5 7.5 0 0 1 0 11" />
-              </svg>
-            ) : (
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M4 9.5v5h3.5L12 18V6L7.5 9.5z" />
-                <path d="M15.5 9.5l5 5M20.5 9.5l-5 5" />
-              </svg>
-            )}
-          </button>
         </div>
       </div>
       {caption ? <figcaption className={styles.caption}>{caption}</figcaption> : null}

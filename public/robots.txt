@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://simpleideas.net/sitemap.xml
+Sitemap: https://www.simpleideas.net/sitemap.xml

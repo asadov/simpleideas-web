@@ -36,14 +36,14 @@ const SCREENS: AppScreen[] = [
 
 export const metadata: Metadata = {
   title: "Tempo — Haptic metronome for Apple Watch",
-  description: "Tempo taps the beat on your wrist. A metronome for Apple Watch with tap tempo and odd time signatures.",
+  description: "Tempo taps the beat on your wrist. A metronome for Apple Watch with tap tempo and odd time signatures. Coming soon to the App Store.",
   alternates: { canonical: "https://www.simpleideas.net/tempo" },
 };
 
 export default function TempoPage() {
   return (
     <TempoShell>
-      <p className={styles.kicker}>Apple Watch</p>
+      <p className={styles.kicker}>Apple Watch · Coming soon to the App Store</p>
       <h1>Tempo</h1>
       <p className={styles.lede}>
         A metronome you feel instead of hear. Tempo taps the beat on your wrist, so you can keep time without headphones

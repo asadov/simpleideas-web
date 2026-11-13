@@ -144,7 +144,7 @@ export default function PressPage() {
           </div>
           <PressScreenshots items={screenshots} />
           <p className={styles.mut}>
-            Every image above is fair game. Need the 1080×1920 trailer master or full-resolution screenshots?{" "}
+            Every image above is fair game. Need the 886×1920 App Store master or full-resolution 1290×2796 screenshots?{" "}
             <a href={`mailto:${CONTACT_EMAIL}?subject=Press%20assets%20%E2%80%94%20Almost%20in%20Orbit`}>Just ask</a>.
           </p>
         </section>

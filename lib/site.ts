@@ -6,9 +6,10 @@ export const STORE = {
 export const CONTACT_EMAIL = "salih@simpleideas.net";
 
 export const TRAILER = {
-  src: "/assets/reel.mp4",
-  poster: "/assets/poster.jpg",
+  // The 3.1.1 App Store preview (886×1920 master), encoded for the web at 720×1560.
+  src: "/assets/reel-31.mp4",
+  poster: "/assets/poster-31.jpg",
   width: 720,
-  height: 1280,
-  duration: "0:26",
+  height: 1560,
+  duration: "0:29",
 };

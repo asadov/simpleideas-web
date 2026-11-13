@@ -13,12 +13,15 @@ import { CONTACT_EMAIL } from "@/lib/site";
  * languages and POLICY_UPDATED, then recheck the App Privacy and Data safety answers.
  *
  * Published 11 Nov 2026 ahead of game build 20 (Salih's decision): Firebase Crashlytics and optional
- * cloud save through Game Center (iCloud) and Play Games Saved Games. Crashlytics was checked against
- * the uncommitted game code (FirebaseProductAnalytics.cs, manifest/plist defaults, new setting label).
- * Cloud save was checked against Assets/_Scripts/CloudSave and the design note only; the platform
- * backends and the Settings row did not exist yet. When they land, recheck the cloud save paragraphs
- * (what is copied, sign-in, that the player identity goes nowhere) and remove the "added by a game
- * update" sentence from `scope` and the old setting label once every distributed build has both.
+ * cloud save through Game Center (iCloud) and Play Games Saved Games.
+ *
+ * 13 Nov 2026, rechecked against game 3.1.1 (iOS build 24, Android versionCode 38), the first free build in
+ * the stores (3.1.0 stayed in TestFlight, so its "added by a game update" sentence and old setting label are
+ * gone). Settings has a "Privacy and usage data" button (SettingsPopupUI.cs; labels in
+ * Assets/Editor/AllTranslations.cs). Cloud save (Assets/_Scripts/CloudSave/CloudSaveSync.cs, CloudProgress.cs):
+ * a silent sign-in at launch syncs when the player is already signed in; the sign-in prompt comes only from
+ * "Connect" on the Cloud save card in Settings; "Turn off cloud save" stops syncing and keeps the cloud copy;
+ * "Delete cloud save", then "Delete and disconnect", deletes the cloud copy; the device save stays either way.
  *
  * 13 Nov 2026: the Android earlier-buyer check (AndroidLegacyOwnership, game 3.1.1: a save from an earlier
  * version on the device turns Premium on, decided once, nothing leaves the device) and a link to /terms.
@@ -74,7 +77,7 @@ const en: PolicyCopy = {
   lede: "From version 3.1.0, Almost in Orbit is free to play, with ads and optional purchases. This page explains what leaves your device, who receives it and how to change your choices.",
   updatedLabel: "Last updated",
   updatedText: "13 November 2026",
-  scope: "Applies to version 3.1.0 and later. For version 3.0 and earlier (the paid version), see the last section. Crash reports and cloud save are added by a game update; until you have that update, those parts do not apply to you.",
+  scope: "Applies to version 3.1.0 and later. For version 3.0 and earlier (the paid version), see the last section.",
   summaryTitle: "In short",
   summary: [
     "No account with us and no game server of ours. Your progress is saved on your device; with Game Center or Play Games, a copy is kept in your own iCloud or Google account.",
@@ -197,7 +200,9 @@ const en: PolicyCopy = {
           <p>
             <strong>Cloud save is optional.</strong> If you are signed in to Game Center on iPhone or Play Games on
             Android, the game keeps a copy of your permanent progress in your own iCloud or Google account, so it
-            survives a reinstall or a new phone. The copy holds your gold, permanent upgrades, ships, ion colour, win
+            survives a reinstall or a new phone. When you are already signed in, the game connects as it starts and
+            keeps the copy up to date. Otherwise it asks you to sign in only when you tap “Connect” on the Cloud save
+            card in Settings. The copy holds your gold, permanent upgrades, ships, ion colour, win
             and run counts, Pressure progress and tutorial state. Settings, privacy choices, Premium and a run in
             progress are not included. The copy does not come to us, and the game does not pass your Game Center or
             Play Games identity to analytics or ad services. Without sign-in the game plays from the save on your
@@ -210,8 +215,11 @@ const en: PolicyCopy = {
           </p>
           <p>
             Deleting the game deletes the save on the device. With cloud save, your permanent progress, including gold
-            you bought, comes back when you sign in again; without it, it is gone. You can delete the cloud copy in
-            your iCloud or Play Games settings. Your phone’s own backup may also include the save; we have no access to
+            you bought, comes back when you sign in again; without it, it is gone. To stop or remove the cloud copy,
+            tap the Cloud save card in the game’s Settings: “Turn off cloud save” stops syncing and leaves the cloud
+            copy in place; “Delete cloud save” (also a button in Settings), then “Delete and disconnect”, deletes the
+            cloud copy too. Either way your progress stays on the device. You can also delete the copy in your iCloud
+            or Play Games settings. Your phone’s own backup may also include the save; we have no access to
             it.
           </p>
         </>
@@ -254,9 +262,8 @@ const en: PolicyCopy = {
         <>
           <ul>
             <li>
-              <strong>Usage and crash data.</strong> In the game, open Settings, then Support and account, then Privacy
-              and usage data. Tap “Optional usage and crash data” (“Optional usage analytics” before the update) to switch
-              it OFF or ON. It is ON by default.
+              <strong>Usage and crash data.</strong> In the game, open Settings, then Privacy and usage data. Tap
+              “Optional usage and crash data” to switch it OFF or ON. It is ON by default.
             </li>
             <li>
               <strong>Advertising consent.</strong> The same screen has “Advertising privacy choices”. Where
@@ -273,8 +280,9 @@ const en: PolicyCopy = {
               device’s Google settings, under Ads.
             </li>
             <li>
-              <strong>Cloud save.</strong> It works only while you are signed in to Game Center or Play Games. Sign out
-              there, or do not sign in, and your progress is kept on the device only.
+              <strong>Cloud save.</strong> It works only while you are signed in to Game Center or Play Games. Use “Turn
+              off cloud save” or “Delete cloud save” in Settings, or sign out there, and your progress is kept on the
+              device only.
             </li>
             <li>
               <strong>Fewer ads.</strong> Premium removes the full-screen ads.
@@ -482,7 +490,7 @@ const en: PolicyCopy = {
               <strong>Crash reports:</strong> Google keeps them for 90 days.
             </li>
             <li>
-              <strong>Cloud save:</strong> in your iCloud or Google account until you delete it.
+              <strong>Cloud save:</strong> in your iCloud or Google account until you delete it, in the game or in your account settings.
             </li>
             <li>
               <strong>AdMob and the stores:</strong> under their own policies.
@@ -580,7 +588,7 @@ const tr: PolicyCopy = {
   lede: "Almost in Orbit, 3.1.0 sürümünden itibaren ücretsiz oynanır; reklam ve isteğe bağlı satın alım içerir. Bu sayfa cihazınızdan nelerin çıktığını, kime gittiğini ve tercihlerinizi nasıl değiştireceğinizi anlatır.",
   updatedLabel: "Son güncelleme",
   updatedText: "13 Kasım 2026",
-  scope: "3.1.0 ve sonraki sürümler için geçerlidir. 3.0 ve önceki (ücretli) sürümler için son bölüme bakın. Çökme raporları ve bulut kayıt bir oyun güncellemesiyle eklenir; o güncellemeyi alana kadar bu kısımlar sizin için geçerli değildir.",
+  scope: "3.1.0 ve sonraki sürümler için geçerlidir. 3.0 ve önceki (ücretli) sürümler için son bölüme bakın.",
   summaryTitle: "Kısaca",
   summary: [
     "Bizde hesap açılmaz, bize ait oyun sunucusu yoktur. İlerlemeniz cihazınıza kaydedilir; Game Center veya Play Games kullanıyorsanız bir kopyası kendi iCloud ya da Google hesabınızda tutulur.",
@@ -702,7 +710,9 @@ const tr: PolicyCopy = {
           <p>
             <strong>Bulut kayıt isteğe bağlıdır.</strong> iPhone’da Game Center’a veya Android’de Play Games’e giriş
             yaptıysanız oyun, kalıcı ilerlemenizin bir kopyasını kendi iCloud ya da Google hesabınızda tutar; böylece
-            oyunu yeniden kurduğunuzda veya telefon değiştirdiğinizde kaybolmaz. Kopyada altınınız, kalıcı
+            oyunu yeniden kurduğunuzda veya telefon değiştirdiğinizde kaybolmaz. Zaten giriş yaptıysanız oyun açılırken
+            bağlanır ve kopyayı güncel tutar; aksi halde giriş isteğini yalnızca Ayarlar’daki Bulut kayıt kartında
+            “Bağlan”a dokunduğunuzda gösterir. Kopyada altınınız, kalıcı
             geliştirmeleriniz, gemileriniz, iyon renginiz, zafer ve koşu sayılarınız, Basınç ilerlemeniz ve öğretici
             durumunuz bulunur. Ayarlar, gizlilik tercihleri, Premium ve yarım kalan koşu kopyaya girmez. Kopya bize
             gelmez; oyun Game Center veya Play Games kimliğinizi analitik ya da reklam hizmetlerine iletmez. Giriş
@@ -714,8 +724,11 @@ const tr: PolicyCopy = {
           </p>
           <p>
             Oyunu silmek cihazdaki kaydı siler. Bulut kayıt varsa, satın aldığınız altın dahil kalıcı ilerlemeniz
-            yeniden giriş yaptığınızda geri gelir; yoksa kaybolur. Buluttaki kopyayı iCloud veya Play Games
-            ayarlarınızdan silebilirsiniz. Telefonunuzun kendi yedeği de oyun kaydını içerebilir; bizim ona erişimimiz
+            yeniden giriş yaptığınızda geri gelir; yoksa kaybolur. Buluttaki kopyayı durdurmak ya da silmek için oyunun
+            Ayarlar’ındaki Bulut kayıt kartına dokunun: “Bulut kaydı kapat” eşitlemeyi durdurur, buluttaki kopya kalır;
+            “Bulut kaydını sil” (Ayarlar’da ayrı bir düğme olarak da var), ardından “Sil ve bağlantıyı kes” buluttaki
+            kopyayı da siler. İki durumda da ilerlemeniz cihazda kalır. Kopyayı iCloud veya Play Games ayarlarınızdan da
+            silebilirsiniz. Telefonunuzun kendi yedeği de oyun kaydını içerebilir; bizim ona erişimimiz
             yoktur.
           </p>
         </>
@@ -759,9 +772,9 @@ const tr: PolicyCopy = {
         <>
           <ul>
             <li>
-              <strong>Kullanım ve çökme verileri.</strong> Oyunda Ayarlar’ı, ardından Destek ve hesap bölümünden
-              Gizlilik ve kullanım verileri’ni açın. “İsteğe bağlı kullanım ve çökme verileri” (güncellemeden önce
-              “İsteğe bağlı kullanım analitiği”) satırına dokunarak KAPALI veya AÇIK yapın. Varsayılan olarak AÇIKTIR.
+              <strong>Kullanım ve çökme verileri.</strong> Oyunda Ayarlar’ı, ardından Gizlilik ve kullanım verileri’ni
+              açın. “İsteğe bağlı kullanım ve çökme verileri” satırına dokunarak KAPALI veya AÇIK yapın. Varsayılan
+              olarak AÇIKTIR.
             </li>
             <li>
               <strong>Reklam izni.</strong> Aynı ekranda “Reklam gizlilik tercihleri” bulunur. Google’ın
@@ -778,8 +791,9 @@ const tr: PolicyCopy = {
               bölümünden sıfırlayabilir veya silebilirsiniz.
             </li>
             <li>
-              <strong>Bulut kayıt.</strong> Yalnızca Game Center veya Play Games’e giriş yapmışken çalışır. Oradan
-              çıkış yaparsanız ya da hiç giriş yapmazsanız ilerlemeniz yalnızca cihazda tutulur.
+              <strong>Bulut kayıt.</strong> Yalnızca Game Center veya Play Games’e giriş yapmışken çalışır. Ayarlar’daki
+              “Bulut kaydı kapat” ya da “Bulut kaydını sil” seçeneğini kullanırsanız, oradan çıkış yaparsanız veya hiç
+              giriş yapmazsanız ilerlemeniz yalnızca cihazda tutulur.
             </li>
             <li>
               <strong>Daha az reklam.</strong> Premium tam ekran reklamları kaldırır.
@@ -987,7 +1001,7 @@ const tr: PolicyCopy = {
               <strong>Çökme raporları:</strong> Google 90 gün saklar.
             </li>
             <li>
-              <strong>Bulut kayıt:</strong> siz silene kadar iCloud veya Google hesabınızda.
+              <strong>Bulut kayıt:</strong> siz oyundan ya da hesap ayarlarınızdan silene kadar iCloud veya Google hesabınızda.
             </li>
             <li>
               <strong>AdMob ve mağazalar:</strong> kendi politikalarına göre.

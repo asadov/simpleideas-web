@@ -61,16 +61,18 @@ const en: TermsCopy = {
   effectiveText: "13 November 2026",
   scope: (
     <>
-      How the game handles data is explained in the <a href="/privacy">privacy policy</a>.
+      These terms are written for version 3.1.0 and later, which is free to play. Until your game has that update,
+      the parts about ads, Premium and gold packs do not apply to you. How the game handles data is explained in
+      the <a href="/privacy">privacy policy</a>.
     </>
   ),
   summaryTitle: "In short",
   summary: [
     "The game is for your own, non-commercial use. The App Store or Google Play terms also apply.",
-    "It is free to play. Rewarded ads are optional. Without Premium, a full-screen ad may appear now and then after a defeat. There are no ads during play.",
+    "From version 3.1.0 it is free to play. Rewarded ads are optional. Without Premium, a full-screen ad may appear now and then after a defeat. There are no ads during play.",
     "Premium is a one-time purchase that does not expire. Gold packs are in-game currency with no cash value.",
     "Payments and refunds go through Apple or Google.",
-    "Bought the game while it was paid? You get Premium at no extra charge.",
+    "Bought the paid version (3.0 or earlier)? You get Premium at no extra charge.",
     "Nothing here takes away the consumer rights the law gives you.",
     <>Questions: {mail}</>,
   ],
@@ -159,7 +161,7 @@ const en: TermsCopy = {
       title: "Free to play, with ads",
       body: (
         <>
-          <p>The game is free to play. Ads come from Google AdMob:</p>
+          <p>From version 3.1.0 the game is free to play. Ads come from Google AdMob:</p>
           <ul>
             <li>
               <strong>Optional rewarded ads.</strong> After your first defeat in a run you can watch an ad to continue
@@ -208,10 +210,10 @@ const en: TermsCopy = {
     },
     {
       id: "earlier-buyers",
-      title: "If you bought the game while it was paid",
+      title: "If you bought the paid version",
       body: (
         <>
-          <p>If you bought Almost in Orbit when it was a paid app, you get Premium at no extra charge:</p>
+          <p>If you bought the paid version of Almost in Orbit (3.0 or earlier), you get Premium at no extra charge:</p>
           <ul>
             <li>
               <strong>iOS 16 or later:</strong> Premium turns on automatically with the same Apple Account you bought
@@ -350,16 +352,18 @@ const tr: TermsCopy = {
   effectiveText: "13 Kasım 2026",
   scope: (
     <>
-      Oyunun verileri nasıl işlediği <a href="/privacy?lang=tr">gizlilik politikasında</a> anlatılır.
+      Bu şartlar, ücretsiz oynanan 3.1.0 ve sonraki sürümler için yazılmıştır. Oyununuz bu güncellemeyi alana
+      kadar reklam, Premium ve altın paketleriyle ilgili kısımlar sizin için geçerli değildir. Oyunun verileri nasıl
+      işlediği <a href="/privacy?lang=tr">gizlilik politikasında</a> anlatılır.
     </>
   ),
   summaryTitle: "Kısaca",
   summary: [
     "Oyun kişisel ve ticari olmayan kullanımınız içindir. App Store veya Google Play şartları da geçerlidir.",
-    "Ücretsiz oynanır. Ödüllü reklamlar isteğe bağlıdır. Premium yoksa yenilgiden sonra ara sıra tam ekran reklam çıkabilir. Oyun sırasında reklam yoktur.",
+    "3.1.0 sürümünden itibaren ücretsiz oynanır. Ödüllü reklamlar isteğe bağlıdır. Premium yoksa yenilgiden sonra ara sıra tam ekran reklam çıkabilir. Oyun sırasında reklam yoktur.",
     "Premium tek seferlik bir satın alımdır, süresi dolmaz. Altın paketleri nakit değeri olmayan oyun içi paradır.",
     "Ödeme ve iadeler Apple veya Google üzerinden yürür.",
-    "Oyunu ücretliyken mi aldınız? Premium’u ek ücret ödemeden alırsınız.",
+    "Oyunun ücretli sürümünü (3.0 veya öncesi) mi aldınız? Premium’u ek ücret ödemeden alırsınız.",
     "Buradaki hiçbir şey yasanın size tanıdığı tüketici haklarını ortadan kaldırmaz.",
     <>Sorularınız için: {mail}</>,
   ],
@@ -448,7 +452,7 @@ const tr: TermsCopy = {
       title: "Ücretsiz oyun ve reklamlar",
       body: (
         <>
-          <p>Oyun ücretsiz oynanır. Reklamları Google AdMob sunar:</p>
+          <p>Oyun 3.1.0 sürümünden itibaren ücretsiz oynanır. Reklamları Google AdMob sunar:</p>
           <ul>
             <li>
               <strong>İsteğe bağlı ödüllü reklamlar.</strong> Bir koşudaki ilk yenilginizden sonra reklam izleyerek o
@@ -500,10 +504,10 @@ const tr: TermsCopy = {
     },
     {
       id: "earlier-buyers",
-      title: "Oyunu ücretliyken aldıysanız",
+      title: "Ücretli sürümü aldıysanız",
       body: (
         <>
-          <p>Almost in Orbit’i ücretli bir uygulamayken aldıysanız Premium’u ek ücret ödemeden alırsınız:</p>
+          <p>Almost in Orbit’in ücretli sürümünü (3.0 veya öncesi) aldıysanız Premium’u ek ücret ödemeden alırsınız:</p>
           <ul>
             <li>
               <strong>iOS 16 veya sonrası:</strong> Oyunu aldığınız Apple Hesabı ile Premium kendiliğinden açılır.

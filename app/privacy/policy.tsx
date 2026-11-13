@@ -71,7 +71,7 @@ const en: PolicyCopy = {
     "How Almost in Orbit handles data on iOS and Android: ads, usage analytics, purchases, your choices and your rights.",
   eyebrow: "Almost in Orbit · iOS · Android",
   title: "Privacy policy",
-  lede: "Almost in Orbit is free to play, with ads and optional purchases. This page explains what leaves your device, who receives it and how to change your choices.",
+  lede: "From version 3.1.0, Almost in Orbit is free to play, with ads and optional purchases. This page explains what leaves your device, who receives it and how to change your choices.",
   updatedLabel: "Last updated",
   updatedText: "13 November 2026",
   scope: "Applies to version 3.1.0 and later. For version 3.0 and earlier (the paid version), see the last section. Crash reports and cloud save are added by a game update; until you have that update, those parts do not apply to you.",
@@ -366,7 +366,7 @@ const en: PolicyCopy = {
             delivered and cannot be restored: the gold is added to the save on your device.
           </p>
           <p>
-            Bought the game while it was a paid app? On iPhone with iOS 16 or later, the game reads Apple’s signed
+            Bought the paid version (3.0 or earlier)? On iPhone with iOS 16 or later, the game reads Apple’s signed
             record of your original download on your device and turns Premium on automatically. That check happens on
             the device; we do not receive the record. On Android, if you update the game on the same device where you
             played the paid version, the game finds the earlier version’s save on the device and turns Premium on
@@ -542,7 +542,7 @@ const en: PolicyCopy = {
       body: (
         <>
           <p>
-            Versions up to 3.0 were sold as a paid app. They contain no ads, no analytics of ours and no in-app
+            Version 3.0 and earlier is the paid version of the game. It contains no ads, no analytics of ours and no in-app
             purchases, and the game never asks for personal information.
           </p>
           <p>
@@ -577,7 +577,7 @@ const tr: PolicyCopy = {
     "Almost in Orbit iOS ve Android’de verileri nasıl işler: reklamlar, kullanım analitiği, satın alımlar, tercihleriniz ve haklarınız.",
   eyebrow: "Almost in Orbit · iOS · Android",
   title: "Gizlilik politikası",
-  lede: "Almost in Orbit ücretsiz oynanır; reklam ve isteğe bağlı satın alım içerir. Bu sayfa cihazınızdan nelerin çıktığını, kime gittiğini ve tercihlerinizi nasıl değiştireceğinizi anlatır.",
+  lede: "Almost in Orbit, 3.1.0 sürümünden itibaren ücretsiz oynanır; reklam ve isteğe bağlı satın alım içerir. Bu sayfa cihazınızdan nelerin çıktığını, kime gittiğini ve tercihlerinizi nasıl değiştireceğinizi anlatır.",
   updatedLabel: "Son güncelleme",
   updatedText: "13 Kasım 2026",
   scope: "3.1.0 ve sonraki sürümler için geçerlidir. 3.0 ve önceki (ücretli) sürümler için son bölüme bakın. Çökme raporları ve bulut kayıt bir oyun güncellemesiyle eklenir; o güncellemeyi alana kadar bu kısımlar sizin için geçerli değildir.",
@@ -870,7 +870,7 @@ const tr: PolicyCopy = {
             tüketilir ve geri yüklenemez: altın, cihazınızdaki oyun kaydına eklenir.
           </p>
           <p>
-            Oyunu ücretliyken mi aldınız? iOS 16 veya sonrası yüklü iPhone’da oyun, Apple’ın ilk indirmenize ait imzalı
+            Oyunun ücretli sürümünü (3.0 veya öncesi) mi aldınız? iOS 16 veya sonrası yüklü iPhone’da oyun, Apple’ın ilk indirmenize ait imzalı
             kaydını cihazınızda okur ve Premium’u kendiliğinden açar. Bu kontrol cihazda yapılır; kaydı biz almayız.
             Android’de oyunu ücretli sürümü oynadığınız cihazda güncellerseniz oyun, cihazdaki eski sürümün kaydını bulur
             ve Premium’u kendiliğinden açar; bize bir şey gönderilmez. iOS 15’te, yeniden kurulumdan sonra veya yeni bir
@@ -1047,7 +1047,7 @@ const tr: PolicyCopy = {
       body: (
         <>
           <p>
-            3.0’a kadarki sürümler ücretli uygulama olarak satıldı. Bu sürümlerde reklam, bize ait analitik ve
+            3.0 ve önceki sürümler, oyunun ücretli sürümüdür. Bu sürümlerde reklam, bize ait analitik ve
             uygulama içi satın alım yoktur; oyun kişisel bilgi istemez.
           </p>
           <p>

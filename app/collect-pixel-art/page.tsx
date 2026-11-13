@@ -304,7 +304,7 @@ export default function CollectPixelArtPage() {
         </section>
       </main>
 
-      <SiteFooter variant="museum" privacyHref={PRIVACY_PATH} />
+      <SiteFooter variant="museum" privacyHref={PRIVACY_PATH} showTerms={false} />
     </div>
   );
 }

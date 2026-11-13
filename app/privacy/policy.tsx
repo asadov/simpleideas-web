@@ -19,11 +19,15 @@ import { CONTACT_EMAIL } from "@/lib/site";
  * backends and the Settings row did not exist yet. When they land, recheck the cloud save paragraphs
  * (what is copied, sign-in, that the player identity goes nowhere) and remove the "added by a game
  * update" sentence from `scope` and the old setting label once every distributed build has both.
+ *
+ * 13 Nov 2026: the Android earlier-buyer check (AndroidLegacyOwnership, game 3.1.1: a save from an earlier
+ * version on the device turns Premium on, decided once, nothing leaves the device) and a link to /terms.
+ * The terms of use (../terms/terms.tsx) describe the same ad and Premium rules; keep the two in step.
  */
 
 export type PolicyLang = "en" | "tr";
 
-export const POLICY_UPDATED = "2026-11-11";
+export const POLICY_UPDATED = "2026-11-13";
 
 export type DataRow = { data: string; includes: ReactNode; why: string; who: string };
 export type PolicySection = { id: string; title: string; body: ReactNode };
@@ -69,7 +73,7 @@ const en: PolicyCopy = {
   title: "Privacy policy",
   lede: "Almost in Orbit is free to play, with ads and optional purchases. This page explains what leaves your device, who receives it and how to change your choices.",
   updatedLabel: "Last updated",
-  updatedText: "11 November 2026",
+  updatedText: "13 November 2026",
   scope: "Applies to version 3.1.0 and later. For version 3.0 and earlier (the paid version), see the last section. Crash reports and cloud save are added by a game update; until you have that update, those parts do not apply to you.",
   summaryTitle: "In short",
   summary: [
@@ -166,7 +170,8 @@ const en: PolicyCopy = {
           </p>
           <p>
             This policy covers the game on iOS and Android. The Simple Ideas website and support email are covered by
-            the <a href="/kvkk?lang=en">personal data notice (KVKK)</a>. Our other apps have their own policies.
+            the <a href="/kvkk?lang=en">personal data notice (KVKK)</a>. Our other apps have their own policies. The
+            rules for playing the game and buying in it are in the <a href="/terms">terms of use</a>.
           </p>
           <p>
             Reading this page is not a consent choice. Advertising choices are made in Google’s consent message
@@ -363,8 +368,10 @@ const en: PolicyCopy = {
           <p>
             Bought the game while it was a paid app? On iPhone with iOS 16 or later, the game reads Apple’s signed
             record of your original download on your device and turns Premium on automatically. That check happens on
-            the device; we do not receive the record. On Android and on iOS 15 there is no automatic check: write to
-            support and we will help. Support may ask for a receipt or an order number; send only what is needed.
+            the device; we do not receive the record. On Android, if you update the game on the same device where you
+            played the paid version, the game finds the earlier version’s save on the device and turns Premium on
+            automatically; nothing is sent to us. On iOS 15, after a reinstall or on a new Android device there is no
+            automatic check: write to support and we will help. Support may ask for a receipt or an order number; send only what is needed.
           </p>
           <p>Refunds and billing records are handled by the stores.</p>
         </>
@@ -572,7 +579,7 @@ const tr: PolicyCopy = {
   title: "Gizlilik politikası",
   lede: "Almost in Orbit ücretsiz oynanır; reklam ve isteğe bağlı satın alım içerir. Bu sayfa cihazınızdan nelerin çıktığını, kime gittiğini ve tercihlerinizi nasıl değiştireceğinizi anlatır.",
   updatedLabel: "Son güncelleme",
-  updatedText: "11 Kasım 2026",
+  updatedText: "13 Kasım 2026",
   scope: "3.1.0 ve sonraki sürümler için geçerlidir. 3.0 ve önceki (ücretli) sürümler için son bölüme bakın. Çökme raporları ve bulut kayıt bir oyun güncellemesiyle eklenir; o güncellemeyi alana kadar bu kısımlar sizin için geçerli değildir.",
   summaryTitle: "Kısaca",
   summary: [
@@ -669,6 +676,7 @@ const tr: PolicyCopy = {
           <p>
             Bu politika oyunun iOS ve Android sürümlerini kapsar. Simple Ideas web sitesi ve destek e-postası için{" "}
             <a href="/kvkk">KVKK aydınlatma metni</a> geçerlidir. Diğer uygulamalarımızın kendi politikaları vardır.
+            Oyunu oynama ve oyunda satın alma kuralları <a href="/terms?lang=tr">kullanım şartlarında</a> yer alır.
           </p>
           <p>
             Bu sayfayı okumak bir rıza tercihi değildir. Reklam tercihleri Google’ın izin mesajında ve iPhone’da
@@ -864,7 +872,9 @@ const tr: PolicyCopy = {
           <p>
             Oyunu ücretliyken mi aldınız? iOS 16 veya sonrası yüklü iPhone’da oyun, Apple’ın ilk indirmenize ait imzalı
             kaydını cihazınızda okur ve Premium’u kendiliğinden açar. Bu kontrol cihazda yapılır; kaydı biz almayız.
-            Android’de ve iOS 15’te otomatik kontrol yoktur: desteğe yazın, yardımcı olalım. Destek bir makbuz veya
+            Android’de oyunu ücretli sürümü oynadığınız cihazda güncellerseniz oyun, cihazdaki eski sürümün kaydını bulur
+            ve Premium’u kendiliğinden açar; bize bir şey gönderilmez. iOS 15’te, yeniden kurulumdan sonra veya yeni bir
+            Android cihazda otomatik kontrol yoktur: desteğe yazın, yardımcı olalım. Destek bir makbuz veya
             sipariş numarası isteyebilir; yalnızca gerekeni gönderin.
           </p>
           <p>İadeleri ve fatura kayıtlarını mağazalar yürütür.</p>

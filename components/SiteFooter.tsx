@@ -9,18 +9,24 @@ const LINKS = [
   { href: "/collect-pixel-art", label: "Pixel Art Collect" },
   { href: "/press", label: "Press kit" },
   { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
   { href: "/support", label: "Support" },
   { href: "/kvkk?lang=en", label: "KVKK data notice" },
   { href: "/cookies?lang=en", label: "Cookies" },
 ] as const;
 
-/** `privacyHref`: each game has its own policy, so the "Privacy" link follows the page's game. */
+/**
+ * `privacyHref`: each game has its own policy, so the "Privacy" link follows the page's game.
+ * `showTerms`: the terms of use (/terms) are Almost in Orbit's only; pages of other games hide the link.
+ */
 export function SiteFooter({
   variant = "space",
   privacyHref = "/privacy",
+  showTerms = true,
 }: {
   variant?: "space" | "museum";
   privacyHref?: string;
+  showTerms?: boolean;
 }) {
   return (
     <footer className={`${styles.footer} ${variant === "museum" ? styles.museum : styles.space}`}>
@@ -38,7 +44,7 @@ export function SiteFooter({
           </p>
         </div>
         <ul className={styles.links}>
-          {LINKS.map((link) => (
+          {LINKS.filter((link) => showTerms || link.href !== "/terms").map((link) => (
             <li key={link.label}>
               {link.href.startsWith("/kvkk") || link.href.startsWith("/cookies") ? (
                 <a href={link.href} className={styles.link}>{link.label}</a>

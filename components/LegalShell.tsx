@@ -28,7 +28,7 @@ export function LegalShell({ children, lang, path, title, intro }: {
           <p className={styles.intro}>{intro}</p>
           <p className={styles.date}>
             {lang === "tr" ? "Son güncelleme: " : "Last updated: "}
-            <time dateTime={LEGAL_UPDATED}>{lang === "tr" ? "11 Kasım 2026" : "11 November 2026"}</time>
+            <time dateTime={LEGAL_UPDATED}>{lang === "tr" ? "13 Kasım 2026" : "13 November 2026"}</time>
           </p>
         </header>
         <article className={styles.article}>{children}</article>

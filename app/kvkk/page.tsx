@@ -74,8 +74,8 @@ export default async function KvkkPage({ searchParams }: { searchParams: LegalSe
           : "Visiting a product webpage is different from using the app. The links below explain each product’s data types, service providers, retention and deletion. This website notice does not replace in-app advertising or microphone permissions."}</p>
         <h3 id="almost-in-orbit">Almost in Orbit</h3>
         <p>{tr
-          ? "Ücretsiz sürümün (3.1 ve sonrası) politikası; Google AdMob reklamlarını, Google Analytics for Firebase kullanım analitiğini, mağaza satın alımlarını, cihazdaki oyun kayıtlarını ve oyun içindeki tercihleri açıklar. Aynı sayfa, önceki ücretli sürümlerde Unity motorunun teknik tanılama verilerini de kapsar."
-          : "The policy for the free release (3.1 and later) describes Google AdMob ads, Google Analytics for Firebase usage analytics, store purchases, on-device saves and the in-game choices. The same page also covers Unity engine technical diagnostics in the earlier paid versions."} <a href={tr ? "/privacy?lang=tr" : "/privacy"}>{tr ? "Almost in Orbit gizlilik politikası" : "Almost in Orbit privacy policy"}</a>.</p>
+          ? "Ücretsiz sürümün (3.1 ve sonrası) politikası; Google AdMob reklamlarını, Google Analytics for Firebase kullanım analitiğini ve Firebase Crashlytics çökme raporlarını, mağaza satın alımlarını, cihazdaki oyun kayıtlarını, Game Center veya Play Games üzerinden isteğe bağlı bulut kaydı ve oyun içindeki tercihleri açıklar. Aynı sayfa, önceki ücretli sürümlerde Unity motorunun teknik tanılama verilerini de kapsar."
+          : "The policy for the free release (3.1 and later) describes Google AdMob ads, Google Analytics for Firebase usage analytics and Firebase Crashlytics crash reports, store purchases, on-device saves, optional cloud save through Game Center or Play Games, and the in-game choices. The same page also covers Unity engine technical diagnostics in the earlier paid versions."} <a href={tr ? "/privacy?lang=tr" : "/privacy"}>{tr ? "Almost in Orbit gizlilik politikası" : "Almost in Orbit privacy policy"}</a>.</p>
         <h3 id="pixel-art-collect">Pixel Art Collect</h3>
         <p>{tr
           ? "Oyuncu kimliği ve hesap doğrulama, isteğe bağlı Apple ile hesap bağlama, satın alma doğrulama ve bulut cüzdanı, Google AdMob reklamları ve ilgili teknik veriler ürün politikasında açıklanır. Anonim girişte oluşturulan oyuncu kimliği, hiçbir veri işlenmediği anlamına gelmez."
@@ -86,11 +86,11 @@ export default async function KvkkPage({ searchParams }: { searchParams: LegalSe
         <h3 id="tempo">Tempo</h3>
         <p>{tr
           ? "Tempo’nun ürün politikası, BPM ve ölçü ayarlarının Apple Watch üzerinde tutulduğunu ve geliştiriciye gönderilmediğini açıklar. Bize e-posta göndermeniz halinde bu metnin destek iletişimi bölümü uygulanır."
-          : "Tempo’s product policy explains that BPM and time-signature settings stay on Apple Watch and are not sent to the developer. If you email us, the support section of this notice applies."} <a href="/tempo/privacy">{tr ? "Tempo gizlilik politikası (EN)" : "Tempo privacy policy"}</a>.</p>
+          : "Tempo’s product policy explains that BPM and time-signature settings stay on Apple Watch and are not sent to the developer. If you email us, the support section of this notice applies."} <a href={tr ? "/tempo/privacy?lang=tr" : "/tempo/privacy"}>{tr ? "Tempo gizlilik politikası" : "Tempo privacy policy"}</a>.</p>
         <h3 id="tuner-pro-studio">Tuner Pro Studio</h3>
         <p>{tr
           ? "Mikrofon sesi nota ve akort tespiti için cihaz belleğinde işlenir; ses dosyası oluşturulmaz ve ses sunucuya gönderilmez. Ayarlar cihazda saklanır. Mikrofon erişimini cihaz ayarlarından yönetebilirsiniz."
-          : "Microphone audio is processed in device memory to detect pitch and tuning; no audio file is created and audio is not sent to a server. Settings stay on the device. Microphone access can be managed in device settings."} <a href="/tuner/privacy">{tr ? "Tuner Pro Studio gizlilik politikası (EN)" : "Tuner Pro Studio privacy policy"}</a>.</p>
+          : "Microphone audio is processed in device memory to detect pitch and tuning; no audio file is created and audio is not sent to a server. Settings stay on the device. Microphone access can be managed in device settings."} <a href={tr ? "/tuner/privacy?lang=tr" : "/tuner/privacy"}>{tr ? "Tuner Pro Studio gizlilik politikası" : "Tuner Pro Studio privacy policy"}</a>.</p>
       </section>
       <section id="transfers">
         <h2>{tr ? "4. Alıcılar ve aktarım amaçları" : "4. Recipients and purposes of disclosure"}</h2>

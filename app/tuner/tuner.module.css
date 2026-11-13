@@ -156,3 +156,26 @@
 .foot p {
   margin: 0;
 }
+
+/* ── language switch on the privacy policy ───────────── */
+.languages {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+.languages a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.languages a[aria-current="page"] {
+  border-color: var(--accent);
+  color: var(--text);
+}

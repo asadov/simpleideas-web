@@ -549,16 +549,17 @@
     display: none;
   }
   .hero {
-    padding: 40px 0 56px;
+    padding: 28px 0 56px;
     gap: 44px;
   }
   .pill {
     font-size: 11px;
     letter-spacing: 0.18em;
   }
+  /* Smaller on phones so the store badges sit above the fold (and above the privacy notice). */
   .logo {
-    width: 260px;
-    margin: 18px 0 6px -12px;
+    width: 208px;
+    margin: 14px 0 4px -10px;
   }
   .h1 {
     max-width: none;

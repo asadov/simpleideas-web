@@ -4,7 +4,7 @@ import { CookieNotice } from "@/components/CookieNotice";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://simpleideas.net"),
+  metadataBase: new URL("https://www.simpleideas.net"),
   icons: {
     apple: "/assets/apple-touch-icon.png",
   },

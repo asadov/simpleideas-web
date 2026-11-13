@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NavScroll } from "./NavScroll";
 import styles from "./StudioNav.module.css";
 
 const LINKS = [
@@ -39,7 +40,7 @@ export function StudioNav({
           </span>
           <span>Simple Ideas</span>
         </Link>
-        <nav aria-label="Studio" className={styles.nav}>
+        <NavScroll label="Studio" className={styles.nav}>
           {LINKS.map((link) => (
             <Link
               key={link.href}
@@ -50,7 +51,7 @@ export function StudioNav({
               {link.label}
             </Link>
           ))}
-        </nav>
+        </NavScroll>
       </div>
     </header>
   );

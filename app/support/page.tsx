@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Starfield } from "@/components/Starfield";
 import { StudioNav } from "@/components/StudioNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { CONTACT_EMAIL } from "@/lib/site";
 import subStyles from "../subpages.module.css";
 import styles from "./support.module.css";
 
 export const metadata: Metadata = {
   title: "Support — Almost in Orbit",
   description: "Support for Almost in Orbit. One inbox, one human, fast answers.",
+  alternates: { canonical: "/support" },
 };
+
+/* The Almost in Orbit game opens this page (MonetizationConfig supportUrl), so it stays about that game first. */
+const mailto = (subject: string) => `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}`;
 
 export default function SupportPage() {
   return (
@@ -25,7 +31,7 @@ export default function SupportPage() {
             Stuck, found a bug, or something looks wrong? Email me — the developer answers every message personally,
             usually within a day or two.
           </p>
-          <a className={subStyles.btn} href="mailto:salih@simpleideas.net?subject=Almost%20in%20Orbit%20%E2%80%94%20support">
+          <a className={subStyles.btn} href={mailto("Almost in Orbit — support")}>
             Email support
           </a>
           <p>
@@ -39,7 +45,7 @@ export default function SupportPage() {
           <h2>Reporting a bug</h2>
           <p>Three things make a bug fixable fast:</p>
           <ul>
-            <li>Your device model and OS version (e.g. iPhone 14, iOS 19 / Pixel 8, Android 16)</li>
+            <li>Your device model and OS version (e.g. iPhone 15, iOS 26 / Pixel 8, Android 16)</li>
             <li>What happened, and what you expected to happen</li>
             <li>A screenshot or screen recording, if you can grab one — those are gold</li>
           </ul>
@@ -70,6 +76,23 @@ export default function SupportPage() {
 
           <h3 className={styles.h3}>Do I need an account?</h3>
           <p>No accounts, no logins, no passwords to reset. Download and play.</p>
+        </section>
+
+        <section className={subStyles.section}>
+          <span className="node" aria-hidden="true" />
+          <h2>Other games and apps</h2>
+          <ul>
+            <li>
+              <Link href="/collect-pixel-art">Pixel Art Collect</Link>:{" "}
+              <a href={mailto("Pixel Art Collect — support")}>email support</a> · <Link href="/collect-pixel-art/privacy">privacy policy</Link>
+            </li>
+            <li>
+              <Link href="/tempo">Tempo</Link>: questions and answers on its own support page
+            </li>
+            <li>
+              <Link href="/tuner">Tuner Pro Studio</Link>: questions and answers on its own support page
+            </li>
+          </ul>
         </section>
       </main>
       <SiteFooter variant="space" />

@@ -85,6 +85,7 @@
   font-size: var(--nav-link-size);
   letter-spacing: var(--nav-link-track);
   text-transform: uppercase;
+  white-space: nowrap;
   transition: color 0.2s ease;
 }
 .link:hover {
@@ -113,14 +114,33 @@
   letter-spacing: 0.14em;
 }
 
-@media (max-width: 720px) {
+/* Tablets and phones: brand on its own row, links in one row that scrolls sideways
+   (six links never fit; wrapping them took four rows and pushed the page below the fold). */
+@media (max-width: 900px) {
   .inner,
   .museum .inner {
     max-width: none;
     height: auto;
-    padding: 8px 20px 10px;
+    padding: 6px 20px 0;
     display: block;
   }
+  .nav {
+    position: relative;
+    gap: 0;
+    margin: 0 -20px;
+    padding: 0 20px 0 10px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 36px), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - 36px), transparent);
+  }
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
   .brand {
     gap: 10px;
     font-size: 14px;
@@ -128,11 +148,6 @@
   .mark svg {
     width: 16px;
     height: 16px;
-  }
-  .nav {
-    flex-wrap: wrap;
-    gap: 0 4px;
-    margin: 0 -10px;
   }
   .link {
     gap: 6px;

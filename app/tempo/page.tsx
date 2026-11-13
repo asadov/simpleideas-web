@@ -1,8 +1,33 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/site";
+import { AppScreens, type AppScreen } from "@/components/AppScreens";
 import { TempoShell } from "./TempoShell";
 import styles from "./tempo.module.css";
+
+/* Real Apple Watch simulator captures of the 1.0 build (46 mm, 416 × 496). */
+const SCREENS: AppScreen[] = [
+  {
+    src: "/tempo/screens/1-idle.png",
+    alt: "Tempo stopped at 120 BPM with ALLEGRO below the number, four beat dots, the 4/4 button, an orange Play button and TAP.",
+    caption: "Digital Crown sets 40 to 240 BPM, with the tempo name below",
+  },
+  {
+    src: "/tempo/screens/2-playing-first-beat.png",
+    alt: "Tempo playing 140 BPM in 7/8: the first of seven beat dots is orange and the Play button shows Pause.",
+    caption: "Dots follow the bar; the first beat taps harder",
+  },
+  {
+    src: "/tempo/screens/3-time-signatures.png",
+    alt: "The Time Signature list on Apple Watch with 2/4, 3/4 and 4/4 visible and 4/4 ticked.",
+    caption: "Eight time signatures, from 2/4 to 10/8",
+  },
+  {
+    src: "/tempo/screens/4-slow.png",
+    alt: "Tempo playing 66 BPM in 4/4 with ADAGIO below the number; the second of four beat dots is orange.",
+    caption: "Slow practice at 66 BPM, Adagio",
+  },
+];
 
 /*
  * Tempo for Apple Watch: product page and support page in one. This address is the app's
@@ -30,6 +55,8 @@ export default function TempoPage() {
       <p className={styles.meta}>
         Your email and message are used to answer your request. <a href="/kvkk?lang=en#processing">Personal data notice</a>.
       </p>
+
+      <AppScreens items={SCREENS} shape="watch" label="Tempo screenshots" />
 
       <h2>What it does</h2>
       <ul>

@@ -5,8 +5,9 @@ import styles from "./StudioNav.module.css";
 const LINKS = [
   { href: "/", label: "Almost in Orbit" },
   { href: "/collect-pixel-art", label: "Pixel Art Collect" },
-  { href: "/tempo", label: "Tempo" },
-  { href: "/tuner", label: "Tuner Pro Studio" },
+  // "Soon" until the app is live on the App Store; remove the chip on launch day.
+  { href: "/tempo", label: "Tempo", chip: "Soon" },
+  { href: "/tuner", label: "Tuner Pro Studio", chip: "Soon" },
   { href: "/press", label: "Press kit" },
   { href: "/support", label: "Support" },
 ] as const;
@@ -49,6 +50,7 @@ export function StudioNav({
               aria-current={link.href === current ? "page" : undefined}
             >
               {link.label}
+              {"chip" in link ? <span className={styles.chip}>{link.chip}</span> : null}
             </Link>
           ))}
         </NavScroll>

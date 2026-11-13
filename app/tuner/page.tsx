@@ -14,14 +14,14 @@ const SUPPORT_MAIL = `mailto:${CONTACT_EMAIL}?subject=Tuner%20Pro%20Studio%20%E2
 export const metadata: Metadata = {
   title: "Tuner Pro Studio — Chromatic and guitar tuner for iPhone",
   description:
-    "A precise chromatic and guitar tuner for iPhone and iPad. Works offline; your microphone audio is never recorded.",
+    "A precise chromatic and guitar tuner for iPhone and iPad. Works offline; your microphone audio is never recorded. Coming soon to the App Store.",
   alternates: { canonical: "https://www.simpleideas.net/tuner" },
 };
 
 export default function TunerPage() {
   return (
     <TunerShell>
-      <p className={styles.kicker}>iPhone and iPad</p>
+      <p className={styles.kicker}>iPhone and iPad · Coming soon to the App Store</p>
       <h1>Tuner Pro Studio</h1>
       <p className={styles.lede}>
         A precise chromatic and guitar tuner with a wide, easy-to-read needle. Play one note, centre the needle, and

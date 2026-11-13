@@ -1,13 +1,16 @@
 /*
  * Screenshot row for the Tempo and Tuner pages. Uses the page's own custom properties
  * (--line, --surface, --muted) so it inherits each app's palette.
+ * The list rules use a doubled class (.row.row, .item.item) so they beat the host page's
+ * `.main ul` / `.main li` text-list styles (indent and margins).
  */
 
-.row {
+.row.row {
   display: grid;
   grid-auto-flow: column;
   gap: 16px;
-  margin: 32px -16px 8px;
+  /* the -12px bottom margin gives back the scrollbar room, so captions sit 40px above the next heading */
+  margin: 32px -16px -12px;
   padding: 4px 16px 12px;
   list-style: none;
   overflow-x: auto;
@@ -26,7 +29,7 @@
   grid-auto-columns: 56%;
 }
 
-.item {
+.item.item {
   margin: 0;
   scroll-snap-align: start;
 }
@@ -70,14 +73,13 @@
   text-align: center;
 }
 
-/* wide enough for the whole row: no sideways scroll, no bleed into the gutter */
+/* wide enough for the whole row: no sideways scroll, no bleed into the gutter, no scrollbar room;
+   the next heading's own 40px margin is then the gap below, as between every other section */
 @media (min-width: 720px) {
-  .row {
+  .row.row {
     grid-auto-columns: 1fr;
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 0;
-    padding-right: 0;
+    margin: 32px 0 0;
+    padding: 0;
     overflow-x: visible;
   }
 }

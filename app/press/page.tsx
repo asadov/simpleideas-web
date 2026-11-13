@@ -122,7 +122,9 @@ export default function PressPage() {
           <span className="node" aria-hidden="true" />
           <h2 className={styles.h2}>Media</h2>
           <div className={styles.panel}>
-            <span className={styles.chip}>Trailer · {TRAILER.duration} · vertical 9:16</span>
+            <span className={styles.chip}>
+              Trailer · {TRAILER.duration} · vertical {TRAILER.width}×{TRAILER.height} · no sound
+            </span>
             <video
               className={styles.trailer}
               src={TRAILER.src}
@@ -134,7 +136,7 @@ export default function PressPage() {
               preload="metadata"
             />
             <p className={styles.mut}>
-              Made for shorts and stories. <a href={TRAILER.src} download>Download the MP4</a> (720×1280).
+              Made for shorts and stories. <a href={TRAILER.src} download>Download the MP4</a> ({TRAILER.width}×{TRAILER.height}, no sound).
             </p>
           </div>
           <PressScreenshots items={screenshots} />

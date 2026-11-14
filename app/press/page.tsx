@@ -24,7 +24,7 @@ export default function PressPage() {
       <main className={subStyles.frame}>
         <header className={styles.pageHead}>
           <span className="node" aria-hidden="true" />
-          <span className={subStyles.eyebrow}>Press kit · updated November 13, 2026</span>
+          <span className={subStyles.eyebrow}>Press kit · updated November 14, 2026</span>
           <h1 className={subStyles.h1}>Everything you need to cover the game</h1>
           <p className={subStyles.lede}>
             Factsheet, descriptions, the trailer, screenshots and a direct line to the developer. All of it is free to use in
@@ -117,8 +117,8 @@ export default function PressPage() {
             <li>A fleet of seven ships with a dodge roll, a mini elite hidden in every battle, and flight training</li>
             <li>Optional cloud save through Game Center or Play Games</li>
             <li>
-              Free to play: no ads during play, no banners, no energy timers. One permanent Premium purchase removes
-              forced ads. Core gameplay works offline
+              Free to play: optional rewarded ads to continue once per run or double a run&apos;s gold, no banners,
+              no energy timers. A one-time Premium continues without an ad. Core gameplay works offline
             </li>
           </ul>
         </section>

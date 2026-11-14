@@ -149,8 +149,8 @@ const FEATURES = [
     title: "Free to play",
     body: (
       <>
-        <span className={styles.goldText}>Play free.</span> No ads during play, no banners, no energy timers. A
-        one-time Premium purchase removes the occasional ad after a defeat.
+        <span className={styles.goldText}>Play free.</span> Rewarded ads are optional: continue once per run or
+        double a run&apos;s gold. No banners, no energy timers. A one-time Premium continues without an ad.
       </>
     ),
     gold: true,

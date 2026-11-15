@@ -23,6 +23,15 @@ import { CONTACT_EMAIL } from "@/lib/site";
  * "Connect" on the Cloud save card in Settings; "Turn off cloud save" stops syncing and keeps the cloud copy;
  * "Delete cloud save", then "Delete and disconnect", deletes the cloud copy; the device save stays either way.
  *
+ * 3.1.4 (iOS build 25, checked 14 Nov 2026): MonetizationConfig.json leaves both interstitial ad unit IDs empty,
+ * which turns the forced full-screen ad off (GameOverUI only shows one when an ad is loaded). Only the two
+ * optional rewarded ads remain (continue, double gold; "Long rewarded ad" label). Premium's only benefit is the
+ * continue without an ad (AllTranslations PremiumBenefitContinue); doubling gold stays a rewarded ad. Data
+ * collection did not change. If a later build brings the full-screen ad back, restore it here and in the terms.
+ * Android stays on 3.1.1 for now, which still has the forced ad (from the 2nd defeat of a session, at most every
+ * 120 s, not within 45 s of a rewarded ad, at most 10 per session, never with Premium): one Android sentence below
+ * and in the terms says so. Remove it when Android ships a build without that ad.
+ *
  * 13 Nov 2026: the Android earlier-buyer check (AndroidLegacyOwnership, game 3.1.1: a save from an earlier
  * version on the device turns Premium on, decided once, nothing leaves the device) and a link to /terms.
  * The terms of use (../terms/terms.tsx) describe the same ad and Premium rules; keep the two in step.
@@ -30,7 +39,7 @@ import { CONTACT_EMAIL } from "@/lib/site";
 
 export type PolicyLang = "en" | "tr";
 
-export const POLICY_UPDATED = "2026-11-13";
+export const POLICY_UPDATED = "2026-11-15";
 
 export type DataRow = { data: string; includes: ReactNode; why: string; who: string };
 export type PolicySection = { id: string; title: string; body: ReactNode };
@@ -76,7 +85,7 @@ const en: PolicyCopy = {
   title: "Privacy policy",
   lede: "From version 3.1.0, Almost in Orbit is free to play, with ads and optional purchases. This page explains what leaves your device, who receives it and how to change your choices.",
   updatedLabel: "Last updated",
-  updatedText: "13 November 2026",
+  updatedText: "15 November 2026",
   scope: "Applies to version 3.1.0 and later. For version 3.0 and earlier (the paid version), see the last section.",
   summaryTitle: "In short",
   summary: [
@@ -230,16 +239,18 @@ const en: PolicyCopy = {
       title: "Ads",
       body: (
         <>
-          <p>The free version has three ad placements, all served by Google AdMob:</p>
+          <p>Ads are served by Google AdMob. There are two optional rewarded ads:</p>
           <ul>
-            <li>an optional rewarded ad that lets you continue once after your first defeat in a run;</li>
-            <li>an optional rewarded ad that doubles the gold of a run, offered if you are defeated again after continuing;</li>
-            <li>a full-screen ad that may appear when you return to the main menu after a defeat. How often it appears is limited.</li>
+            <li>a rewarded ad that lets you continue once after your first defeat in a run;</li>
+            <li>a rewarded ad that doubles the gold of a run, offered if you are defeated again after continuing.</li>
           </ul>
-          <p>There are no banner ads. Declining an ad never stops you from starting a new run.</p>
           <p>
-            Premium, a one-time purchase, removes the full-screen ads and gives the continue without an ad. Doubling
-            gold stays an optional rewarded ad for everyone, so the ad software also runs for Premium players.
+            From version 3.1.4 on iPhone, full-screen ads appear only when you choose to watch one: to continue a run
+            or to double a run’s gold. On Android, until the next update, a full-screen ad may also appear now and then when you return to the main menu after a defeat, if you do not have Premium. There are no banner ads. Declining an ad never stops you from starting a new run.
+          </p>
+          <p>
+            Premium, a one-time purchase, gives the continue without an ad. Doubling gold stays an optional rewarded
+            ad for everyone, so the ad software also runs for Premium players.
           </p>
           <p>
             Before any ad is requested, the game checks your consent status with Google’s User Messaging Platform
@@ -285,7 +296,7 @@ const en: PolicyCopy = {
               device only.
             </li>
             <li>
-              <strong>Fewer ads.</strong> Premium removes the full-screen ads.
+              <strong>Continue without an ad.</strong> With Premium, the one continue per run needs no ad.
             </li>
           </ul>
           <p>Buying and restoring purchases never depend on your advertising or analytics choices.</p>
@@ -587,7 +598,7 @@ const tr: PolicyCopy = {
   title: "Gizlilik politikası",
   lede: "Almost in Orbit, 3.1.0 sürümünden itibaren ücretsiz oynanır; reklam ve isteğe bağlı satın alım içerir. Bu sayfa cihazınızdan nelerin çıktığını, kime gittiğini ve tercihlerinizi nasıl değiştireceğinizi anlatır.",
   updatedLabel: "Son güncelleme",
-  updatedText: "13 Kasım 2026",
+  updatedText: "15 Kasım 2026",
   scope: "3.1.0 ve sonraki sürümler için geçerlidir. 3.0 ve önceki (ücretli) sürümler için son bölüme bakın.",
   summaryTitle: "Kısaca",
   summary: [
@@ -739,17 +750,18 @@ const tr: PolicyCopy = {
       title: "Reklamlar",
       body: (
         <>
-          <p>Ücretsiz sürümde üç reklam yeri vardır; hepsini Google AdMob sunar:</p>
+          <p>Reklamları Google AdMob sunar. İki isteğe bağlı ödüllü reklam vardır:</p>
           <ul>
-            <li>bir koşudaki ilk yenilgiden sonra bir kez devam etmenizi sağlayan isteğe bağlı ödüllü reklam;</li>
-            <li>devam ettikten sonra yeniden yenilirseniz sunulan, o koşunun altınını ikiye katlayan isteğe bağlı ödüllü reklam;</li>
-            <li>yenilgiden sonra ana menüye dönerken çıkabilen tam ekran reklam. Ne sıklıkta çıkacağı sınırlıdır.</li>
+            <li>bir koşudaki ilk yenilgiden sonra bir kez devam etmenizi sağlayan ödüllü reklam;</li>
+            <li>devam ettikten sonra yeniden yenilirseniz sunulan, o koşunun altınını ikiye katlayan ödüllü reklam.</li>
           </ul>
-          <p>Banner reklam yoktur. Bir reklamı reddetmek yeni bir koşuya başlamanızı asla engellemez.</p>
           <p>
-            Tek seferlik bir satın alım olan Premium, tam ekran reklamları kaldırır ve devam hakkını reklamsız verir.
-            Altını ikiye katlamak herkes için isteğe bağlı ödüllü reklam olarak kalır; bu yüzden reklam yazılımı
-            Premium oyuncularda da çalışır.
+            iPhone’da 3.1.4 sürümünden itibaren tam ekran reklam yalnızca siz izlemeyi seçtiğinizde çıkar: koşuya devam
+            etmek ya da koşu altınını ikiye katlamak için. Android’de bir sonraki güncellemeye kadar, Premium’unuz yoksa yenilgiden sonra ana menüye dönerken ara sıra tam ekran reklam da çıkabilir. Banner reklam yoktur. Bir reklamı reddetmek yeni bir koşuya başlamanızı asla engellemez.
+          </p>
+          <p>
+            Tek seferlik bir satın alım olan Premium, devam hakkını reklamsız verir. Altını ikiye katlamak herkes için
+            isteğe bağlı ödüllü reklam olarak kalır; bu yüzden reklam yazılımı Premium oyuncularda da çalışır.
           </p>
           <p>
             Oyun herhangi bir reklam istemeden önce Google’ın User Messaging Platform hizmetiyle izin durumunuzu
@@ -796,7 +808,7 @@ const tr: PolicyCopy = {
               giriş yapmazsanız ilerlemeniz yalnızca cihazda tutulur.
             </li>
             <li>
-              <strong>Daha az reklam.</strong> Premium tam ekran reklamları kaldırır.
+              <strong>Reklamsız devam.</strong> Premium ile koşu başına bir devam hakkı reklam gerektirmez.
             </li>
           </ul>
           <p>Satın alma ve geri yükleme, reklam veya analitik tercihlerinize hiçbir zaman bağlı değildir.</p>

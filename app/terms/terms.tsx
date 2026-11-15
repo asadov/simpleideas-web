@@ -6,6 +6,9 @@ import { CONTACT_EMAIL } from "@/lib/site";
  * https://www.simpleideas.net/terms goes into Google Play ("App-level trader status and Terms of Service"),
  * so never move it without a 301.
  *
+ * 14 Nov 2026, game 3.1.4: no forced full-screen ad (empty interstitial ad unit IDs in MonetizationConfig.json);
+ * full-screen ads only when the player chooses a rewarded ad; Premium only gives the ad-free continue.
+ *
  * The ad, Premium and earlier-buyer rules were checked against the game source on 13 November 2026
  * (Assets/_Scripts/GameOverUI.cs, Monetization/InterstitialPolicy, AdMobAds, AppleLegacyOwnership and the
  * then uncommitted AndroidLegacyOwnership for 3.1.1). They must match the privacy policy (../privacy/policy.tsx).
@@ -20,7 +23,7 @@ import { CONTACT_EMAIL } from "@/lib/site";
 
 export type TermsLang = "en" | "tr";
 
-export const TERMS_EFFECTIVE = "2026-11-13";
+export const TERMS_EFFECTIVE = "2026-11-15";
 
 export type TermsSection = { id: string; title: string; body: ReactNode };
 export type TermsCopy = {
@@ -58,7 +61,7 @@ const en: TermsCopy = {
   title: "Almost in Orbit — Terms of Use",
   lede: "These are the rules for playing Almost in Orbit, written to be short and plain. They cover the game on iOS and Android.",
   effectiveLabel: "Effective date",
-  effectiveText: "13 November 2026",
+  effectiveText: "15 November 2026",
   scope: (
     <>
       These terms are written for version 3.1.0 and later, which is free to play. Until your game has that update,
@@ -69,7 +72,7 @@ const en: TermsCopy = {
   summaryTitle: "In short",
   summary: [
     "The game is for your own, non-commercial use. The App Store or Google Play terms also apply.",
-    "From version 3.1.0 it is free to play. Rewarded ads are optional. Without Premium, a full-screen ad may appear now and then after a defeat. There are no ads during play.",
+    "From version 3.1.0 it is free to play. From version 3.1.4 on iPhone, full-screen ads appear only when you choose to watch one: to continue a run or to double a run’s gold. On Android, until the next update, a full-screen ad may also appear now and then when you return to the main menu after a defeat, if you do not have Premium. There are no ads during play.",
     "Premium is a one-time purchase that does not expire. Gold packs are in-game currency with no cash value.",
     "Payments and refunds go through Apple or Google.",
     "Bought the paid version (3.0 or earlier)? You get Premium at no extra charge.",
@@ -89,7 +92,7 @@ const en: TermsCopy = {
           </p>
           <p>
             These terms apply when you download, install or play Almost in Orbit on iOS or Android. They take effect on
-            13 November 2026. If you do not agree with them, please do not use the game.
+            15 November 2026. If you do not agree with them, please do not use the game.
           </p>
         </>
       ),
@@ -168,13 +171,11 @@ const en: TermsCopy = {
               once in that run. If you are defeated again after continuing, you can watch an ad to double the gold from
               that run. Both are your choice. Declining never stops you from starting a new run.
             </li>
-            <li>
-              <strong>Full-screen ads.</strong> If you do not have Premium, a full-screen ad may appear from time to time
-              when you return to the main menu after a defeat. How often it appears is limited.
-            </li>
           </ul>
           <p>
-            There are no ads during play and no banner ads. How ads use data, and how to change your ad choices, is
+            From version 3.1.4 on iPhone, full-screen ads appear only when you choose to watch one, in these two
+            cases. On Android, until the next update, a full-screen ad may also appear now and then when you return to the main menu after a defeat, if you do not have Premium. There are no
+            ads during play and no banner ads. How ads use data, and how to change your ad choices, is
             explained in the <a href="/privacy#ads">privacy policy</a>.
           </p>
         </>
@@ -187,8 +188,8 @@ const en: TermsCopy = {
         <>
           <ul>
             <li>
-              <strong>Premium</strong> is a one-time purchase and does not expire. It removes the full-screen ads and
-              lets you use the one continue per run without watching an ad. It does not give unlimited lives or extra
+              <strong>Premium</strong> is a one-time purchase and does not expire. It lets you use the one
+              continue per run without watching an ad. It does not give unlimited lives or extra
               continues. Doubling the gold of a run stays an optional rewarded ad for everyone. Premium belongs to your
               App Store or Google Play account and can be restored with the same account, for example after reinstalling.
             </li>
@@ -349,7 +350,7 @@ const tr: TermsCopy = {
   ),
   lede: "Almost in Orbit’i oynamanın kuralları; kısa ve sade tutuldu. Oyunun iOS ve Android sürümlerini kapsar.",
   effectiveLabel: "Yürürlük tarihi",
-  effectiveText: "13 Kasım 2026",
+  effectiveText: "15 Kasım 2026",
   scope: (
     <>
       Bu şartlar, ücretsiz oynanan 3.1.0 ve sonraki sürümler için yazılmıştır. Oyununuz bu güncellemeyi alana
@@ -360,7 +361,7 @@ const tr: TermsCopy = {
   summaryTitle: "Kısaca",
   summary: [
     "Oyun kişisel ve ticari olmayan kullanımınız içindir. App Store veya Google Play şartları da geçerlidir.",
-    "3.1.0 sürümünden itibaren ücretsiz oynanır. Ödüllü reklamlar isteğe bağlıdır. Premium yoksa yenilgiden sonra ara sıra tam ekran reklam çıkabilir. Oyun sırasında reklam yoktur.",
+    "3.1.0 sürümünden itibaren ücretsiz oynanır. iPhone’da 3.1.4 sürümünden itibaren tam ekran reklam yalnızca siz izlemeyi seçtiğinizde çıkar: koşuya devam etmek ya da koşu altınını ikiye katlamak için. Android’de bir sonraki güncellemeye kadar, Premium’unuz yoksa yenilgiden sonra ana menüye dönerken ara sıra tam ekran reklam da çıkabilir. Oyun sırasında reklam yoktur.",
     "Premium tek seferlik bir satın alımdır, süresi dolmaz. Altın paketleri nakit değeri olmayan oyun içi paradır.",
     "Ödeme ve iadeler Apple veya Google üzerinden yürür.",
     "Oyunun ücretli sürümünü (3.0 veya öncesi) mi aldınız? Premium’u ek ücret ödemeden alırsınız.",
@@ -380,7 +381,7 @@ const tr: TermsCopy = {
           </p>
           <p>
             Bu şartlar Almost in Orbit’i iOS veya Android’de indirdiğinizde, kurduğunuzda veya oynadığınızda geçerlidir.
-            13 Kasım 2026’da yürürlüğe girer. Kabul etmiyorsanız lütfen oyunu kullanmayın.
+            15 Kasım 2026’da yürürlüğe girer. Kabul etmiyorsanız lütfen oyunu kullanmayın.
           </p>
         </>
       ),
@@ -460,13 +461,11 @@ const tr: TermsCopy = {
               altınını ikiye katlayabilirsiniz. İkisi de sizin seçiminizdir. Reddetmek yeni bir koşuya başlamanızı asla
               engellemez.
             </li>
-            <li>
-              <strong>Tam ekran reklamlar.</strong> Premium’unuz yoksa yenilgiden sonra ana menüye dönerken ara sıra tam
-              ekran reklam çıkabilir. Ne sıklıkta çıkacağı sınırlıdır.
-            </li>
           </ul>
           <p>
-            Oyun sırasında reklam ve banner reklam yoktur. Reklamların verileri nasıl kullandığı ve reklam
+            iPhone’da 3.1.4 sürümünden itibaren tam ekran reklam yalnızca siz izlemeyi seçtiğinizde, bu iki durumda
+            çıkar. Android’de bir sonraki güncellemeye kadar, Premium’unuz yoksa yenilgiden sonra ana menüye dönerken ara sıra tam ekran reklam da çıkabilir. Oyun sırasında
+            reklam ve banner reklam yoktur. Reklamların verileri nasıl kullandığı ve reklam
             tercihlerinizi nasıl değiştireceğiniz <a href="/privacy?lang=tr#ads">gizlilik politikasında</a> anlatılır.
           </p>
         </>
@@ -479,8 +478,8 @@ const tr: TermsCopy = {
         <>
           <ul>
             <li>
-              <strong>Premium</strong> tek seferlik bir satın alımdır ve süresi dolmaz. Tam ekran reklamları kaldırır ve
-              koşu başına bir devam hakkını reklam izlemeden kullanmanızı sağlar. Sınırsız can veya ek devam hakkı
+              <strong>Premium</strong> tek seferlik bir satın alımdır ve süresi dolmaz. Koşu başına bir devam
+              hakkını reklam izlemeden kullanmanızı sağlar. Sınırsız can veya ek devam hakkı
               vermez. Koşu altınını ikiye katlamak herkes için isteğe bağlı ödüllü reklam olarak kalır. Premium App
               Store veya Google Play hesabınıza aittir ve aynı hesapla, örneğin yeniden kurduktan sonra, geri
               yüklenebilir.

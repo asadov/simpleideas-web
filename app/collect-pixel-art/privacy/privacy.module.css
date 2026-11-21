@@ -175,18 +175,3 @@
 .main .box > :last-child {
   margin-bottom: 0;
 }
-
-/* ── footer ────────────────────────────────────────────── */
-.foot {
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-.foot .wrap {
-  padding-top: 16px;
-  padding-bottom: 24px;
-  padding-left: var(--frame-gutter);
-}
-.foot p {
-  margin: 0;
-}

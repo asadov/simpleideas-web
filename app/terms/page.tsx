@@ -96,7 +96,7 @@ export default async function TermsPage({ searchParams }: { searchParams: Search
           </section>
         ))}
       </main>
-      <SiteFooter variant="space" />
+      <SiteFooter variant="space" lang={lang} />
     </>
   );
 }

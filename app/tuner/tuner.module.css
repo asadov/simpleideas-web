@@ -43,7 +43,7 @@
   outline-offset: 2px;
 }
 
-/* the studio frame (globals.css): 1232 max, gutters on both sides (footer) */
+/* the studio frame (globals.css): 1232 max, centred */
 .wrap {
   width: 100%;
   max-width: var(--frame-max);
@@ -158,20 +158,6 @@
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--surface);
-}
-
-/* ── footer ────────────────────────────────────────────── */
-.foot {
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-.foot .wrap {
-  padding-top: 16px;
-  padding-bottom: 24px;
-}
-.foot p {
-  margin: 0;
 }
 
 /* ── language switch on the privacy policy ───────────── */

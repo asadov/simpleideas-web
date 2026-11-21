@@ -128,7 +128,7 @@ export default async function PrivacyPage({ searchParams }: { searchParams: Sear
           </section>
         ))}
       </main>
-      <SiteFooter variant="space" />
+      <SiteFooter variant="space" lang={lang} />
     </>
   );
 }

@@ -1,14 +1,11 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
-import { CONTACT_EMAIL } from "@/lib/site";
-import { LegalLinks } from "@/components/LegalLinks";
+import { SiteFooter } from "@/components/SiteFooter";
 import { StudioNav } from "@/components/StudioNav";
 import type { LegalLang } from "@/lib/legal";
 import styles from "./tempo.module.css";
 
-/** Studio nav (in the Tempo palette), content column and footer shared by the Tempo pages. */
+/** Studio nav (in the Tempo palette), content column and studio footer (same palette) shared by the Tempo pages. */
 export function TempoShell({ children, lang = "en" }: { children: ReactNode; lang?: LegalLang }) {
-  const tr = lang === "tr";
   return (
     <div className={styles.page} lang={lang}>
       <StudioNav variant="themed" current="/tempo" />
@@ -18,15 +15,7 @@ export function TempoShell({ children, lang = "en" }: { children: ReactNode; lan
         {children}
       </main>
 
-      <footer className={styles.foot}>
-        <div className={styles.wrap}>
-          <p>
-            © 2026 <Link href="/">Simple Ideas</Link> · <Link href={tr ? "/tempo/privacy?lang=tr" : "/tempo/privacy"}>{tr ? "Gizlilik" : "Privacy"}</Link> ·{" "}
-            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-          </p>
-          <LegalLinks lang={lang} />
-        </div>
-      </footer>
+      <SiteFooter variant="themed" privacyHref="/tempo/privacy" showTerms={false} lang={lang} />
     </div>
   );
 }

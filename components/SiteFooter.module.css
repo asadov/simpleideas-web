@@ -1,3 +1,4 @@
+/* Link rules are scoped under .footer so a host page's own `a` styles (Tempo, Tuner, policies) cannot override them. */
 .footer {
   position: relative;
   z-index: 1;
@@ -27,6 +28,19 @@
   --f-link-font: var(--font-source-sans), "Source Sans 3", system-ui, sans-serif;
   --f-fine-font: var(--font-source-sans), "Source Sans 3", system-ui, sans-serif;
   --f-link-weight: 600;
+}
+/* Pages with their own palette (Tempo, Tuner Pro Studio, the policy pages): the space footer's type,
+   coloured from the host page's --line / --text / --muted / --accent (or --link), like the nav's themed variant. */
+.themed {
+  --f-line: var(--line);
+  --f-bg: transparent;
+  --f-ink: var(--text);
+  --f-dim: var(--muted);
+  --f-hover: var(--accent, var(--link));
+  --f-brand-font: var(--disp);
+  --f-link-font: var(--mono);
+  --f-fine-font: var(--body);
+  --f-link-weight: 400;
 }
 
 .inner {
@@ -73,13 +87,13 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(6, auto); /* 10 links + cookie settings + email, two columns */
+  grid-template-rows: repeat(6, auto); /* up to 10 links + cookie settings + email, two columns */
   grid-auto-flow: column;
   gap: 4px 32px;
   justify-self: end;
   min-width: 380px;
 }
-.link {
+.footer .link {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -92,10 +106,10 @@
   text-decoration: none;
   transition: color 0.2s ease;
 }
-.link:hover {
+.footer .link:hover {
   color: var(--f-hover);
 }
-.mail {
+.footer .mail {
   text-transform: none;
   letter-spacing: 0.08em;
 }
@@ -119,14 +133,14 @@
     margin-bottom: 20px;
     justify-self: start;
   }
-  .link {
+  .footer .link {
     font-size: 11px;
   }
   .museum .link {
     font-size: 12px;
     letter-spacing: 0.12em;
   }
-  .mail {
+  .footer .mail {
     letter-spacing: 0.06em;
   }
   .fine {

@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import Link from "next/link";
-import { CONTACT_EMAIL } from "@/lib/site";
-import { LegalLinks } from "@/components/LegalLinks";
+import { SiteFooter } from "@/components/SiteFooter";
 import { StudioNav } from "@/components/StudioNav";
 import { PolicyEn } from "./PolicyEn";
 import { PolicyTr } from "./PolicyTr";
@@ -81,14 +79,7 @@ export default async function PacPrivacyPage({ searchParams }: { searchParams: S
         {lang === "tr" ? <PolicyTr /> : <PolicyEn />}
       </main>
 
-      <footer className={styles.foot}>
-        <div className={styles.wrap}>
-          <p>
-            © 2026 <Link href="/">Simple Ideas</Link> · <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-          </p>
-          <LegalLinks lang={lang} />
-        </div>
-      </footer>
+      <SiteFooter variant="themed" privacyHref={PAGE_PATH} showTerms={false} lang={lang} />
     </div>
   );
 }

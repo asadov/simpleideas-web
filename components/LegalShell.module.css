@@ -113,7 +113,7 @@
 .article p + p {
   margin-top: 12px;
 }
-.article a, .footer a {
+.article a {
   color: #075b76;
   text-underline-offset: 3px;
   overflow-wrap: anywhere;
@@ -186,26 +186,6 @@
 .tableWrap tr:last-child td {
   border-bottom: 0;
 }
-.footer {
-  max-width: var(--frame-max);
-  margin: 0 auto;
-  padding: 32px var(--frame-gutter);
-  border-top: 1px solid #d9dbd8;
-  font-size: 14px;
-  color: #536168;
-}
-.footer nav {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 24px;
-  margin-top: 12px;
-}
-.footer nav a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-}
 @media (max-width: 600px) {
   .bar { padding-block: 16px; }
   .main { padding-block: 40px 56px; }
@@ -215,5 +195,4 @@
   .article dl { grid-template-columns: 1fr; gap: 4px; padding: 20px; }
   .article dd + dt { margin-top: 12px; }
   .callout { padding: 20px; }
-  .footer { padding-block: 24px; }
 }

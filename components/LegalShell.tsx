@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
-import { CookieSettingsButton } from "./CookieNotice";
+import { SiteFooter } from "./SiteFooter";
 import { StudioNav } from "./StudioNav";
-import { CONTACT_EMAIL } from "@/lib/site";
 import { LEGAL_UPDATED, type LegalLang } from "@/lib/legal";
 import styles from "./LegalShell.module.css";
 
@@ -34,15 +33,7 @@ export function LegalShell({ children, lang, path, title, intro }: {
         </header>
         <article className={styles.article}>{children}</article>
       </main>
-      <footer className={styles.footer}>
-        <p>© 2026 Simple Ideas</p>
-        <nav aria-label={lang === "tr" ? "Gizlilik bağlantıları" : "Privacy links"}>
-          <a href={`/kvkk?lang=${lang}`}>{lang === "tr" ? "KVKK aydınlatma metni" : "Personal data notice"}</a>
-          <a href={`/cookies?lang=${lang}`}>{lang === "tr" ? "Çerez bilgileri" : "Cookie information"}</a>
-          <CookieSettingsButton lang={lang} />
-          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-        </nav>
-      </footer>
+      <SiteFooter variant="themed" lang={lang} />
     </div>
   );
 }

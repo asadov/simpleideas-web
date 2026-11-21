@@ -50,9 +50,9 @@
 }
 
 .inner {
-  max-width: 1232px;
+  max-width: var(--frame-max);
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 var(--frame-gutter);
   height: 72px;
   display: flex;
   align-items: center;

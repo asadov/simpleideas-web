@@ -143,7 +143,9 @@ export default function CollectPixelArtPage() {
 
       <StudioNav variant="museum" current="/collect-pixel-art" />
 
-      <main>
+      <main className={styles.main}>
+        <div className="spine" aria-hidden="true" />
+
         {/* ── HERO ─────────────────────────────────────────── */}
         <section className={styles.hero} aria-labelledby="cpa-title">
           <div className={styles.heroGrid}>
@@ -157,7 +159,10 @@ export default function CollectPixelArtPage() {
                 sizes="96px"
                 preload
               />
-              <p className={styles.eyebrow}>A new game from Simple Ideas</p>
+              <p className={styles.eyebrow}>
+                <span className="node" aria-hidden="true" />
+                A new game from Simple Ideas
+              </p>
               <h1 id="cpa-title" className={styles.h1}>
                 Pixel Art Collect
               </h1>
@@ -205,7 +210,10 @@ export default function CollectPixelArtPage() {
         {/* ── HOW IT PLAYS ─────────────────────────────────── */}
         <section className={styles.section} aria-labelledby="how-title">
           <div className={styles.inner}>
-            <p className={styles.eyebrow}>The game</p>
+            <p className={styles.eyebrow}>
+              <span className="node" aria-hidden="true" />
+              The game
+            </p>
             <h2 id="how-title" className={styles.h2}>
               How it plays
             </h2>
@@ -228,7 +236,10 @@ export default function CollectPixelArtPage() {
         {/* ── YOUR MUSEUM (light gallery wall) ─────────────── */}
         <section className={`${styles.section} ${styles.wall}`} aria-labelledby="museum-title">
           <div className={styles.inner}>
-            <p className={styles.eyebrow}>Your museum</p>
+            <p className={styles.eyebrow}>
+              <span className="node" aria-hidden="true" />
+              Your museum
+            </p>
             <h2 id="museum-title" className={styles.h2}>
               Build a museum of your own.
             </h2>
@@ -251,7 +262,10 @@ export default function CollectPixelArtPage() {
           <div className={styles.inner}>
             <div className={styles.collHead}>
               <div>
-                <p className={styles.eyebrow}>Renaissance to Ukiyo-e</p>
+                <p className={styles.eyebrow}>
+                  <span className="node" aria-hidden="true" />
+                  Renaissance to Ukiyo-e
+                </p>
                 <h2 id="coll-title" className={`${styles.h2} ${styles.collTitle}`}>
                   From the collection
                 </h2>

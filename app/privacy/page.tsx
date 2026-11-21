@@ -49,6 +49,7 @@ export default async function PrivacyPage({ searchParams }: { searchParams: Sear
       <div className={subStyles.nebula} aria-hidden="true" />
       <StudioNav current="/privacy" />
       <main className={subStyles.frame} lang={lang}>
+        <div className="spine" aria-hidden="true" />
         <header className={subStyles.pageHead}>
           <span className="node" aria-hidden="true" />
           <span className={subStyles.eyebrow} lang="en">{copy.eyebrow}</span>

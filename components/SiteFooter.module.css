@@ -30,17 +30,13 @@
 }
 
 .inner {
-  max-width: 1232px;
+  max-width: var(--frame-max);
   margin: 0 auto;
-  padding: 56px 40px 64px;
+  padding: 56px var(--frame-gutter) 64px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 48px;
   align-items: start;
-}
-.museum .inner {
-  max-width: 1296px;
-  padding: 56px 48px 64px;
 }
 
 .brand {
@@ -108,10 +104,9 @@
 }
 
 @media (max-width: 720px) {
-  .inner,
-  .museum .inner {
+  .inner {
     display: block;
-    padding: 44px 20px 56px;
+    padding-block: 44px 56px;
   }
   .brand,
   .museum .brand {

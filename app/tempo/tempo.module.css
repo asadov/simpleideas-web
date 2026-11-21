@@ -10,6 +10,10 @@
   --text: #f5f5f7;
   --muted: #a1a1a6;
   --accent: #ff9f0a;
+  --spine: rgba(255, 159, 10, 0.3);
+  --node: var(--accent);
+  --node-glow: rgba(255, 159, 10, 0.45);
+  --node-bg: var(--bg);
   --line: #2c2c2e;
 
   min-height: 100vh;
@@ -39,11 +43,12 @@
   outline-offset: 2px;
 }
 
+/* the studio frame (globals.css): 1232 max, gutters on both sides (footer) */
 .wrap {
   width: 100%;
-  max-width: 720px;
+  max-width: var(--frame-max);
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 var(--frame-gutter);
 }
 
 /* ── top bar ───────────────────────────────────────────── */
@@ -71,10 +76,20 @@
 }
 
 /* ── content ───────────────────────────────────────────── */
+/* content column: 96px in like every page, the spine at x=48, text no wider than the other pages' */
 .main {
+  position: relative;
   flex: 1;
-  padding-top: 32px;
-  padding-bottom: 48px;
+  padding: 88px var(--frame-gutter) 72px var(--frame-indent);
+}
+.main > :not(:global(.spine)) {
+  max-width: 760px;
+}
+@media (max-width: 720px) {
+  .main {
+    padding-top: 48px;
+    padding-bottom: 56px;
+  }
 }
 
 .main h1,

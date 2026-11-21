@@ -13,7 +13,10 @@ export function TunerShell({ children, lang = "en" }: { children: ReactNode; lan
     <div className={styles.page} lang={lang}>
       <StudioNav variant="themed" current="/tuner" />
 
-      <main className={`${styles.wrap} ${styles.main}`}>{children}</main>
+      <main className={`${styles.wrap} ${styles.main} spine-heads`}>
+        <div className="spine" aria-hidden="true" />
+        {children}
+      </main>
 
       <footer className={styles.foot}>
         <div className={styles.wrap}>

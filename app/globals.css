@@ -44,6 +44,28 @@
 
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --focus: var(--glow);
+
+  /* ── studio frame: the one column system every page uses ──
+     1232 max · content starts 96px in, 40px gutter on the right · spine at x=48.
+     The nav and the footers use the same box with the gutter on both sides. */
+  --frame-max: 1232px;
+  --frame-gutter: 40px;
+  --frame-indent: 96px;
+  --spine-x: 48px;
+
+  /* spine + node colours; each product page sets its own */
+  --spine: rgba(0, 200, 255, 0.26);
+  --node: var(--cyan);
+  --node-glow: rgba(0, 200, 255, 0.6);
+  --node-bg: var(--void);
+}
+
+/* phones: 20px on both sides, no spine */
+@media (max-width: 720px) {
+  :root {
+    --frame-gutter: 20px;
+    --frame-indent: 20px;
+  }
 }
 
 *,
@@ -124,20 +146,67 @@ button {
   z-index: -2;
 }
 
-/* ── route-spine node markers (sector-map metaphor) ────── */
-.node {
+/* ── route spine + node markers (sector-map metaphor), on every page ──
+   .spine goes inside a positioned container that is either the frame itself or full width:
+   the frame is centred in it, so the line always lands at x=48 of the frame. */
+.spine {
   position: absolute;
-  left: -53px;
+  top: 0;
+  bottom: 0;
+  left: calc(max(0px, (100% - var(--frame-max)) / 2) + var(--spine-x));
+  width: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0,
+    var(--spine) 60px,
+    var(--spine) calc(100% - 80px),
+    transparent 100%
+  );
+}
+/* a node sits on the spine, beside the block it marks (the block starts at the frame's content edge).
+   Text pages (Tempo, Tuner, the policies) add .spine-heads to their content column instead of
+   placing nodes by hand: every h1 and h2 in it then gets one. */
+.spine-heads h1,
+.spine-heads h2 {
+  position: relative;
+}
+.node,
+.spine-heads h1::before,
+.spine-heads h2::before {
+  position: absolute;
+  left: calc(var(--spine-x) - var(--frame-indent) - 5px);
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--void);
-  border: 1.5px solid var(--cyan);
-  box-shadow: 0 0 10px rgba(0, 200, 255, 0.6);
+  background: var(--node-bg);
+  border: 1.5px solid var(--node);
+  box-shadow: 0 0 10px var(--node-glow);
 }
 .node--boss {
   border-color: var(--boss);
   box-shadow: 0 0 10px rgba(214, 37, 37, 0.6);
+}
+.spine-heads h1::before,
+.spine-heads h2::before {
+  content: "";
+}
+/* centred on the first line of an h1, on the last line of an h2 (some h2s have a rule and padding above) */
+.spine-heads h1::before {
+  top: calc(0.6em - 5px);
+  top: calc(0.5lh - 5px);
+}
+.spine-heads h2::before {
+  bottom: calc(0.6em - 5px);
+  bottom: calc(0.5lh - 5px);
+}
+@media (max-width: 720px) {
+  .spine,
+  .node,
+  .spine-heads h1::before,
+  .spine-heads h2::before {
+    display: none;
+  }
 }
 
 /* ── reveal on scroll ──────────────────────────────────── */

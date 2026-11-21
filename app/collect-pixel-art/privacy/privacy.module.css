@@ -13,6 +13,11 @@
   --gold: #b99a52;
   --line: #d5c5a2;
   --focus: var(--gold);
+  /* studio spine in the museum's gold */
+  --spine: rgba(185, 154, 82, 0.45);
+  --node: var(--gold);
+  --node-glow: rgba(185, 154, 82, 0.35);
+  --node-bg: var(--bg);
 
   min-height: 100vh;
   min-height: 100dvh;
@@ -57,11 +62,12 @@
   text-underline-offset: 2px;
 }
 
+/* the studio frame (globals.css): 1232 max · content 96px in · spine at x=48 */
 .wrap {
   width: 100%;
-  max-width: 760px;
+  max-width: var(--frame-max);
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 var(--frame-gutter) 0 var(--frame-indent);
 }
 
 /* ── top bar ───────────────────────────────────────────── */
@@ -107,9 +113,19 @@
 
 /* ── policy text ───────────────────────────────────────── */
 .main {
+  position: relative;
   flex: 1;
-  padding-top: 28px;
-  padding-bottom: 40px;
+  padding-top: 56px;
+  padding-bottom: 72px;
+}
+.main > :not(:global(.spine)) {
+  max-width: 760px;
+}
+@media (max-width: 720px) {
+  .main {
+    padding-top: 32px;
+    padding-bottom: 56px;
+  }
 }
 
 .main h1,
@@ -169,6 +185,7 @@
 .foot .wrap {
   padding-top: 16px;
   padding-bottom: 24px;
+  padding-left: var(--frame-gutter);
 }
 .foot p {
   margin: 0;

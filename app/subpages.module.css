@@ -9,29 +9,14 @@
     radial-gradient(40% 28% at 8% 60%, rgba(120, 84, 255, 0.055), transparent 70%);
 }
 
-/* same spine container as the home page: 1232 max · 96px left pad · spine at x=48 */
+/* the studio frame (globals.css): 1232 max · content 96px in · spine at x=48 (a global .spine inside) */
 .frame {
   position: relative;
   z-index: 1;
-  max-width: 1232px;
+  max-width: var(--frame-max);
   margin: 0 auto;
-  padding: 0 40px 72px 96px;
+  padding: 0 var(--frame-gutter) 72px var(--frame-indent);
   line-height: 1.7;
-}
-.frame::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 48px;
-  width: 1px;
-  background: linear-gradient(
-    180deg,
-    transparent 0,
-    rgba(0, 200, 255, 0.26) 60px,
-    rgba(0, 200, 255, 0.26) calc(100% - 80px),
-    transparent 100%
-  );
 }
 
 .pageHead {
@@ -105,6 +90,10 @@
 .btn:hover {
   background: var(--glow);
 }
+/* the same 20px under the button as on every product page */
+.btn + p {
+  margin-top: 20px;
+}
 
 /* ── sections ─────────────────────────────────────────── */
 .section {
@@ -148,12 +137,7 @@
 
 @media (max-width: 720px) {
   .frame {
-    padding: 0 20px 56px;
-  }
-  .frame::before,
-  .pageHead :global(.node),
-  .section :global(.node) {
-    display: none;
+    padding-bottom: 56px;
   }
   .pageHead {
     padding: 48px 0 16px;

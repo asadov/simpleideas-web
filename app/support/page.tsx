@@ -23,6 +23,7 @@ export default function SupportPage() {
       <div className={subStyles.nebula} aria-hidden="true" />
       <StudioNav current="/support" />
       <main className={subStyles.frame}>
+        <div className="spine" aria-hidden="true" />
         <header className={subStyles.pageHead}>
           <span className="node" aria-hidden="true" />
           <span className={subStyles.eyebrow}>Support</span>

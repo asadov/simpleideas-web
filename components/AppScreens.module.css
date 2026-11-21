@@ -10,13 +10,14 @@
   grid-auto-flow: column;
   gap: 16px;
   /* the -12px bottom margin gives back the scrollbar room, so captions sit 40px above the next heading */
-  margin: 32px -16px -12px;
-  padding: 4px 16px 12px;
+  /* bleeds into the page gutters (20px on phones, the studio frame) so screens scroll edge to edge */
+  margin: 32px calc(-1 * var(--frame-gutter)) -12px calc(-1 * var(--frame-indent));
+  padding: 4px var(--frame-gutter) 12px var(--frame-indent);
   list-style: none;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  scroll-padding: 0 16px;
+  scroll-padding: 0 var(--frame-gutter) 0 var(--frame-indent);
   scrollbar-width: thin;
   scrollbar-color: var(--line) transparent;
 }

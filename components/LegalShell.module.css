@@ -5,16 +5,22 @@
   --muted: #55636b;
   --line: #d9dbd8;
   --accent: #11657b;
+  /* studio spine in the policy pages' teal */
+  --spine: rgba(17, 101, 123, 0.3);
+  --node: #11657b;
+  --node-glow: rgba(17, 101, 123, 0.3);
+  --node-bg: #f5f3ee;
   min-height: 100vh;
   background: #f5f3ee;
   color: #283039;
   font-family: var(--body);
   --focus: #11657b;
 }
+/* the studio frame (globals.css): 1232 max · content 96px in · spine at x=48 */
 .bar {
-  max-width: 1040px;
+  max-width: var(--frame-max);
   margin: 0 auto;
-  padding: 24px 32px;
+  padding: 24px var(--frame-gutter);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -47,9 +53,13 @@
   font-weight: 700;
 }
 .main {
-  max-width: 900px;
+  position: relative;
+  max-width: var(--frame-max);
   margin: 0 auto;
-  padding: 64px 32px 80px;
+  padding: 64px var(--frame-gutter) 80px var(--frame-indent);
+}
+.main > :not(:global(.spine)) {
+  max-width: 836px;
 }
 .heading {
   margin-bottom: 48px;
@@ -177,9 +187,9 @@
   border-bottom: 0;
 }
 .footer {
-  max-width: 1040px;
+  max-width: var(--frame-max);
   margin: 0 auto;
-  padding: 32px;
+  padding: 32px var(--frame-gutter);
   border-top: 1px solid #d9dbd8;
   font-size: 14px;
   color: #536168;
@@ -197,13 +207,13 @@
   min-height: 44px;
 }
 @media (max-width: 600px) {
-  .bar { padding: 16px 20px; }
-  .main { padding: 40px 20px 56px; }
+  .bar { padding-block: 16px; }
+  .main { padding-block: 40px 56px; }
   .heading { margin-bottom: 32px; }
   .intro { font-size: 17px; }
   .article h2 { font-size: 22px; }
   .article dl { grid-template-columns: 1fr; gap: 4px; padding: 20px; }
   .article dd + dt { margin-top: 12px; }
   .callout { padding: 20px; }
-  .footer { padding: 24px 20px; }
+  .footer { padding-block: 24px; }
 }

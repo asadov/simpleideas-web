@@ -49,6 +49,7 @@ export default async function TermsPage({ searchParams }: { searchParams: Search
       <div className={subStyles.nebula} aria-hidden="true" />
       <StudioNav current={PAGE_PATH} />
       <main className={subStyles.frame} lang={lang}>
+        <div className="spine" aria-hidden="true" />
         <header className={subStyles.pageHead}>
           <span className="node" aria-hidden="true" />
           <span className={subStyles.eyebrow} lang="en">{copy.eyebrow}</span>

@@ -21,7 +21,8 @@ export function LegalShell({ children, lang, path, title, intro }: {
           <a href={`${path}?lang=en`} lang="en" hrefLang="en" aria-current={lang === "en" ? "page" : undefined}>EN</a>
         </nav>
       </header>
-      <main className={styles.main}>
+      <main className={`${styles.main} spine-heads`}>
+        <div className="spine" aria-hidden="true" />
         <header className={styles.heading}>
           <p className={styles.eyebrow}>{lang === "tr" ? "Gizlilik ve verileriniz" : "Privacy and your data"}</p>
           <h1>{title}</h1>

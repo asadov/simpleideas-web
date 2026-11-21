@@ -10,28 +10,13 @@
     radial-gradient(30% 20% at 90% 62%, rgba(252, 211, 77, 0.035), transparent 70%);
 }
 
-/* ── route-spine container (1232 max · 96px left pad · spine at x=48) ── */
+/* ── the studio frame (globals.css): 1232 max · content 96px in · spine at x=48 ── */
 .main {
   position: relative;
   z-index: 1;
-  max-width: 1232px;
+  max-width: var(--frame-max);
   margin: 0 auto;
-  padding: 0 40px 0 96px;
-}
-.spine {
-  position: absolute;
-  left: 48px;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    transparent 0,
-    rgba(0, 200, 255, 0.26) 60px,
-    rgba(0, 200, 255, 0.26) calc(100% - 80px),
-    transparent 100%
-  );
+  padding: 0 var(--frame-gutter) 0 var(--frame-indent);
 }
 
 /* node dots: 10px, 1.5px cyan stroke, glow — centred on the spine at the eyebrow midline */
@@ -542,10 +527,6 @@
 
 /* ── phone (designed at 390) ──────────────────────────── */
 @media (max-width: 720px) {
-  .main {
-    padding: 0 20px;
-  }
-  .spine,
   .pill .node {
     display: none;
   }

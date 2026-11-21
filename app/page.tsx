@@ -188,7 +188,7 @@ export default function Home() {
       <StudioNav current="/" />
 
       <main className={styles.main}>
-        <div className={styles.spine} aria-hidden="true" />
+        <div className="spine" aria-hidden="true" />
 
         {/* ── HERO ─────────────────────────────────────────── */}
         <section className={styles.hero} aria-labelledby="hero-title">

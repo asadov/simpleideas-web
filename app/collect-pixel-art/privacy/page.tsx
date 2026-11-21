@@ -76,7 +76,10 @@ export default async function PacPrivacyPage({ searchParams }: { searchParams: S
         </div>
       </header>
 
-      <main className={`${styles.wrap} ${styles.main}`}>{lang === "tr" ? <PolicyTr /> : <PolicyEn />}</main>
+      <main className={`${styles.wrap} ${styles.main} spine-heads`}>
+        <div className="spine" aria-hidden="true" />
+        {lang === "tr" ? <PolicyTr /> : <PolicyEn />}
+      </main>
 
       <footer className={styles.foot}>
         <div className={styles.wrap}>

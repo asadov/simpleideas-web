@@ -22,6 +22,7 @@ export default function PressPage() {
       <div className={subStyles.nebula} aria-hidden="true" />
       <StudioNav current="/press" />
       <main className={subStyles.frame}>
+        <div className="spine" aria-hidden="true" />
         <header className={styles.pageHead}>
           <span className="node" aria-hidden="true" />
           <span className={subStyles.eyebrow}>Press kit · updated November 14, 2026</span>

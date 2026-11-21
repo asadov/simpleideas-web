@@ -1,5 +1,6 @@
 /* Link rules are scoped under .header so a host page's own `a` styles (Tempo, Tuner, policies) cannot override them. */
 .header {
+  --nav-link-pad: 14px;
   position: relative;
   z-index: 2;
   border-bottom: 1px solid var(--nav-line);
@@ -71,6 +72,8 @@
   font-size: 15px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .mark {
   display: inline-flex;
@@ -87,7 +90,7 @@
   align-items: center;
   gap: 8px;
   min-height: 44px;
-  padding: 0 14px;
+  padding: 0 var(--nav-link-pad);
   color: var(--nav-dim);
   text-decoration: none;
   font-family: var(--nav-link-font);
@@ -119,20 +122,33 @@
   font-weight: 500;
 }
 
-/* Tablets and phones: brand on its own row, links in one row that scrolls sideways
-   (six links never fit; wrapping them took four rows and pushed the page below the fold). */
-@media (max-width: 900px) {
+/* Narrow laptops: brand and links on one row need about 1180px at full spacing;
+   with the links a little closer the row still fits down to 1121px. */
+@media (min-width: 1121px) and (max-width: 1200px) {
+  .header {
+    --nav-link-pad: 10px;
+    --nav-link-track: 0.14em;
+  }
+  .nav {
+    gap: 0;
+  }
+}
+
+/* Smaller laptops, tablets and phones: brand on its own row, links in one row that scrolls sideways
+   when it does not fit (wrapping them took four rows and pushed the page below the fold).
+   Both rows start at the frame gutter, like the footer and the desktop bar. */
+@media (max-width: 1120px) {
   .inner {
     max-width: none;
     height: auto;
-    padding: 6px 20px 0;
+    padding: 6px var(--frame-gutter) 0;
     display: block;
   }
   .nav {
     position: relative;
     gap: 0;
-    margin: 0 -20px;
-    padding: 0 20px 0 10px;
+    margin: 0 calc(-1 * var(--frame-gutter));
+    padding: 0 var(--frame-gutter) 0 calc(var(--frame-gutter) - var(--nav-link-pad));
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scrollbar-width: none;
@@ -153,9 +169,11 @@
     width: 16px;
     height: 16px;
   }
+  .header {
+    --nav-link-pad: 10px;
+  }
   .header .link {
     gap: 6px;
-    padding: 0 10px;
     font-size: 11px;
     letter-spacing: 0.14em;
   }

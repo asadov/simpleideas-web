@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/share";
 import type { ReactNode } from "react";
 import { CONTACT_EMAIL } from "@/lib/site";
 import type { LegalLang } from "@/lib/legal";
@@ -130,6 +131,7 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
       canonical: URLS[lang],
       languages: { en: URLS.en, tr: URLS.tr, "x-default": URLS.en },
     },
+    ...shareMetadata({ card: "tuner", title: COPY[lang].metaTitle, description: COPY[lang].metaDescription, url: URLS[lang], lang }),
   };
 }
 

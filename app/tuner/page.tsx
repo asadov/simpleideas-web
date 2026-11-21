@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/share";
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { AppScreens, type AppScreen } from "@/components/AppScreens";
@@ -36,11 +37,15 @@ const SCREENS: AppScreen[] = [
 
 const SUPPORT_MAIL = `mailto:${CONTACT_EMAIL}?subject=Tuner%20Pro%20Studio%20%E2%80%94%20support`;
 
+const TITLE = "Tuner Pro Studio — Chromatic and guitar tuner for iPhone";
+const DESCRIPTION =
+  "A precise chromatic and guitar tuner for iPhone and iPad. Works offline; your microphone audio is never recorded. Coming soon to the App Store.";
+
 export const metadata: Metadata = {
-  title: "Tuner Pro Studio — Chromatic and guitar tuner for iPhone",
-  description:
-    "A precise chromatic and guitar tuner for iPhone and iPad. Works offline; your microphone audio is never recorded. Coming soon to the App Store.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "https://www.simpleideas.net/tuner" },
+  ...shareMetadata({ card: "tuner", title: TITLE, description: DESCRIPTION, url: "https://www.simpleideas.net/tuner" }),
 };
 
 export default function TunerPage() {

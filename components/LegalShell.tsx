@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { DocumentLang } from "./DocumentLang";
 import { SiteFooter } from "./SiteFooter";
 import { StudioNav } from "./StudioNav";
 import { LEGAL_UPDATED, type LegalLang } from "@/lib/legal";
@@ -13,6 +14,7 @@ export function LegalShell({ children, lang, path, title, intro }: {
 }) {
   return (
     <div className={styles.page} lang={lang}>
+      <DocumentLang lang={lang} />
       <StudioNav variant="themed" current={path} />
       <header className={styles.bar}>
         <nav className={styles.languages} aria-label="Dil / Language">

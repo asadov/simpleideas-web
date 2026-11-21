@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/share";
 import { Starfield } from "@/components/Starfield";
 import { StudioNav } from "@/components/StudioNav";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -8,11 +9,15 @@ import { CONTACT_EMAIL, TRAILER } from "@/lib/site";
 import subStyles from "../subpages.module.css";
 import styles from "./press.module.css";
 
+const TITLE = "Press kit — Almost in Orbit";
+const DESCRIPTION =
+  "Press kit for Almost in Orbit: factsheet, descriptions, trailer, screenshots and media contact. A free-to-play roguelite space shooter for iPhone and Android by Simple Ideas.";
+
 export const metadata: Metadata = {
-  title: "Press kit — Almost in Orbit",
-  description:
-    "Press kit for Almost in Orbit: factsheet, descriptions, trailer, screenshots and media contact. A free-to-play roguelite space shooter for iPhone and Android by Simple Ideas.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "/press" },
+  ...shareMetadata({ card: "aio", title: TITLE, description: DESCRIPTION, url: "https://www.simpleideas.net/press" }),
 };
 
 export default function PressPage() {

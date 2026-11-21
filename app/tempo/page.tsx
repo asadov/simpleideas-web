@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/share";
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { AppScreens, type AppScreen } from "@/components/AppScreens";
@@ -34,10 +35,15 @@ const SCREENS: AppScreen[] = [
  * Support URL and Marketing URL in App Store Connect: never move it without a 301.
  */
 
+const TITLE = "Tempo — Haptic metronome for Apple Watch";
+const DESCRIPTION =
+  "Tempo taps the beat on your wrist. A metronome for Apple Watch with tap tempo and odd time signatures. Coming soon to the App Store.";
+
 export const metadata: Metadata = {
-  title: "Tempo — Haptic metronome for Apple Watch",
-  description: "Tempo taps the beat on your wrist. A metronome for Apple Watch with tap tempo and odd time signatures. Coming soon to the App Store.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "https://www.simpleideas.net/tempo" },
+  ...shareMetadata({ card: "tempo", title: TITLE, description: DESCRIPTION, url: "https://www.simpleideas.net/tempo" }),
 };
 
 export default function TempoPage() {

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/share";
 import { Starfield } from "@/components/Starfield";
 import { StudioNav } from "@/components/StudioNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { DocumentLang } from "@/components/DocumentLang";
 import { POLICY, POLICY_UPDATED, type PolicyLang } from "./policy";
 import subStyles from "../subpages.module.css";
 import styles from "./privacy.module.css";
@@ -36,6 +38,7 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
       canonical: URLS[lang],
       languages: { en: URLS.en, tr: URLS.tr, "x-default": URLS.en },
     },
+    ...shareMetadata({ card: "aio", title: copy.metaTitle, description: copy.metaDescription, url: URLS[lang], lang }),
   };
 }
 
@@ -49,6 +52,7 @@ export default async function PrivacyPage({ searchParams }: { searchParams: Sear
       <div className={subStyles.nebula} aria-hidden="true" />
       <StudioNav current="/privacy" />
       <main className={subStyles.frame} lang={lang}>
+        <DocumentLang lang={lang} />
         <div className="spine" aria-hidden="true" />
         <header className={subStyles.pageHead}>
           <span className="node" aria-hidden="true" />

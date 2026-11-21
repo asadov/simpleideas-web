@@ -7,7 +7,6 @@ import subStyles from "./subpages.module.css";
 
 export const metadata: Metadata = {
   title: "Page not found · Simple Ideas",
-  robots: { index: false },
 };
 
 /** Shown for any address that does not exist, in the site's own style instead of the bare framework page. */

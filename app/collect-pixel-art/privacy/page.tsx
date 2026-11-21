@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { shareMetadata } from "@/lib/share";
+import { DocumentLang } from "@/components/DocumentLang";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StudioNav } from "@/components/StudioNav";
 import { PolicyEn } from "./PolicyEn";
@@ -36,7 +38,8 @@ const COPY = {
 } as const;
 
 export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
-  const copy = COPY[await readLang(searchParams)];
+  const lang = await readLang(searchParams);
+  const copy = COPY[lang];
   return {
     title: copy.title,
     description: copy.description,
@@ -44,6 +47,7 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
       canonical: copy.url,
       languages: { en: COPY.en.url, tr: COPY.tr.url, "x-default": COPY.en.url },
     },
+    ...shareMetadata({ card: "cpa", title: copy.title, description: copy.description, url: copy.url, lang }),
   };
 }
 
@@ -59,6 +63,7 @@ export default async function PacPrivacyPage({ searchParams }: { searchParams: S
 
   return (
     <div className={styles.page} lang={lang}>
+      <DocumentLang lang={lang} />
       <StudioNav variant="themed" current="/collect-pixel-art" />
       <header className={styles.bar}>
         <div className={styles.wrap}>

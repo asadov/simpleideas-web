@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shareMetadata } from "@/lib/share";
 import Link from "next/link";
 import { Starfield } from "@/components/Starfield";
 import { StudioNav } from "@/components/StudioNav";
@@ -7,10 +8,14 @@ import { CONTACT_EMAIL } from "@/lib/site";
 import subStyles from "../subpages.module.css";
 import styles from "./support.module.css";
 
+const TITLE = "Support — Almost in Orbit";
+const DESCRIPTION = "Support for Almost in Orbit. One inbox, one human, fast answers.";
+
 export const metadata: Metadata = {
-  title: "Support — Almost in Orbit",
-  description: "Support for Almost in Orbit. One inbox, one human, fast answers.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "/support" },
+  ...shareMetadata({ card: "aio", title: TITLE, description: DESCRIPTION, url: "https://www.simpleideas.net/support" }),
 };
 
 /* The Almost in Orbit game opens this page (MonetizationConfig supportUrl), so it stays about that game first. */

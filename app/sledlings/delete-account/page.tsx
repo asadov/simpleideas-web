@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/site";
 import type { LegalLang } from "@/lib/legal";
@@ -9,11 +8,10 @@ import styles from "../sledlings.module.css";
 /*
  * Sledlings: Kart Rush account deletion page. Google Play asks for this address ("Delete account URL" in Data
  * safety): never move it without a 301. It names the game and the developer as on the store listing, gives the
- * steps in the game and by email, and says what is deleted and what is not. English is the default; `?lang=tr`
- * serves Turkish. Keep it in line with the privacy policy (../privacy/page.tsx), section "deleting".
- *
- * TODO before launch: the in-game Delete account button does not exist yet. Replace the marked step with its real
- * path, in both languages.
+ * steps in the game (Settings › Services › Privacy & data › Delete account, labels as in build 0.16.0) and by email,
+ * and says what is
+ * deleted and what is not. English is the default; `?lang=tr` serves Turkish. Keep it in line with the privacy
+ * policy (../privacy/page.tsx), sections "deleting" and "analytics".
  */
 
 const PAGE_PATH = "/sledlings/delete-account";
@@ -24,16 +22,14 @@ const mailFor = (lang: LegalLang) => (
   <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(SUBJECT[lang])}`}>{CONTACT_EMAIL}</a>
 );
 
-/** A step that is not decided yet: visibly marked so it cannot be missed before launch. */
-function ToConfirm({ children }: { children: ReactNode }) {
-  return <mark className={styles.todo}>{children}</mark>;
-}
+/* In-game labels, as the game shows them (in English: the game is English only). */
+const en = (text: string) => <strong lang="en">{text}</strong>;
 
 const COPY: Record<LegalLang, LegalCopy> = {
   en: {
     metaTitle: "Delete your account · Sledlings: Kart Rush",
     metaDescription:
-      "How to delete your Sledlings: Kart Rush player account and its data, in the game or by email, and what is deleted.",
+      "How to delete your Sledlings: Kart Rush player account and its data, in the game (Settings › Services › Privacy & data › Delete account) or by email, and what is deleted.",
     title: "Delete your account",
     meta: (
       <>
@@ -48,11 +44,9 @@ const COPY: Record<LegalLang, LegalCopy> = {
     ),
     summaryLabel: "In short",
     summary: [
-      <>
-        In the game: open the Online page, then <ToConfirm>[to confirm: the Delete account button]</ToConfirm>.
-      </>,
-      <>By email: write to {mailFor("en")} with your friend code.</>,
-      "Deleting removes your Unity player account, your friends list, your cloud save and your linked sign-ins.",
+      <>In the game: {en("Settings › Services › Privacy & data › Delete account")}.</>,
+      <>By email: write to {mailFor("en")} with your display name and friend code.</>,
+      "Deleting removes your Unity player account, your friends list with its requests and blocks, your cloud save with your public profile, and any linked sign-ins. Your single-player progress on the device stays.",
     ],
     contentsLabel: "On this page",
     sections: [
@@ -62,16 +56,16 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <>
             <ol className={styles.steps}>
-              <li>Open Sledlings: Kart Rush and tap Online on the home screen.</li>
+              <li>Open Sledlings: Kart Rush, go to {en("Settings")} and open the {en("Services")} tab.</li>
+              <li>Under {en("Privacy & data")}, tap {en("Delete account")}.</li>
               <li>
-                <ToConfirm>[To confirm: where the Delete account button is, for example Profile &amp; name ›
-                Delete account]</ToConfirm>
+                The game asks {en("Delete online account?")} Tap {en("Delete account")} to confirm. When it is done,
+                the game shows {en("Account deleted")}.
               </li>
-              <li>Confirm that you want to delete your account.</li>
             </ol>
             <p>
-              If you have never opened the Online page, you have no player account: nothing has left your device, and
-              there is nothing for us to delete.
+              If you have never opened the Online page or Save Progress, you have no player account to delete: the game
+              then says there is no signed-in online account on the device.
             </p>
           </>
         ),
@@ -98,28 +92,30 @@ const COPY: Record<LegalLang, LegalCopy> = {
         title: "What is deleted, and what is not",
         body: (
           <>
-            <h3>Deleted</h3>
+            <h3>Deleted with your account</h3>
             <ul>
               <li>Your Unity player account, with your display name and friend code</li>
-              <li>Your friends list</li>
-              <li>Your cloud save</li>
-              <li>Your linked sign-ins</li>
+              <li>Your friends list, with its friend requests and the players you blocked</li>
+              <li>Your cloud save, with your public profile (display name, rider, sled and costumes)</li>
+              <li>Any linked sign-ins</li>
             </ul>
-            <h3>Not affected</h3>
+            <h3>Not deleted with your account</h3>
             <ul>
-              <li>Progress saved on your device. It never reaches us; deleting the game removes it from your device.</li>
               <li>
-                Your Apple, Google, Game Center or Google Play Games account itself. Only its link to the game is
-                removed.
+                Your single-player progress on the device. It stays on your device; deleting the game removes it from
+                the device.
               </li>
+              <li>
+                Gameplay analytics. To have Unity delete it, turn off{" "}
+                {en("Settings › Services › Privacy & data › Share play data")}. Otherwise Unity keeps it for 13 months.
+              </li>
+              <li>Crash reports. They are kept for 90 days.</li>
               <li>
                 Emails you exchange with us, which are handled as described in the{" "}
                 <a href="/kvkk?lang=en#processing">personal data notice (KVKK)</a>.
               </li>
             </ul>
-            <p>
-              We do not keep a copy of the deleted data. A deleted account cannot be restored.
-            </p>
+            <p>A deleted account cannot be restored.</p>
           </>
         ),
       },
@@ -138,7 +134,7 @@ const COPY: Record<LegalLang, LegalCopy> = {
   tr: {
     metaTitle: "Hesabınızı silin · Sledlings: Kart Rush",
     metaDescription:
-      "Sledlings: Kart Rush oyuncu hesabınızı ve verilerini oyunda veya e-postayla nasıl silersiniz ve neler silinir.",
+      "Sledlings: Kart Rush oyuncu hesabınızı ve verilerini oyunda (Settings › Services › Privacy & data › Delete account) veya e-postayla nasıl silersiniz ve neler silinir.",
     title: "Hesabınızı silin",
     meta: (
       <>
@@ -149,17 +145,15 @@ const COPY: Record<LegalLang, LegalCopy> = {
     intro: (
       <>
         Bu sayfa, Simple Ideas’ın yayımladığı <span lang="en">Sledlings: Kart Rush</span> oyunundaki oyuncu hesabınızı
-        ve ona bağlı verileri nasıl sileceğinizi anlatır. Bunu oyunda veya e-postayla yapabilirsiniz.
+        ve ona bağlı verileri nasıl sileceğinizi anlatır. Bunu oyunda veya e-postayla yapabilirsiniz. Oyun İngilizce
+        olduğu için oyundaki adları İngilizce yazıyoruz.
       </>
     ),
     summaryLabel: "Kısaca",
     summary: [
-      <>
-        Oyunda: Online sayfasını açın, ardından{" "}
-        <ToConfirm>[netleşecek: Hesabı sil (Delete account) düğmesi]</ToConfirm>.
-      </>,
-      <>E-postayla: arkadaş kodunuzla birlikte {mailFor("tr")} adresine yazın.</>,
-      "Silme işlemi Unity oyuncu hesabınızı, arkadaş listenizi, bulut kaydınızı ve bağlı girişlerinizi kaldırır.",
+      <>Oyunda: {en("Settings › Services › Privacy & data › Delete account")}.</>,
+      <>E-postayla: görünen adınız ve arkadaş kodunuzla birlikte {mailFor("tr")} adresine yazın.</>,
+      "Silme işlemi Unity oyuncu hesabınızı, istekleri ve engellemeleriyle birlikte arkadaş listenizi, herkese açık profilinizle birlikte bulut kaydınızı ve bağlı girişleri kaldırır. Cihazdaki tek oyunculu ilerlemeniz kalır.",
     ],
     contentsLabel: "Bu sayfada",
     sections: [
@@ -170,17 +164,20 @@ const COPY: Record<LegalLang, LegalCopy> = {
           <>
             <ol className={styles.steps}>
               <li>
-                <span lang="en">Sledlings: Kart Rush</span>’ı açın ve ana ekranda <span lang="en">Online</span>’a
-                dokunun.
+                <span lang="en">Sledlings: Kart Rush</span>’ı açın, {en("Settings")} bölümüne gidin ve{" "}
+                {en("Services")} sekmesini açın.
               </li>
               <li>
-                <ToConfirm>[Netleşecek: Hesabı sil düğmesinin yeri, örneğin Profile &amp; name › Delete account]</ToConfirm>
+                {en("Privacy & data")} altında {en("Delete account")} seçeneğine dokunun.
               </li>
-              <li>Hesabınızı silmek istediğinizi onaylayın.</li>
+              <li>
+                Oyun {en("Delete online account?")} diye sorar. Onaylamak için {en("Delete account")} düğmesine
+                dokunun. İşlem bitince oyun {en("Account deleted")} gösterir.
+              </li>
             </ol>
             <p>
-              Online sayfasını hiç açmadıysanız oyuncu hesabınız yoktur: cihazınızdan hiçbir şey çıkmamıştır ve
-              silmemiz gereken bir şey yoktur.
+              Online sayfasını veya <span lang="en">Save Progress</span> düğmesini hiç açmadıysanız silinecek bir
+              oyuncu hesabınız yoktur; oyun bu durumda cihazda oturum açılmış çevrim içi hesap olmadığını söyler.
             </p>
           </>
         ),
@@ -207,28 +204,27 @@ const COPY: Record<LegalLang, LegalCopy> = {
         title: "Neler silinir, neler silinmez",
         body: (
           <>
-            <h3>Silinir</h3>
+            <h3>Hesabınızla birlikte silinenler</h3>
             <ul>
               <li>Görünen adınız ve arkadaş kodunuzla birlikte Unity oyuncu hesabınız</li>
-              <li>Arkadaş listeniz</li>
-              <li>Bulut kaydınız</li>
+              <li>Arkadaşlık istekleri ve engellediğiniz oyuncularla birlikte arkadaş listeniz</li>
+              <li>Herkese açık profilinizle (görünen ad, karakter, kızak ve kostümler) birlikte bulut kaydınız</li>
               <li>Bağlı girişleriniz</li>
             </ul>
-            <h3>Etkilenmez</h3>
+            <h3>Hesabınızla birlikte silinmeyenler</h3>
             <ul>
-              <li>Cihazınızda saklanan ilerleme. Bize hiç ulaşmaz; oyunu sildiğinizde cihazınızdan da silinir.</li>
+              <li>Cihazdaki tek oyunculu ilerlemeniz. Cihazınızda kalır; oyunu sildiğinizde cihazdan da silinir.</li>
               <li>
-                Apple, Google, Game Center veya Google Play Games hesabınızın kendisi. Yalnızca oyunla bağlantısı
-                kaldırılır.
+                Oyun analitiği. Unity’nin silmesi için {en("Settings › Services › Privacy & data › Share play data")}{" "}
+                anahtarını kapatın. Aksi halde Unity bunları 13 ay saklar.
               </li>
+              <li>Çökme raporları. 90 gün saklanır.</li>
               <li>
                 Bizimle yaptığınız e-posta yazışmaları;{" "}
                 <a href="/kvkk?lang=tr#processing">KVKK aydınlatma metninde</a> açıklandığı şekilde işlenir.
               </li>
             </ul>
-            <p>
-              Silinen verilerin bir kopyasını tutmayız. Silinen bir hesap geri getirilemez.
-            </p>
+            <p>Silinen bir hesap geri getirilemez.</p>
           </>
         ),
       },

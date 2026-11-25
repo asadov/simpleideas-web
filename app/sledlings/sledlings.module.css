@@ -347,13 +347,3 @@
   line-height: 26px;
   text-align: center;
 }
-
-/* a detail still to be decided before launch (the in-game deletion path): impossible to miss */
-.todo {
-  padding: 1px 6px;
-  border: 1px dashed #ffcf5a;
-  border-radius: 6px;
-  background: rgba(255, 207, 90, 0.12);
-  color: #ffcf5a;
-  font-weight: 600;
-}

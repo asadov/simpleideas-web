@@ -211,9 +211,8 @@ const COPY: Record<LegalLang, LegalCopy> = {
         title: "Your progress",
         body: (
           <p>
-            Your progress is saved on your device. If you save it online, a copy is kept with your player account in
-            Unity Cloud Save. Without that copy, your progress can be lost if you delete the game, clear its data or
-            lose your device, and we cannot recover it.
+            Your progress is saved on your device only. It can be lost if you delete the game, clear its data or lose
+            your device, and we cannot recover it.
           </p>
         ),
       },
@@ -233,7 +232,8 @@ const COPY: Record<LegalLang, LegalCopy> = {
         title: "Deleting your account and ending these terms",
         body: (
           <p>
-            You can stop playing at any time. You can delete your online account in the game or by email; see{" "}
+            You can stop playing at any time. You can delete your online account in the game at Settings › Services ›
+            Privacy &amp; data › Delete account, or by email; see{" "}
             <Link href="/sledlings/delete-account">how to delete your account</Link>. If you break these terms, your
             licence ends, and we may suspend or delete your online account.
           </p>
@@ -491,9 +491,8 @@ const COPY: Record<LegalLang, LegalCopy> = {
         title: "İlerlemeniz",
         body: (
           <p>
-            İlerlemeniz cihazınızda saklanır. Çevrim içi kaydederseniz bir kopyası oyuncu hesabınızla birlikte Unity
-            Cloud Save’de tutulur. Bu kopya yoksa oyunu silerseniz, verilerini temizlerseniz veya cihazınızı
-            kaybederseniz ilerlemeniz kaybolabilir ve onu geri getiremeyiz.
+            İlerlemeniz yalnızca cihazınızda saklanır. Oyunu silerseniz, verilerini temizlerseniz veya cihazınızı
+            kaybederseniz kaybolabilir ve onu geri getiremeyiz.
           </p>
         ),
       },
@@ -514,7 +513,9 @@ const COPY: Record<LegalLang, LegalCopy> = {
         title: "Hesabınızı silmek ve şartların sona ermesi",
         body: (
           <p>
-            İstediğiniz zaman oynamayı bırakabilirsiniz. Çevrim içi hesabınızı oyunda veya e-postayla silebilirsiniz;
+            İstediğiniz zaman oynamayı bırakabilirsiniz. Çevrim içi hesabınızı oyunda{" "}
+            <span lang="en">Settings › Services › Privacy &amp; data › Delete account</span> yolundan veya e-postayla
+            silebilirsiniz;
             bkz. <Link href="/sledlings/delete-account?lang=tr">hesabınızı nasıl silersiniz</Link>. Bu şartları ihlal
             ederseniz lisansınız sona erer; çevrim içi hesabınızı askıya alabilir veya silebiliriz.
           </p>

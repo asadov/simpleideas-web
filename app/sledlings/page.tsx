@@ -216,18 +216,20 @@ export default function SledlingsPage() {
       </p>
       <h3>Do I need an account?</h3>
       <p>
-        Not to play alone: your progress is saved on your device. Racing friends online starts when you open the Online
-        page, which gives you an anonymous player account.
+        No. Playing alone needs no account: your progress is saved on your device. Racing friends online needs no
+        sign-up either: when you open the Online page, the game gives you an anonymous player account.
       </p>
       <h3>Can I chat with other players?</h3>
       <p>There is no chat. In a room you can send four fixed phrases and emotes, nothing typed.</p>
       <h3>How do I delete my account?</h3>
       <p>
-        In the game or by email. The steps are on the <Link href="/sledlings/delete-account">account deletion page</Link>.
+        In the game at Settings › Services › Privacy &amp; data › Delete account, or by email. The steps are on the{" "}
+        <Link href="/sledlings/delete-account">account deletion page</Link>.
       </p>
       <h3>What data does the game collect?</h3>
       <p>
-        Nothing while you play alone. What happens when you go online is explained in the{" "}
+        Gameplay analytics without names or codes, which you can turn off in Settings, and crash reports. Online play
+        uses an anonymous player account. No ads and no tracking. The details are in the{" "}
         <Link href="/sledlings/privacy">privacy policy</Link>.
       </p>
       <h3>Something is not working</h3>

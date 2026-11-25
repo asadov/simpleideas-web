@@ -226,6 +226,11 @@ const COPY: Record<LegalLang, LegalCopy> = {
                 Linking will be optional. There is no sign-in with an email address.
               </li>
               <li>
+                <strong>A private cloud backup of your progress</strong> for players who link a sign-in: one backup
+                per account, kept with Unity, so you can restore your progress on another device. Other players will not be able to read it.
+                If the progress on your device and the backup differ, the game will ask you which one to keep.
+              </li>
+              <li>
                 <strong>Purchases.</strong> Costumes will be sold through the App Store and Google Play. Apple or
                 Google handles the payment; the game never sees your payment details.
               </li>
@@ -529,6 +534,11 @@ const COPY: Record<LegalLang, LegalCopy> = {
                 <strong>Zaten kullandığınız bir girişi bağlamak:</strong> Apple ile Giriş Yap, Google, Game Center veya
                 Google Play Games. Oyun o sağlayıcıdan sizin için bir tanımlayıcı alacak, şifrenizi asla almayacak.
                 Bağlamak isteğe bağlı olacak. E-posta adresiyle giriş yoktur.
+              </li>
+              <li>
+                <strong>İlerlemenizin buluttaki özel yedeği:</strong> giriş bağlayan oyuncular için, hesap başına bir
+                yedek. Unity’de tutulacak ve ilerlemenizi başka bir cihazda geri yüklemenizi sağlayacak. Diğer oyuncular
+                okuyamayacak. Cihazınızdaki ilerleme ile yedek farklıysa oyun hangisini tutacağınızı soracak.
               </li>
               <li>
                 <strong>Satın almalar.</strong> Kostümler App Store ve Google Play üzerinden satılacak. Ödemeyi Apple

@@ -11,7 +11,9 @@ import styles from "../sledlings.module.css";
  * steps in the game (Settings › Services › Privacy & data › Delete account, labels as in build 0.16.0) and by email,
  * and says what is
  * deleted and what is not. English is the default; `?lang=tr` serves Turkish. Keep it in line with the privacy
- * policy (../privacy/page.tsx), sections "deleting" and "analytics".
+ * policy (../privacy/page.tsx), sections "deleting", "analytics" and "test-0160".
+ * From 0.16.1 Delete account also switches Share play data off and requests Analytics deletion (UgsTelemetry
+ * DeleteAccountPlayData, retried at next launch); 0.16.0 does not, which the note under the lists says.
  */
 
 const PAGE_PATH = "/sledlings/delete-account";
@@ -46,7 +48,7 @@ const COPY: Record<LegalLang, LegalCopy> = {
     summary: [
       <>In the game: {en("Settings › Services › Privacy & data › Delete account")}.</>,
       <>By email: write to {mailFor("en")} with your display name and friend code.</>,
-      "Deleting removes your Unity player account, your friends list with its requests and blocks, your cloud save with your public profile, and any linked sign-ins. Your single-player progress on the device stays.",
+      "Deleting removes your Unity player account, your friends list with its requests and blocks, your cloud save with your public profile and any linked sign-ins, and asks Unity to delete your gameplay analytics. Your single-player progress on the device stays.",
     ],
     contentsLabel: "On this page",
     sections: [
@@ -98,16 +100,16 @@ const COPY: Record<LegalLang, LegalCopy> = {
               <li>Your friends list, with its friend requests and the players you blocked</li>
               <li>Your cloud save, with your public profile (display name, rider, sled and costumes)</li>
               <li>Any linked sign-ins</li>
+              <li>
+                Your gameplay analytics: the game switches off {en("Share play data")} and asks Unity to delete the
+                data. If the request cannot be sent, the game tries again the next time it starts.
+              </li>
             </ul>
             <h3>Not deleted with your account</h3>
             <ul>
               <li>
                 Your single-player progress on the device. It stays on your device; deleting the game removes it from
                 the device.
-              </li>
-              <li>
-                Gameplay analytics. To have Unity delete it, turn off{" "}
-                {en("Settings › Services › Privacy & data › Share play data")}. Otherwise Unity keeps it for 13 months.
               </li>
               <li>Crash reports. They are kept for 90 days.</li>
               <li>
@@ -116,6 +118,10 @@ const COPY: Record<LegalLang, LegalCopy> = {
               </li>
             </ul>
             <p>A deleted account cannot be restored.</p>
+            <p>
+              In the test version 0.16.0, deleting the account does not delete your gameplay analytics. To have Unity
+              delete it there, turn off {en("Settings › Services › Privacy & data › Share play data")}.
+            </p>
           </>
         ),
       },
@@ -153,7 +159,7 @@ const COPY: Record<LegalLang, LegalCopy> = {
     summary: [
       <>Oyunda: {en("Settings › Services › Privacy & data › Delete account")}.</>,
       <>E-postayla: görünen adınız ve arkadaş kodunuzla birlikte {mailFor("tr")} adresine yazın.</>,
-      "Silme işlemi Unity oyuncu hesabınızı, istekleri ve engellemeleriyle birlikte arkadaş listenizi, herkese açık profilinizle birlikte bulut kaydınızı ve bağlı girişleri kaldırır. Cihazdaki tek oyunculu ilerlemeniz kalır.",
+      "Silme işlemi Unity oyuncu hesabınızı, istekleri ve engellemeleriyle birlikte arkadaş listenizi, herkese açık profilinizle birlikte bulut kaydınızı ve bağlı girişleri kaldırır, ayrıca Unity’den oyun analitiğinizin silinmesini ister. Cihazdaki tek oyunculu ilerlemeniz kalır.",
     ],
     contentsLabel: "Bu sayfada",
     sections: [
@@ -210,14 +216,14 @@ const COPY: Record<LegalLang, LegalCopy> = {
               <li>Arkadaşlık istekleri ve engellediğiniz oyuncularla birlikte arkadaş listeniz</li>
               <li>Herkese açık profilinizle (görünen ad, karakter, kızak ve kostümler) birlikte bulut kaydınız</li>
               <li>Bağlı girişleriniz</li>
+              <li>
+                Oyun analitiğiniz: oyun {en("Share play data")} anahtarını kapatır ve Unity’den verilerin silinmesini
+                ister. İstek gönderilemezse oyun bir sonraki açılışta yeniden dener.
+              </li>
             </ul>
             <h3>Hesabınızla birlikte silinmeyenler</h3>
             <ul>
               <li>Cihazdaki tek oyunculu ilerlemeniz. Cihazınızda kalır; oyunu sildiğinizde cihazdan da silinir.</li>
-              <li>
-                Oyun analitiği. Unity’nin silmesi için {en("Settings › Services › Privacy & data › Share play data")}{" "}
-                anahtarını kapatın. Aksi halde Unity bunları 13 ay saklar.
-              </li>
               <li>Çökme raporları. 90 gün saklanır.</li>
               <li>
                 Bizimle yaptığınız e-posta yazışmaları;{" "}
@@ -225,6 +231,10 @@ const COPY: Record<LegalLang, LegalCopy> = {
               </li>
             </ul>
             <p>Silinen bir hesap geri getirilemez.</p>
+            <p>
+              Test sürümü 0.16.0’da hesabı silmek oyun analitiğinizi silmez. Orada Unity’nin silmesi için{" "}
+              {en("Settings › Services › Privacy & data › Share play data")} anahtarını kapatın.
+            </p>
           </>
         ),
       },

@@ -21,6 +21,12 @@ import styles from "../sledlings.module.css";
  * automatically; presence Online / In a room / Racing / Offline; Analytics sends a device id (IDFV on iOS,
  * Android-ID-based on Android) and Unity's standard device details; region = device region setting, unknown = off.
  *
+ * 0.16.1 (iOS 46, Android 44), checked in code (gpt/maps 54fd952b): Delete account switches sharing off and requests
+ * Analytics deletion (retried at next launch); consent card when the device region OR the store country is in the
+ * list, or neither is known; engine statistics off (submitAnalytics 0). Diagnostics: owner's decision is "on" for
+ * test builds (store build open), so crash reports stay described as sent. Section "test-0160" lists how the
+ * TestFlight build 0.16.0 differs; drop it when 0.16.0 is gone.
+ *
  * Unity's role, from the owner's Unity Developer Data settings (25 November 2026, reported by the game session):
  * Essential and Additional Recommended Data on; Unity may use the data, aggregated with other developers', for its
  * own benchmarks, insights, models and products and recommendations to us, as an independent controller under
@@ -89,8 +95,8 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <p>
             You can play without an account. Your progress is saved on your device. If you never open the Online page
-            and play data sharing is off, the game sends no gameplay data. Crash reports and Unity’s technical
-            statistics are still sent; see <a href="#crashes">crash reports and technical data</a>.
+            and play data sharing is off, the game sends no gameplay data. Crash reports are still sent; see{" "}
+            <a href="#crashes">crash reports and technical data</a>.
           </p>
         ),
       },
@@ -161,10 +167,10 @@ const COPY: Record<LegalLang, LegalCopy> = {
               operating system, language setting and hardware. Unity keeps analytics data for 13 months.
             </p>
             <p>
-              <strong>Your choice.</strong> If your device’s region setting is in the European Economic Area, the
-              United Kingdom, Switzerland, China or Türkiye, the game asks you when you open it, and sends no analytics
-              before you choose. If the game cannot tell the region, sharing starts off. Elsewhere, sharing is on by
-              default. Every player can change it at{" "}
+              <strong>Your choice.</strong> If your device’s region setting or your App Store or Google Play country is
+              in the European Economic Area, the United Kingdom, Switzerland, China or Türkiye, or if the game cannot
+              tell either, the game asks you when you open it, and sends no analytics before you choose. Elsewhere,
+              sharing is on by default. Every player can change it at{" "}
               <strong>{SHARE_PATH}</strong>. Turning it off stops the collection and asks Unity to delete your
               analytics data.
             </p>
@@ -177,9 +183,9 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <p>
             The game sends crash and error reports to Unity Diagnostics, with an installation ID, so we can find and
-            fix problems. They are kept for 90 days. Unity’s engine and services software also send Unity technical
-            statistics about the device and about how Unity’s software runs. There is no switch for these in the game,
-            and the Share play data choice does not cover them.
+            fix problems. They are kept for 90 days. When Unity’s online services start, Unity’s services software may
+            also send Unity technical data about how it runs. There is no switch for these in the game, and the Share
+            play data choice does not cover them.
           </p>
         ),
       },
@@ -281,14 +287,36 @@ const COPY: Record<LegalLang, LegalCopy> = {
             <p>
               To delete your account, open <strong>{DELETE_PATH}</strong> in the game, or email us. This removes your
               Unity player account, your friends list with its requests and blocks, your cloud save with your public
-              profile, and any linked sign-ins. Your single-player progress on the device stays. The steps are on
-              the{" "}
+              profile, and any linked sign-ins. It also switches off Share play data and asks Unity to delete your
+              analytics data; if that request cannot be sent, the game tries again the next time it starts. Your
+              single-player progress on the device stays. The steps are on the{" "}
               <Link href="/sledlings/delete-account">account deletion page</Link>.
             </p>
             <p>
-              To have your analytics data deleted, turn off <strong>Share play data</strong> (see{" "}
-              <a href="#analytics">gameplay analytics</a>).
+              To have your analytics data deleted without deleting your account, turn off{" "}
+              <strong>Share play data</strong> (see <a href="#analytics">gameplay analytics</a>).
             </p>
+          </>
+        ),
+      },
+      {
+        id: "test-0160",
+        title: "If you test version 0.16.0",
+        body: (
+          <>
+            <p>The test version 0.16.0 (TestFlight and Android test builds) differs in three ways:</p>
+            <ul>
+              <li>
+                It asks about play data only when your device’s region setting is in one of the places listed above;
+                if it cannot tell the region, sharing starts off without asking.
+              </li>
+              <li>
+                Deleting your account does not delete your analytics data. Turn off <strong>Share play data</strong>{" "}
+                for that.
+              </li>
+              <li>The Unity engine also sends Unity usage statistics about the device.</li>
+            </ul>
+            <p>Updating to a later version removes these differences.</p>
           </>
         ),
       },
@@ -373,8 +401,8 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <p>
             Hesap olmadan oynayabilirsiniz. İlerlemeniz cihazınızda saklanır. Online sayfasını hiç açmazsanız ve oyun
-            verisi paylaşımı kapalıysa oyun hiçbir oyun verisi göndermez. Çökme raporları ve Unity’nin teknik
-            istatistikleri yine de gönderilir; bkz. <a href="#crashes">çökme raporları ve teknik veriler</a>.
+            verisi paylaşımı kapalıysa oyun hiçbir oyun verisi göndermez. Çökme raporları yine de gönderilir; bkz.{" "}
+            <a href="#crashes">çökme raporları ve teknik veriler</a>.
           </p>
         ),
       },
@@ -445,9 +473,10 @@ const COPY: Record<LegalLang, LegalCopy> = {
               gibi teknik bilgilerini toplar. Unity analitik verilerini 13 ay saklar.
             </p>
             <p>
-              <strong>Seçim sizin.</strong> Cihazınızın bölge ayarı Avrupa Ekonomik Alanı, Birleşik Krallık, İsviçre,
-              Çin veya Türkiye ise oyun açılışta size sorar ve siz seçmeden analitik verisi göndermez. Oyun bölgeyi
-              anlayamazsa paylaşım kapalı başlar. Diğer bölgelerde paylaşım varsayılan olarak açıktır. Her oyuncu bunu <strong lang="en">{SHARE_PATH}</strong> yolundan
+              <strong>Seçim sizin.</strong> Cihazınızın bölge ayarı ya da App Store veya Google Play ülkeniz Avrupa
+              Ekonomik Alanı, Birleşik Krallık, İsviçre, Çin veya Türkiye ise ya da oyun ikisini de anlayamazsa, oyun
+              açılışta size sorar ve siz seçmeden analitik verisi göndermez. Diğer bölgelerde paylaşım varsayılan olarak
+              açıktır. Her oyuncu bunu <strong lang="en">{SHARE_PATH}</strong> yolundan
               değiştirebilir. Kapattığınızda toplama durur ve oyun Unity’den analitik verilerinizin silinmesini ister.
             </p>
           </>
@@ -459,9 +488,9 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <p>
             Oyun, sorunları bulup düzeltebilmemiz için çökme ve hata raporlarını bir kurulum kimliğiyle birlikte Unity
-            Diagnostics’e gönderir. Raporlar 90 gün saklanır. Unity’nin motor ve hizmet yazılımı da Unity’ye cihaz ve
-            Unity yazılımının nasıl çalıştığı hakkında teknik istatistikler gönderir. Oyunda bunlar için bir anahtar
-            yoktur ve <span lang="en">Share play data</span> seçimi bunları kapsamaz.
+            Diagnostics’e gönderir. Raporlar 90 gün saklanır. Unity’nin çevrim içi hizmetleri başladığında Unity’nin
+            hizmet yazılımı da Unity’ye kendi çalışmasıyla ilgili teknik veriler gönderebilir. Oyunda bunlar için bir
+            anahtar yoktur ve <span lang="en">Share play data</span> seçimi bunları kapsamaz.
           </p>
         ),
       },
@@ -564,13 +593,37 @@ const COPY: Record<LegalLang, LegalCopy> = {
             <p>
               Hesabınızı silmek için oyunda <strong lang="en">{DELETE_PATH}</strong> yolunu açın ya da bize e-posta
               gönderin. Bu, Unity oyuncu hesabınızı, istekleri ve engellemeleriyle birlikte arkadaş listenizi,
-              herkese açık profilinizle birlikte bulut kaydınızı ve bağlı girişleri kaldırır. Cihazdaki tek oyunculu ilerlemeniz kalır. Adımlar{" "}
-              <Link href="/sledlings/delete-account?lang=tr">hesap silme sayfasında</Link>.
+              herkese açık profilinizle birlikte bulut kaydınızı ve bağlı girişleri kaldırır. Ayrıca{" "}
+              <span lang="en">Share play data</span> anahtarını kapatır ve Unity’den analitik verilerinizin silinmesini
+              ister; bu istek gönderilemezse oyun bir sonraki açılışta yeniden dener. Cihazdaki tek oyunculu ilerlemeniz
+              kalır. Adımlar <Link href="/sledlings/delete-account?lang=tr">hesap silme sayfasında</Link>.
             </p>
             <p>
-              Analitik verilerinizin silinmesi için <strong lang="en">Share play data</strong> anahtarını kapatın (bkz.{" "}
+              Hesabınızı silmeden analitik verilerinizin silinmesi için{" "}
+              <strong lang="en">Share play data</strong> anahtarını kapatın (bkz.{" "}
               <a href="#analytics">oyun analitiği</a>).
             </p>
+          </>
+        ),
+      },
+      {
+        id: "test-0160",
+        title: "0.16.0 sürümünü test ediyorsanız",
+        body: (
+          <>
+            <p>Test sürümü 0.16.0 (TestFlight ve Android test derlemeleri) üç noktada farklıdır:</p>
+            <ul>
+              <li>
+                Oyun verisi paylaşımını yalnızca cihazınızın bölge ayarı yukarıdaki yerlerden biriyse sorar; bölgeyi
+                anlayamazsa paylaşım sormadan kapalı başlar.
+              </li>
+              <li>
+                Hesabınızı silmek analitik verilerinizi silmez. Bunun için <strong lang="en">Share play data</strong>{" "}
+                anahtarını kapatın.
+              </li>
+              <li>Unity motoru, Unity’ye cihazla ilgili kullanım istatistikleri de gönderir.</li>
+            </ul>
+            <p>Daha yeni bir sürüme güncellediğinizde bu farklar ortadan kalkar.</p>
           </>
         ),
       },

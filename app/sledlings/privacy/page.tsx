@@ -20,6 +20,11 @@ import styles from "../sledlings.module.css";
  * Settings › Services › Save Progress and resumed at each launch; Cloud Save holds only a public "profile" written
  * automatically; presence Online / In a room / Racing / Offline; Analytics sends a device id (IDFV on iOS,
  * Android-ID-based on Android) and Unity's standard device details; region = device region setting, unknown = off.
+ *
+ * Unity's role, from the owner's Unity Developer Data settings (25 November 2026, reported by the game session):
+ * Essential and Additional Recommended Data on; Unity may use the data, aggregated with other developers', for its
+ * own benchmarks, insights, models and products and recommendations to us, as an independent controller under
+ * Unity's controller-to-controller data protection terms; Unity support access off; no advertising products.
  */
 
 const PAGE_PATH = "/sledlings/privacy";
@@ -233,8 +238,8 @@ const COPY: Record<LegalLang, LegalCopy> = {
             <ul>
               <li>
                 <strong>Unity Technologies</strong> runs the online features (the player account, friends, rooms and
-                Cloud Save), Unity Analytics and Unity Diagnostics. See the{" "}
-                <a href={LINKS.unity}>Unity privacy policy for game players</a>.
+                Cloud Save), Unity Analytics and Unity Diagnostics. For these services Unity handles data on our behalf,
+                as our processor. See the <a href={LINKS.unity}>Unity privacy policy for game players</a>.
               </li>
               <li>
                 <strong>Apple</strong> runs the App Store, and Sign in with Apple and Game Center once linking comes.
@@ -246,6 +251,19 @@ const COPY: Record<LegalLang, LegalCopy> = {
               </li>
             </ul>
             <p>Each of them handles data under its own privacy policy.</p>
+            <h3>Unity’s own use of the data</h3>
+            <p>
+              In Unity’s settings for the game, we have turned on Unity’s essential data and its additional recommended
+              data. The additional data adds session details and data about how Unity’s engine runs on the device.
+            </p>
+            <p>
+              Unity may also use the game’s data, aggregated and combined with data from other developers, for
+              anonymised benchmarks and industry insights, to improve its own models and products, and to give us
+              recommendations. For these uses Unity is an independent controller, responsible for them under its own
+              privacy policy and the data protection terms we have agreed with Unity. Unity’s support staff have no
+              access to the game’s data, and no advertising products have access to it. The game still shows no ads
+              and uses no advertising identifier.
+            </p>
           </>
         ),
       },
@@ -502,7 +520,8 @@ const COPY: Record<LegalLang, LegalCopy> = {
             <ul>
               <li>
                 <strong>Unity Technologies</strong> çevrim içi özellikleri (oyuncu hesabı, arkadaşlar, odalar ve Cloud
-                Save), Unity Analytics’i ve Unity Diagnostics’i çalıştırır. Bkz.{" "}
+                Save), Unity Analytics’i ve Unity Diagnostics’i çalıştırır. Bu hizmetler için Unity verileri bizim
+                adımıza, veri işleyen olarak işler. Bkz.{" "}
                 <a href={LINKS.unity}>Unity’nin oyunculara yönelik gizlilik politikası</a>.
               </li>
               <li>
@@ -515,6 +534,19 @@ const COPY: Record<LegalLang, LegalCopy> = {
               </li>
             </ul>
             <p>Her biri verileri kendi gizlilik politikasına göre işler.</p>
+            <h3>Unity’nin verileri kendi amaçlarıyla kullanması</h3>
+            <p>
+              Oyunun Unity ayarlarında Unity’nin temel verilerini ve ek önerilen verilerini açtık. Ek veriler, oturum
+              ayrıntılarını ve Unity motorunun cihazda nasıl çalıştığına ilişkin verileri kapsar.
+            </p>
+            <p>
+              Unity, oyunun verilerini toplu hâlde ve diğer geliştiricilerin verileriyle birleştirerek anonimleştirilmiş
+              karşılaştırmalar ve sektör analizleri için, kendi modellerini ve ürünlerini geliştirmek için ve bize
+              öneriler sunmak için de kullanabilir. Bu kullanımlarda Unity ayrı bir veri sorumlusudur; bunlardan kendi
+              gizlilik politikasına ve Unity ile kabul ettiğimiz veri koruma şartlarına göre sorumludur. Unity’nin destek
+              ekibinin oyunun verilerine erişimi yoktur; hiçbir reklam ürününün de erişimi yoktur. Oyun hâlâ reklam
+              göstermez ve reklam tanımlayıcısı kullanmaz.
+            </p>
           </>
         ),
       },

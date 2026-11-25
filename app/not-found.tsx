@@ -43,6 +43,10 @@ export default function NotFound() {
               <Link href="/collect-pixel-art/privacy">privacy policy</Link>
             </li>
             <li>
+              <Link href="/sledlings">Sledlings: Kart Rush</Link> · <Link href="/sledlings/privacy">privacy policy</Link>{" "}
+              · <Link href="/sledlings/terms">terms</Link> · <Link href="/sledlings/delete-account">delete your account</Link>
+            </li>
+            <li>
               <Link href="/tempo">Tempo</Link> · <Link href="/tempo/privacy">privacy policy</Link>
             </li>
             <li>

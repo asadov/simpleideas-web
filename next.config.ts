@@ -16,6 +16,10 @@ const ALIASES = [
   { source: "/pixel-art-collect/privacy", destination: "/collect-pixel-art/privacy" },
   { source: "/tuner-pro-studio", destination: "/tuner" },
   { source: "/tuner-pro-studio/privacy", destination: "/tuner/privacy" },
+  { source: "/sledlings-kart-rush", destination: "/sledlings" },
+  { source: "/sledlings-kart-rush/privacy", destination: "/sledlings/privacy" },
+  { source: "/sledlings-kart-rush/terms", destination: "/sledlings/terms" },
+  { source: "/sledlings-kart-rush/delete-account", destination: "/sledlings/delete-account" },
 ];
 
 /*

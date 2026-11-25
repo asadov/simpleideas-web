@@ -380,6 +380,46 @@
   color: var(--m-bg);
 }
 
+/* ── 03 · Sledlings teaser: the same card in the game's winter-night palette ── */
+.teaser + .teaser {
+  margin-top: 24px;
+}
+.sled {
+  --m-bg: #0d1530;
+  --m-line: #2a3860;
+  --m-ink: #f2f6fc;
+  --m-dim: #a3b1cc;
+  --m-gold: #8fd3ff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.sled .teaserTitle,
+.sled .chip,
+.sled .gbtn {
+  font-family: inherit;
+}
+.sled .teaserTitle {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.sled .teaserLede {
+  font-size: 19px;
+}
+.sledArt {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: 440px;
+  justify-self: center;
+}
+.sledArt img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--m-line);
+  border-radius: 10px;
+}
+
 /* ── 04 · press band ──────────────────────────────────── */
 .pressBand {
   display: flex;

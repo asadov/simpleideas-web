@@ -122,12 +122,13 @@
   font-weight: 500;
 }
 
-/* Narrow laptops: brand and links on one row need about 1180px at full spacing;
-   with the links a little closer the row still fits down to 1121px. */
-@media (min-width: 1121px) and (max-width: 1200px) {
+/* Laptops and wider: brand and all seven links on one row. The frame's content is never wider than 1152px,
+   and with seven links the row only fits it with the links a little closer (9px each side, 0.12em tracking,
+   about 955px of links): from about 1210px up. Below that the bar stacks (next rule). */
+@media (min-width: 1221px) {
   .header {
-    --nav-link-pad: 10px;
-    --nav-link-track: 0.14em;
+    --nav-link-pad: 9px;
+    --nav-link-track: 0.12em;
   }
   .nav {
     gap: 0;
@@ -137,7 +138,7 @@
 /* Smaller laptops, tablets and phones: brand on its own row, links in one row that scrolls sideways
    when it does not fit (wrapping them took four rows and pushed the page below the fold).
    Both rows start at the frame gutter, like the footer and the desktop bar. */
-@media (max-width: 1120px) {
+@media (max-width: 1220px) {
   .inner {
     max-width: none;
     height: auto;

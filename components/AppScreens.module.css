@@ -26,7 +26,8 @@
 .watch {
   grid-auto-columns: 40%;
 }
-.phone {
+.phone,
+.phone169 {
   grid-auto-columns: 56%;
 }
 
@@ -64,6 +65,14 @@
 }
 .phone .img {
   border-radius: 13% / 6%;
+}
+
+/* 9:16 screens are a little less tall: the same corner, in proportion */
+.phone169 .frame {
+  border-radius: 15% / 8.5%;
+}
+.phone169 .img {
+  border-radius: 13% / 7.3%;
 }
 
 .cap {

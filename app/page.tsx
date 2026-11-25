@@ -174,6 +174,9 @@ const CREW = [
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
+/* One course from four of Sledlings' five worlds: snow, city, candy, volcano. */
+const SLED_COURSES = ["pine-valley", "neon-sprint", "cupcake-creek", "pumice-pass"] as const;
+
 export default function Home() {
   return (
     <>
@@ -333,6 +336,41 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          {/* Sledlings: in the game's own winter-night palette, like Pixel Art Collect in its museum one */}
+          <div className={`${styles.teaser} ${styles.sled}`} data-reveal>
+            <div className={styles.sledArt} aria-hidden="true">
+              {SLED_COURSES.map((course) => (
+                <Image
+                  key={course}
+                  src={`/sledlings/courses/${course}.png`}
+                  alt=""
+                  width={384}
+                  height={256}
+                  sizes="(max-width: 720px) 44vw, 215px"
+                />
+              ))}
+            </div>
+
+            <div className={styles.teaserCopy}>
+              <Image
+                className={styles.teaserIcon}
+                src="/sledlings/icon.jpg"
+                alt="Sledlings: Kart Rush app icon"
+                width={512}
+                height={512}
+                sizes="72px"
+              />
+              <h3 className={styles.teaserTitle}>Sledlings: Kart Rush</h3>
+              <p className={styles.teaserLede}>A kart and sled racer for iPhone and Android, with seven cute animal riders.</p>
+              <span className={styles.chip}>Coming soon</span>
+              <div>
+                <Link href="/sledlings" className={styles.gbtn}>
+                  Take a look <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* ── 04 · PRESS ───────────────────────────────────── */}
@@ -374,7 +412,8 @@ export default function Home() {
             </p>
             <p data-reveal>
               Almost in Orbit is the studio&apos;s first title: designed, coded, balanced and launched by the same pair
-              of hands. Pixel Art Collect is a puzzle game about restoring paintings.
+              of hands. Pixel Art Collect is a puzzle game about restoring paintings, and Sledlings: Kart Rush, a kart
+              and sled racer, is coming soon.
             </p>
             <a className={styles.mail} href={`mailto:${CONTACT_EMAIL}`}>
               {CONTACT_EMAIL}

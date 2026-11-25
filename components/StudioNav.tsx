@@ -5,6 +5,8 @@ import styles from "./StudioNav.module.css";
 const LINKS = [
   { href: "/", label: "Almost in Orbit" },
   { href: "/collect-pixel-art", label: "Pixel Art Collect" },
+  // "Soon" until the game is live on the App Store and Google Play; remove the chip on launch day.
+  { href: "/sledlings", label: "Sledlings", chip: "Soon" },
   // "Soon" until the app is live on the App Store; remove the chip on launch day.
   { href: "/tempo", label: "Tempo", chip: "Soon" },
   { href: "/tuner", label: "Tuner Pro Studio", chip: "Soon" },

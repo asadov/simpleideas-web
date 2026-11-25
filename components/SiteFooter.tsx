@@ -18,6 +18,7 @@ type FooterLink = {
 const LINKS: FooterLink[] = [
   { href: "/", label: "Almost in Orbit" },
   { href: "/collect-pixel-art", label: "Pixel Art Collect" },
+  { href: "/sledlings", label: "Sledlings" },
   { href: "/tempo", label: "Tempo" },
   { href: "/tuner", label: "Tuner Pro Studio" },
   { href: "/press", label: { en: "Press kit", tr: "Basın kiti" } },
@@ -39,22 +40,25 @@ const FINE: Record<LegalLang, string> = {
  * themed (pages with their own palette: Tempo, Tuner Pro Studio, the policies; coloured from the host page's
  * --line / --text / --muted / --accent or --link, like the nav's themed variant).
  * `privacyHref`: each game has its own policy, so the "Privacy" link follows the page's game.
- * `showTerms`: the terms of use (/terms) are Almost in Orbit's only; pages of other games hide the link.
+ * `showTerms` / `termsHref`: games with terms of their own point the "Terms" link at them (Almost in Orbit at /terms,
+ * Sledlings at /sledlings/terms); pages of products without terms hide the link.
  * `lang`: Turkish pages get Turkish labels, and links to pages with a Turkish version open that version.
  */
 export function SiteFooter({
   variant = "space",
   privacyHref = "/privacy",
+  termsHref = "/terms",
   showTerms = true,
   lang = "en",
 }: {
   variant?: "space" | "museum" | "themed";
   privacyHref?: string;
+  termsHref?: string;
   showTerms?: boolean;
   lang?: LegalLang;
 }) {
   const hrefFor = (link: FooterLink) => {
-    const base = link.href === "/privacy" ? privacyHref : link.href;
+    const base = link.href === "/privacy" ? privacyHref : link.href === "/terms" ? termsHref : link.href;
     if (link.plain) return `${base}?lang=${lang}`;
     return link.localized && lang === "tr" ? `${base}?lang=tr` : base;
   };

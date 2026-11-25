@@ -1,0 +1,359 @@
+/*
+ * Sledlings: Kart Rush: game page, privacy policy, terms of service and account deletion page.
+ * Built like the Tempo and Tuner Pro Studio pages (system fonts, own colours, the studio frame and spine),
+ * in the game's winter-night palette: deep navy with the icy sky blue of the app icon.
+ */
+
+.page {
+  --bg: #0d1530;
+  --surface: #16213f;
+  --text: #f2f6fc;
+  --muted: #a3b1cc;
+  --accent: #8fd3ff;
+  --spine: rgba(143, 211, 255, 0.3);
+  --node: var(--accent);
+  --node-glow: rgba(143, 211, 255, 0.45);
+  --node-bg: var(--bg);
+  --line: #2a3860;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-wrap: break-word;
+  color-scheme: dark;
+}
+
+/* the site's body colour would otherwise show in iOS overscroll */
+:global(body):has(.page) {
+  background: #0d1530;
+}
+
+.page a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.page a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* the studio frame (globals.css): 1232 max, centred */
+.wrap {
+  width: 100%;
+  max-width: var(--frame-max);
+  margin: 0 auto;
+  padding: 0 var(--frame-gutter);
+}
+
+/* ── content ───────────────────────────────────────────── */
+/* content column: 96px in like every page, the spine at x=48, text no wider than the other pages' */
+.main {
+  position: relative;
+  flex: 1;
+  padding: 88px var(--frame-gutter) 72px var(--frame-indent);
+}
+.main > :not(:global(.spine)) {
+  max-width: 760px;
+}
+@media (max-width: 720px) {
+  .main {
+    padding-top: 48px;
+    padding-bottom: 56px;
+  }
+}
+
+.main h1,
+.main h2,
+.main h3 {
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.main h1 {
+  margin: 0 0 8px;
+  font-size: 2.4rem;
+}
+.main h2 {
+  margin: 40px 0 12px;
+  font-size: 1.35rem;
+}
+.main h3 {
+  margin: 24px 0 4px;
+  font-size: 1.05rem;
+}
+.main p {
+  margin: 0 0 12px;
+}
+.main ul,
+.main ol {
+  margin: 0 0 12px;
+  padding-left: 1.25em;
+}
+.main li {
+  margin-bottom: 6px;
+}
+
+/* the game's icon above the kicker on the game page */
+.icon {
+  display: block;
+  width: 88px;
+  height: 88px;
+  margin: 0 0 20px;
+  border-radius: 22%;
+  box-shadow: 0 10px 28px -12px rgba(0, 0, 0, 0.8);
+}
+@media (max-width: 720px) {
+  .icon {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 16px;
+  }
+}
+
+.kicker {
+  margin: 0 0 4px;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.lede {
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+/* block-level so its margins are exact: the same 20px above (after the lede) and below (before the note) */
+.page .button {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  min-height: 44px;
+  margin: 20px 0;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #06102a;
+  font-weight: 600;
+  text-decoration: none;
+}
+.meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.box {
+  margin: 24px 0;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.box > :last-child {
+  margin-bottom: 0;
+}
+.box h2 {
+  margin-top: 0;
+}
+
+/* the legal pages, side by side under the game page's support button */
+.main .legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+  font-size: 0.95rem;
+}
+.main .legal li {
+  margin: 0;
+}
+
+/* two menu screens: as wide as two screens of a full row of four (760 − 3 × 16 gap) / 4 = 178 */
+@media (min-width: 720px) {
+  .main .pair {
+    max-width: calc(2 * 178px + 16px);
+  }
+}
+
+/* ── courses ───────────────────────────────────────────── */
+.main .courses {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px 16px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.main .courses li {
+  margin: 0;
+}
+@media (max-width: 720px) {
+  .main .courses {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 12px;
+  }
+}
+.course {
+  margin: 0;
+}
+.courseImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.courseCap {
+  margin-top: 8px;
+  line-height: 1.35;
+}
+.courseName {
+  display: block;
+  font-weight: 600;
+}
+.courseKind {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ── the Adventure road: its four emblems, sunrise to nightfall ── */
+.main .road {
+  display: grid;
+  grid-template-columns: repeat(4, 88px);
+  gap: 16px 24px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.main .road li {
+  margin: 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.roadImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 6px;
+}
+/* phones: the four emblems stay on one row */
+@media (max-width: 720px) {
+  .main .road {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .main .road li {
+    font-size: 0.8rem;
+  }
+}
+
+/* ── legal pages ───────────────────────────────────────── */
+.languages {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+.languages a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.languages a[aria-current="page"] {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+/* "On this page": the sections of a long policy */
+.contents h2 {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.contents h2::before {
+  content: none;
+}
+.main .contents ol {
+  margin: 0;
+}
+.main .contents li {
+  margin-bottom: 2px;
+}
+
+/* what is planned and not in the game yet: its own, clearly marked block */
+.planned {
+  margin: 24px 0;
+  padding: 16px 20px;
+  border: 1px dashed var(--accent);
+  border-radius: 14px;
+}
+.planned > :last-child {
+  margin-bottom: 0;
+}
+.plannedLabel {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 2px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* numbered steps on the account deletion page */
+.main .steps {
+  counter-reset: step;
+  margin: 12px 0 16px;
+  padding: 0;
+  list-style: none;
+}
+.main .steps li {
+  position: relative;
+  margin: 0 0 10px;
+  padding-left: 40px;
+  counter-increment: step;
+}
+.main .steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 26px;
+  text-align: center;
+}
+
+/* a detail still to be decided before launch (the in-game deletion path): impossible to miss */
+.todo {
+  padding: 1px 6px;
+  border: 1px dashed #ffcf5a;
+  border-radius: 6px;
+  background: rgba(255, 207, 90, 0.12);
+  color: #ffcf5a;
+  font-weight: 600;
+}

@@ -129,6 +129,11 @@ export default function SupportPage() {
               <a href={mailto("Pixel Art Collect — support")}>email support</a> · <Link href="/collect-pixel-art/privacy">privacy policy</Link>
             </li>
             <li>
+              <Link href="/sledlings">Sledlings: Kart Rush</Link> (coming soon): questions and answers on its own page ·{" "}
+              <Link href="/sledlings/privacy">privacy policy</Link> · <Link href="/sledlings/terms">terms</Link> ·{" "}
+              <Link href="/sledlings/delete-account">delete your account</Link>
+            </li>
+            <li>
               <Link href="/tempo">Tempo</Link>: questions and answers on its own support page
             </li>
             <li>

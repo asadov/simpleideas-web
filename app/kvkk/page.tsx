@@ -83,6 +83,12 @@ export default async function KvkkPage({ searchParams }: { searchParams: LegalSe
         <p>{tr
           ? "Hesap silme işlemi oyunda Ayarlar › Oyuncu hesabı › Hesabı sil yolundadır. Satın alma kayıtlarının tekrar kullanım ve iade yönetimi için kalan kısmı, hesap silindiğinde otomatik olarak tümüyle ortadan kalkmaz; ürün politikasındaki saklama açıklamasına bakın."
           : "Account deletion is available in Settings › Player account › Delete account. Some transaction records remain for duplicate-use prevention and refunds after account deletion; see the retention explanation in the product policy."} <a href={`/collect-pixel-art/privacy${tr ? "?lang=tr" : ""}`}>{tr ? "Pixel Art Collect gizlilik politikası" : "Pixel Art Collect privacy policy"}</a>.</p>
+        <h3 id="sledlings">Sledlings: Kart Rush</h3>
+        <p>{tr
+          ? "Tek başına oynarken oyun hiçbir şey göndermez; ilerleme cihazda saklanır. Oyundaki Online sayfası ilk kez açılana kadar hiçbir şey çevrim içi olmaz; açıldığında: Unity üzerinde anonim oyuncu hesabı, iki hazır kelimeden oluşan görünen ad, arkadaş kodu ve listesi, kodla katılınan odalar ve isteğe bağlı bulut kaydı. Sohbet yoktur. Hesap silme oyunda veya e-postayla yapılabilir; planlanan ve henüz olmayan özellikler ürün politikasında ayrıca gösterilir."
+          : "Playing alone sends nothing; progress stays on the device. Nothing goes online until the Online page in the game is first opened; then: an anonymous player account at Unity, a display name of two ready-made words, a friend code and friends list, rooms joined by code and optional cloud save. There is no chat. The account can be deleted in the game or by email; planned features that are not live yet are marked separately in the product policy."}{" "}
+          <a href={tr ? "/sledlings/privacy?lang=tr" : "/sledlings/privacy"}>{tr ? "Sledlings gizlilik politikası" : "Sledlings privacy policy"}</a> ·{" "}
+          <a href={tr ? "/sledlings/delete-account?lang=tr" : "/sledlings/delete-account"}>{tr ? "hesap silme" : "account deletion"}</a>.</p>
         <h3 id="tempo">Tempo</h3>
         <p>{tr
           ? "Tempo’nun ürün politikası, BPM ve ölçü ayarlarının Apple Watch üzerinde tutulduğunu ve geliştiriciye gönderilmediğini açıklar. Bize e-posta göndermeniz halinde bu metnin destek iletişimi bölümü uygulanır."

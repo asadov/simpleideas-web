@@ -63,7 +63,12 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     if (process.env.NODE_ENV !== "production") return [];
-    return [{ source: "/:path*", headers: SECURITY_HEADERS }];
+    return [
+      { source: "/:path*", headers: SECURITY_HEADERS },
+      // The game's invite pages carry a room or friend code: never in search results (their pages also say noindex).
+      { source: "/sledlings/join/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+      { source: "/sledlings/friend/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+    ];
   },
 };
 

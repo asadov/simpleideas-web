@@ -228,8 +228,9 @@ export default function SledlingsPage() {
       </p>
       <h3>What data does the game collect?</h3>
       <p>
-        Gameplay analytics without names or codes, which you can turn off in Settings, and crash reports. Online play
-        uses an anonymous player account. No ads and no tracking. The details are in the{" "}
+        Gameplay analytics through Google Analytics, without names or codes, which you can turn off in Settings, and
+        crash reports. Online play uses an anonymous player account. The game shows no ads and uses no advertising
+        identifier. The details are in the{" "}
         <Link href="/sledlings/privacy">privacy policy</Link>.
       </p>
       <h3>Something is not working</h3>

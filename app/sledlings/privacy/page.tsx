@@ -24,22 +24,42 @@ import styles from "../sledlings.module.css";
  * 0.16.1 (iOS 46, Android 44), checked in code (gpt/maps 54fd952b): Delete account switches sharing off and requests
  * Analytics deletion (retried at next launch); consent card when the device region OR the store country is in the
  * list, or neither is known; engine statistics off (submitAnalytics 0). Diagnostics: owner's decision is "on" for
- * test builds (store build open), so crash reports stay described as sent. Section "test-0160" lists how the
- * TestFlight build 0.16.0 differs; drop it when 0.16.0 is gone.
+ * test builds (store build open), so crash reports stay described as sent. Section "test-versions" (was "test-0160") lists how the
+ * 0.16 test builds differ; drop it when they are gone.
  *
  * Unity's role, from the owner's Unity Developer Data settings (25 November 2026, reported by the game session):
  * Essential and Additional Recommended Data on; Unity may use the data, aggregated with other developers', for its
  * own benchmarks, insights, models and products and recommendations to us, as an independent controller under
  * Unity's controller-to-controller data protection terms; Unity support access off; no advertising products.
+ *
+ * Google Analytics for Firebase replaces Unity Analytics (written 26 November 2026, held until the first build with
+ * the Firebase config files; game commit 4ff61637 on online/rooms, checked in code; decisions in Race/docs/board.md,
+ * "The advisor's answer to the Firebase plan"): one choice, Share play data, for two purposes (how the game is played,
+ * measuring our own Google Ads campaigns). On grants analytics_storage, ad_storage and ad_user_data; ad_personalization
+ * is always denied; before a choice and while off all four are denied and collection is off. Opt-in list and region
+ * rule unchanged (device region or store country, or neither known); an earlier "no" is kept, an earlier "yes" is
+ * asked again there. No IDFA/AdSupport, no ATT prompt, AD_ID removed on Android. No user ID is set. Off or Delete
+ * account: collection off and resetAnalyticsData. "Ask to delete my play data" emails us the app-instance ID (only
+ * while sharing is on). Retention 14 months, Google signals and remarketing off (the owner's property settings).
+ * Builds without the config files (0.17.0) send no play data. 0.16.x test builds still use Unity Analytics: section
+ * "test-versions".
+ * From Google's pages (read 26 November 2026): without AdSupport the iOS SDK collects the IDFV unless Info.plist sets
+ * GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED = NO, which 4ff61637 does not, so the page names the IDFV (drop it if the
+ * game sets the key); IP used for location, then discarded (support.google.com/analytics/answer/11598602); automatic
+ * events first_open, session_start, user_engagement, screen_view, app_update, os_update (answer/9234069). Google
+ * Analytics for Firebase is a processor under the Google Ads Data Processing Terms (business.safety.google/adsservices)
+ * as long as the owner accepts those terms and leaves the data sharing settings off; Google Ads is under Google's
+ * controller terms, so the page says "under Google's own terms" there.
  */
 
 const PAGE_PATH = "/sledlings/privacy";
-const POLICY_EFFECTIVE = "2026-11-25";
+const POLICY_EFFECTIVE = "2026-11-26";
 
 const LINKS = {
   unity: "https://unity.com/legal/game-player-and-app-user-privacy-policy",
   apple: "https://www.apple.com/legal/privacy/",
   google: "https://policies.google.com/privacy",
+  googlePartners: "https://policies.google.com/technologies/partner-sites",
 };
 
 const mail = <a href={`mailto:${CONTACT_EMAIL}?subject=Sledlings%20privacy`}>{CONTACT_EMAIL}</a>;
@@ -47,16 +67,17 @@ const mail = <a href={`mailto:${CONTACT_EMAIL}?subject=Sledlings%20privacy`}>{CO
 /* In-game paths and labels, as the game shows them (in English: the game is English only). */
 const SHARE_PATH = "Settings › Services › Privacy & data › Share play data";
 const DELETE_PATH = "Settings › Services › Privacy & data › Delete account";
+const ASK_PATH = "Settings › Services › Privacy & data › Ask to delete my play data";
 
 const COPY: Record<LegalLang, LegalCopy> = {
   en: {
     metaTitle: "Privacy Policy · Sledlings: Kart Rush",
     metaDescription:
-      "What Sledlings: Kart Rush does with data: an anonymous Unity player account for online play, gameplay analytics without names, crash reports, no ads and no chat.",
+      "What Sledlings: Kart Rush does with data: an anonymous Unity player account for online play, gameplay analytics with Google Analytics for Firebase without names, crash reports, no ads and no chat.",
     title: "Privacy Policy",
     meta: (
       <>
-        Sledlings: Kart Rush · Effective date: <time dateTime={POLICY_EFFECTIVE}>25 November 2026</time>
+        Sledlings: Kart Rush · Effective date: <time dateTime={POLICY_EFFECTIVE}>26 November 2026</time>
       </>
     ),
     intro: (
@@ -70,8 +91,9 @@ const COPY: Record<LegalLang, LegalCopy> = {
     summary: [
       "You can play without an account. Your progress is saved on your device.",
       "Online play needs no sign-up: the first time you open the Online page, Unity creates an anonymous player account for you.",
-      "The game sends gameplay analytics, without names or codes, and crash reports. Where the law asks for it, the game asks you first, and everyone can turn analytics off in Settings.",
-      "No ads, no advertising identifier, no tracking across apps, and no chat.",
+      "The game sends gameplay analytics to Google Analytics for Firebase, without names or codes, to understand how the game is played and to measure our own Google Ads campaigns. Where the law asks for it, the game asks you first, and everyone can turn it off in Settings.",
+      "Crash reports go to Unity.",
+      "No ads in the game, no advertising identifier, no personalised advertising, and no chat.",
       <>
         You can delete your account at any time: <strong>{DELETE_PATH}</strong> in the game, or by email. See{" "}
         <Link href="/sledlings/delete-account">how to delete your account</Link>.
@@ -145,34 +167,42 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <>
             <p>
-              The game sends gameplay events to Unity Analytics, which show us how the game is played. They contain no
-              personal identifiers: no names, friend codes, room codes or typed text. The events are:
+              While <strong>Share play data</strong> is on, the game sends gameplay events (“play data”) to Google
+              Analytics for Firebase, a Google service. We use them for two things: to understand how the game is
+              played, so we can improve it, and to measure our own Google Ads campaigns, for example how many players an
+              ad brought to the game. They are never used for personalised advertising. The events contain no names,
+              friend codes, room codes, player account IDs or typed text. They are:
             </p>
             <ul>
-              <li>the game starting, with its load time and a performance class for the device;</li>
-              <li>tutorial steps;</li>
+              <li>the game starting, with its load time, a performance class for the device and how far you have got;</li>
+              <li>the tutorial: starting it, its tips and finishing it;</li>
               <li>
                 races started and finished, with the course, your place and time, the rider and sled, the items used
                 and how smoothly the game ran;
               </li>
               <li>progress milestones;</li>
               <li>settings you change and screens you open;</li>
-              <li>coins you spend, and on what;</li>
-              <li>online steps, such as creating or joining a room.</li>
+              <li>coins you earn and spend, and on what;</li>
+              <li>online steps, such as creating or joining a room, and linking a sign-in once that comes.</li>
             </ul>
             <p>
-              Alongside these events, Unity’s analytics software collects your IP address, an installation ID, a
-              device identifier (on iOS the identifier for vendor, IDFV; on Android a value based on the Android ID),
-              your Unity player ID if you have used Online, and technical details of the device, such as its model,
-              operating system, language setting and hardware. Unity keeps analytics data for 13 months.
+              With these events, Google Analytics uses an app-instance ID, a random ID created for the game on your
+              device, and on iPhone and iPad also the identifier for vendor (IDFV). It also logs some events by itself,
+              such as the first opening, sessions, screens and app updates, and records details such as the app
+              version, the device model, its operating system and language, and your approximate location (country,
+              region, city). Google uses your IP address to work out that location and, according to Google, does not
+              store it. The game does not use the advertising identifier (IDFA on iOS, advertising ID on Android). We
+              have set Google Analytics to keep play data for 14 months.
             </p>
             <p>
               <strong>Your choice.</strong> If your device’s region setting or your App Store or Google Play country is
               in the European Economic Area, the United Kingdom, Switzerland, China or Türkiye, or if the game cannot
-              tell either, the game asks you when you open it, and sends no analytics before you choose. Elsewhere,
-              sharing is on by default. Every player can change it at{" "}
-              <strong>{SHARE_PATH}</strong>. Turning it off stops the collection and asks Unity to delete your
-              analytics data.
+              tell either, the game asks you when you open it, and sends no play data unless you agree. If you said no
+              in an earlier version, your no stands and the game does not ask again; if you said yes, it asks again,
+              because the choice now also covers measuring our Google Ads campaigns. Elsewhere, sharing is on by
+              default. Every player can change it at <strong>{SHARE_PATH}</strong>. Turning it off stops the collection
+              at once and clears the play data and its ID on your device. To have play data that Google already
+              received deleted, see <a href="#deleting">keeping and deleting your data</a>.
             </p>
           </>
         ),
@@ -191,11 +221,15 @@ const COPY: Record<LegalLang, LegalCopy> = {
       },
       {
         id: "no-ads",
-        title: "No ads, no tracking",
+        title: "No ads, no advertising identifier",
         body: (
           <p>
-            The game shows no ads today and does not use an advertising identifier. It does not track you across other
-            companies’ apps or websites.
+            The game shows no ads today. It does not use the advertising identifier on iOS or Android and does not ask
+            for permission to track you. Play data is never used for personalised advertising: the game always tells
+            Google that ad personalisation is not allowed, and Google signals and remarketing are off in our Google
+            Analytics. The only advertising use of play data is the one described under{" "}
+            <a href="#analytics">gameplay analytics</a>: measuring our own Google Ads campaigns, while Share play data
+            is on.
           </p>
         ),
       },
@@ -249,16 +283,20 @@ const COPY: Record<LegalLang, LegalCopy> = {
             <ul>
               <li>
                 <strong>Unity Technologies</strong> runs the online features (the player account, friends, rooms and
-                Cloud Save), Unity Analytics and Unity Diagnostics. For these services Unity handles data on our behalf,
-                as our processor. See the <a href={LINKS.unity}>Unity privacy policy for game players</a>.
+                Cloud Save) and Unity Diagnostics, and Unity Analytics in the 0.16 test versions. For these services
+                Unity handles data on our behalf, as our processor. See the <a href={LINKS.unity}>Unity privacy policy for game players</a>.
               </li>
               <li>
                 <strong>Apple</strong> runs the App Store, and Sign in with Apple and Game Center once linking comes.
                 See the <a href={LINKS.apple}>Apple Privacy Policy</a>.
               </li>
               <li>
-                <strong>Google</strong> runs Google Play, and Google sign-in and Google Play Games once linking comes.
-                See the <a href={LINKS.google}>Google Privacy Policy</a>.
+                <strong>Google</strong> runs Google Analytics for Firebase, which receives the play data. For Google
+                Analytics, Google handles the data on our behalf, as our processor. When we use play data to measure our
+                Google Ads campaigns, Google Ads uses it under Google’s own terms. Google also runs Google Play, and
+                Google sign-in and Google Play Games once linking comes. See the{" "}
+                <a href={LINKS.google}>Google Privacy Policy</a> and{" "}
+                <a href={LINKS.googlePartners}>how Google uses information from apps that use its services</a>.
               </li>
             </ul>
             <p>Each of them handles data under its own privacy policy.</p>
@@ -285,31 +323,42 @@ const COPY: Record<LegalLang, LegalCopy> = {
           <>
             <ul>
               <li>Online data, including your public profile, is kept for as long as your player account exists.</li>
-              <li>Analytics data is kept by Unity for 13 months.</li>
+              <li>Play data is kept by Google for 14 months.</li>
               <li>Crash reports are kept for 90 days.</li>
               <li>Progress saved on your device stays there.</li>
             </ul>
             <p>
               To delete your account, open <strong>{DELETE_PATH}</strong> in the game, or email us. This removes your
               Unity player account, your friends list with its requests and blocks, your cloud save with your public
-              profile, and any linked sign-ins. It also switches off Share play data and asks Unity to delete your
-              analytics data; if that request cannot be sent, the game tries again the next time it starts. Your
-              single-player progress on the device stays. The steps are on the{" "}
-              <Link href="/sledlings/delete-account">account deletion page</Link>.
+              profile, and any linked sign-ins. It also turns off Share play data, which stops the collection and
+              clears the play data and its ID on your device. Your single-player progress on the device stays. The
+              steps are on the <Link href="/sledlings/delete-account">account deletion page</Link>.
             </p>
             <p>
-              To have your analytics data deleted without deleting your account, turn off{" "}
-              <strong>Share play data</strong> (see <a href="#analytics">gameplay analytics</a>).
+              <strong>Play data Google already received</strong> is not linked to your name or player account: we
+              can find it only with the play data ID (app-instance ID) of the game on your device. While Share play data is on, open{" "}
+              <strong>{ASK_PATH}</strong>: the game opens an email to us with that ID and nothing else about you. Send
+              it, and we ask Google to delete that data within 30 days and reply when we have. Do this before you turn
+              off Share play data or delete your account, because both clear the ID from your device.
             </p>
           </>
         ),
       },
       {
-        id: "test-0160",
-        title: "If you test version 0.16.0",
+        id: "test-versions",
+        title: "If you test an earlier version",
         body: (
           <>
-            <p>The test version 0.16.0 (TestFlight and Android test builds) differs in three ways:</p>
+            <p>
+              The test versions 0.16 (TestFlight and Android test builds) send play data to Unity Analytics instead of
+              Google Analytics, under the same <strong>Share play data</strong> switch. With the events, Unity’s
+              analytics software collects your IP address, an installation ID, a device identifier (on iOS the
+              identifier for vendor, IDFV; on Android a value based on the Android ID), your Unity player ID if you have
+              used Online, and technical details of the device. Unity keeps this data for 13 months and handles it as
+              our processor. Turning the switch off asks Unity to delete it, and from 0.16.1 deleting your account does
+              too.
+            </p>
+            <p>The test version 0.16.0 also differs in three ways:</p>
             <ul>
               <li>
                 It asks about play data only when your device’s region setting is in one of the places listed above;
@@ -362,12 +411,12 @@ const COPY: Record<LegalLang, LegalCopy> = {
   tr: {
     metaTitle: "Gizlilik Politikası · Sledlings: Kart Rush",
     metaDescription:
-      "Sledlings: Kart Rush verilerle ne yapar: çevrim içi oyun için anonim bir Unity oyuncu hesabı, isim içermeyen oyun analitiği, çökme raporları; reklam ve sohbet yok.",
+      "Sledlings: Kart Rush verilerle ne yapar: çevrim içi oyun için anonim bir Unity oyuncu hesabı, Google Analytics for Firebase ile isim içermeyen oyun analitiği, çökme raporları; reklam ve sohbet yok.",
     title: "Gizlilik Politikası",
     meta: (
       <>
         <span lang="en">Sledlings: Kart Rush</span> · Yürürlük tarihi:{" "}
-        <time dateTime={POLICY_EFFECTIVE}>25 Kasım 2026</time>
+        <time dateTime={POLICY_EFFECTIVE}>26 Kasım 2026</time>
       </>
     ),
     intro: (
@@ -381,8 +430,9 @@ const COPY: Record<LegalLang, LegalCopy> = {
     summary: [
       "Hesap olmadan oynayabilirsiniz. İlerlemeniz cihazınızda saklanır.",
       "Çevrim içi oyun için kayıt gerekmez: Online sayfasını ilk açtığınızda Unity sizin için anonim bir oyuncu hesabı oluşturur.",
-      "Oyun, isim veya kod içermeyen oyun analitiği ve çökme raporları gönderir. Yasanın gerektirdiği yerlerde oyun önce size sorar; analitiği herkes Ayarlar’dan kapatabilir.",
-      "Reklam yok, reklam tanımlayıcısı yok, uygulamalar arası izleme yok, sohbet yok.",
+      "Oyun, oyunun nasıl oynandığını anlamak ve kendi Google Ads kampanyalarımızı ölçmek için isim veya kod içermeyen oyun analitiğini Google Analytics for Firebase’e gönderir. Yasanın gerektirdiği yerlerde oyun önce size sorar; bunu herkes Ayarlar’dan kapatabilir.",
+      "Çökme raporları Unity’ye gider.",
+      "Oyunda reklam yok, reklam tanımlayıcısı yok, kişiselleştirilmiş reklam yok, sohbet yok.",
       <>
         Hesabınızı istediğiniz zaman silebilirsiniz: oyunda <strong lang="en">{DELETE_PATH}</strong> ya da
         e-postayla. Bkz. <Link href="/sledlings/delete-account?lang=tr">hesabınızı nasıl silersiniz</Link>.
@@ -456,33 +506,42 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <>
             <p>
-              Oyun, oyunun nasıl oynandığını bize gösteren oyun olaylarını Unity Analytics’e gönderir. Bu olaylar kişisel
-              tanımlayıcı içermez: ad, arkadaş kodu, oda kodu veya yazılmış metin yoktur. Olaylar şunlardır:
+              <strong lang="en">Share play data</strong> açıkken oyun, oyun olaylarını (“oyun verileri”) bir Google
+              hizmeti olan Google Analytics for Firebase’e gönderir. Bunları iki amaçla kullanırız: oyunun nasıl
+              oynandığını anlayıp oyunu geliştirmek ve kendi Google Ads kampanyalarımızı ölçmek (örneğin bir reklamın
+              oyuna kaç oyuncu getirdiğini görmek). Kişiselleştirilmiş reklam için asla kullanılmazlar. Olaylar ad,
+              arkadaş kodu, oda kodu, oyuncu hesabı kimliği veya yazılmış metin içermez. Olaylar şunlardır:
             </p>
             <ul>
-              <li>oyunun açılışı; yüklenme süresi ve cihaz için bir performans sınıfıyla;</li>
-              <li>eğitim adımları;</li>
+              <li>oyunun açılışı; yüklenme süresi, cihaz için bir performans sınıfı ve oyunda ne kadar ilerlediğinizle;</li>
+              <li>eğitim: başlaması, ipuçları ve bitmesi;</li>
               <li>
                 başlatılan ve bitirilen yarışlar; parkur, sıranız ve süreniz, karakter ve kızak, kullanılan öğeler ve
                 oyunun ne kadar akıcı çalıştığı;
               </li>
               <li>ilerleme aşamaları;</li>
               <li>değiştirdiğiniz ayarlar ve açtığınız ekranlar;</li>
-              <li>harcadığınız jetonlar ve neye harcadığınız;</li>
-              <li>oda açmak veya bir odaya katılmak gibi çevrim içi adımlar.</li>
+              <li>kazandığınız ve harcadığınız jetonlar ve neye harcadığınız;</li>
+              <li>oda açmak veya bir odaya katılmak gibi çevrim içi adımlar ve, geldiğinde, bir giriş bağlamak.</li>
             </ul>
             <p>
-              Bu olaylarla birlikte Unity’nin analitik yazılımı IP adresinizi, bir kurulum kimliğini, bir cihaz
-              tanımlayıcısını (iOS’ta satıcı tanımlayıcısı, IDFV; Android’de Android kimliğine dayalı bir değer),
-              Online’ı kullandıysanız Unity oyuncu kimliğinizi ve cihazın modeli, işletim sistemi, dil ayarı ve donanımı
-              gibi teknik bilgilerini toplar. Unity analitik verilerini 13 ay saklar.
+              Google Analytics bu olaylarla birlikte, oyun için cihazınızda oluşturulan rastgele bir kimlik olan uygulama
+              örneği kimliğini (<span lang="en">app-instance ID</span>), iPhone ve iPad’de ayrıca satıcı tanımlayıcısını
+              (IDFV) kullanır. İlk açılış, oturumlar, ekranlar ve uygulama güncellemeleri gibi bazı olayları kendisi
+              kaydeder; uygulama sürümü, cihaz modeli, işletim sistemi ve dili ile yaklaşık konumunuz (ülke, bölge,
+              şehir) gibi bilgileri de tutar. Google bu konumu belirlemek için IP adresinizi kullanır ve Google’a göre
+              IP adresini saklamaz. Oyun reklam tanımlayıcısını (iOS’ta IDFA, Android’de reklam kimliği) kullanmaz.
+              Google Analytics’i oyun verilerini 14 ay saklayacak şekilde ayarladık.
             </p>
             <p>
               <strong>Seçim sizin.</strong> Cihazınızın bölge ayarı ya da App Store veya Google Play ülkeniz Avrupa
               Ekonomik Alanı, Birleşik Krallık, İsviçre, Çin veya Türkiye ise ya da oyun ikisini de anlayamazsa, oyun
-              açılışta size sorar ve siz seçmeden analitik verisi göndermez. Diğer bölgelerde paylaşım varsayılan olarak
-              açıktır. Her oyuncu bunu <strong lang="en">{SHARE_PATH}</strong> yolundan
-              değiştirebilir. Kapattığınızda toplama durur ve oyun Unity’den analitik verilerinizin silinmesini ister.
+              açılışta size sorar ve siz kabul etmedikçe oyun verisi göndermez. Önceki bir sürümde hayır dediyseniz
+              seçiminiz geçerli kalır ve oyun yeniden sormaz; evet dediyseniz yeniden sorar, çünkü seçim artık Google
+              Ads kampanyalarımızın ölçülmesini de kapsar. Diğer bölgelerde paylaşım varsayılan olarak açıktır. Her
+              oyuncu bunu <strong lang="en">{SHARE_PATH}</strong> yolundan değiştirebilir. Kapattığınızda toplama hemen
+              durur ve cihazınızdaki oyun verileri kimlikleriyle birlikte temizlenir. Google’ın daha önce aldığı oyun
+              verilerini sildirmek için bkz. <a href="#deleting">verilerin saklanması ve silinmesi</a>.
             </p>
           </>
         ),
@@ -501,11 +560,15 @@ const COPY: Record<LegalLang, LegalCopy> = {
       },
       {
         id: "no-ads",
-        title: "Reklam ve izleme yok",
+        title: "Reklam yok, reklam tanımlayıcısı yok",
         body: (
           <p>
-            Oyun bugün reklam göstermez ve reklam tanımlayıcısı kullanmaz. Sizi başka şirketlerin uygulamaları veya web
-            siteleri arasında izlemez.
+            Oyun bugün reklam göstermez. iOS’ta veya Android’de reklam tanımlayıcısını kullanmaz ve sizi izlemek için
+            izin istemez. Oyun verileri kişiselleştirilmiş reklam için asla kullanılmaz: oyun Google’a reklam
+            kişiselleştirmesine izin verilmediğini her zaman bildirir; Google Analytics’imizde Google sinyalleri ve
+            yeniden pazarlama kapalıdır. Oyun verilerinin reklamla ilgili tek kullanımı{" "}
+            <a href="#analytics">oyun analitiği</a> bölümünde anlatılandır: <span lang="en">Share play data</span>{" "}
+            açıkken kendi Google Ads kampanyalarımızın ölçülmesi.
           </p>
         ),
       },
@@ -559,7 +622,8 @@ const COPY: Record<LegalLang, LegalCopy> = {
             <ul>
               <li>
                 <strong>Unity Technologies</strong> çevrim içi özellikleri (oyuncu hesabı, arkadaşlar, odalar ve Cloud
-                Save), Unity Analytics’i ve Unity Diagnostics’i çalıştırır. Bu hizmetler için Unity verileri bizim
+                Save), Unity Diagnostics’i ve 0.16 test sürümlerinde Unity Analytics’i çalıştırır. Bu hizmetler için Unity
+                verileri bizim
                 adımıza, veri işleyen olarak işler. Bkz.{" "}
                 <a href={LINKS.unity}>Unity’nin oyunculara yönelik gizlilik politikası</a>.
               </li>
@@ -568,8 +632,13 @@ const COPY: Record<LegalLang, LegalCopy> = {
                 çalıştırır. Bkz. <a href={LINKS.apple}>Apple Gizlilik Politikası</a>.
               </li>
               <li>
-                <strong>Google</strong> Google Play’i, hesap bağlama geldiğinde de Google ile girişi ve Google Play
-                Games’i çalıştırır. Bkz. <a href={LINKS.google}>Google Gizlilik Politikası</a>.
+                <strong>Google</strong>, oyun verilerini alan Google Analytics for Firebase’i çalıştırır. Google
+                Analytics için Google verileri bizim adımıza, veri işleyen olarak işler. Oyun verilerini Google Ads
+                kampanyalarımızı ölçmek için kullandığımızda Google Ads bunları Google’ın kendi şartlarına göre
+                kullanır. Google ayrıca Google Play’i, hesap bağlama geldiğinde de Google ile girişi ve Google Play
+                Games’i çalıştırır. Bkz. <a href={LINKS.google}>Google Gizlilik Politikası</a> ve{" "}
+                <a href={LINKS.googlePartners}>Google’ın, hizmetlerini kullanan uygulamalardan gelen bilgileri nasıl
+                kullandığı</a>.
               </li>
             </ul>
             <p>Her biri verileri kendi gizlilik politikasına göre işler.</p>
@@ -596,7 +665,7 @@ const COPY: Record<LegalLang, LegalCopy> = {
           <>
             <ul>
               <li>Herkese açık profiliniz dahil çevrim içi veriler, oyuncu hesabınız var olduğu sürece saklanır.</li>
-              <li>Analitik verileri Unity tarafından 13 ay saklanır.</li>
+              <li>Oyun verileri Google tarafından 14 ay saklanır.</li>
               <li>Çökme raporları 90 gün saklanır.</li>
               <li>Cihazınızda saklanan ilerleme orada kalır.</li>
             </ul>
@@ -604,24 +673,37 @@ const COPY: Record<LegalLang, LegalCopy> = {
               Hesabınızı silmek için oyunda <strong lang="en">{DELETE_PATH}</strong> yolunu açın ya da bize e-posta
               gönderin. Bu, Unity oyuncu hesabınızı, istekleri ve engellemeleriyle birlikte arkadaş listenizi,
               herkese açık profilinizle birlikte bulut kaydınızı ve bağlı girişleri kaldırır. Ayrıca{" "}
-              <span lang="en">Share play data</span> anahtarını kapatır ve Unity’den analitik verilerinizin silinmesini
-              ister; bu istek gönderilemezse oyun bir sonraki açılışta yeniden dener. Cihazdaki tek oyunculu ilerlemeniz
-              kalır. Adımlar <Link href="/sledlings/delete-account?lang=tr">hesap silme sayfasında</Link>.
+              <span lang="en">Share play data</span> anahtarını kapatır; bu, toplamayı durdurur ve cihazınızdaki oyun
+              verilerini kimlikleriyle birlikte temizler. Cihazdaki tek oyunculu ilerlemeniz kalır. Adımlar{" "}
+              <Link href="/sledlings/delete-account?lang=tr">hesap silme sayfasında</Link>.
             </p>
             <p>
-              Hesabınızı silmeden analitik verilerinizin silinmesi için{" "}
-              <strong lang="en">Share play data</strong> anahtarını kapatın (bkz.{" "}
-              <a href="#analytics">oyun analitiği</a>).
+              <strong>Google’ın daha önce aldığı oyun verileri</strong> adınıza veya oyuncu hesabınıza bağlı değildir:
+              onları ancak cihazınızdaki oyunun oyun verisi kimliğiyle (<span lang="en">app-instance ID</span>)
+              bulabiliriz. <span lang="en">Share play data</span> açıkken{" "}
+              <strong lang="en">{ASK_PATH}</strong> yolunu açın: oyun, bu kimliği içeren ve sizinle ilgili başka hiçbir
+              bilgi taşımayan bir e-posta açar. Gönderdiğinizde 30 gün içinde bu verilerin silinmesini Google’dan ister
+              ve size yanıt veririz. Bunu <span lang="en">Share play data</span> anahtarını kapatmadan veya hesabınızı
+              silmeden önce yapın; ikisi de kimliği cihazınızdan temizler.
             </p>
           </>
         ),
       },
       {
-        id: "test-0160",
-        title: "0.16.0 sürümünü test ediyorsanız",
+        id: "test-versions",
+        title: "Daha eski bir sürümü test ediyorsanız",
         body: (
           <>
-            <p>Test sürümü 0.16.0 (TestFlight ve Android test derlemeleri) üç noktada farklıdır:</p>
+            <p>
+              0.16 test sürümleri (TestFlight ve Android test derlemeleri) oyun verilerini Google Analytics yerine aynı{" "}
+              <strong lang="en">Share play data</strong> anahtarıyla Unity Analytics’e gönderir. Olaylarla birlikte
+              Unity’nin analitik yazılımı IP adresinizi, bir kurulum kimliğini, bir cihaz tanımlayıcısını (iOS’ta satıcı
+              tanımlayıcısı, IDFV; Android’de Android kimliğine dayalı bir değer), Online’ı kullandıysanız Unity oyuncu
+              kimliğinizi ve cihazın teknik bilgilerini toplar. Unity bu verileri 13 ay saklar ve veri işleyenimiz
+              olarak işler. Anahtarı kapatmak Unity’den verilerin silinmesini ister; 0.16.1’den itibaren hesabınızı
+              silmek de ister.
+            </p>
+            <p>Test sürümü 0.16.0 ayrıca üç noktada farklıdır:</p>
             <ul>
               <li>
                 Oyun verisi paylaşımını yalnızca cihazınızın bölge ayarı yukarıdaki yerlerden biriyse sorar; bölgeyi

@@ -7,22 +7,25 @@ import styles from "../sledlings.module.css";
 
 /*
  * Sledlings: Kart Rush account deletion page. Google Play asks for this address ("Delete account URL" in Data
- * safety): never move it without a 301. It names the game and the developer as on the store listing, gives the
- * steps in the game (Settings › Services › Privacy & data › Delete account) and by email, how to have play data
- * that Google Analytics already received deleted (Ask to delete my play data), and what is deleted and what is not.
- * English is the default; `?lang=tr` serves Turkish. Keep it in line with the privacy policy (../privacy/page.tsx),
- * sections "analytics", "deleting" and "test-versions".
+ * safety), and the game's delete dialog links here ("Account deletion help"): never move it without a 301. It names
+ * the game and the developer as on the store listing, gives the steps in the game (Settings › Services › Privacy &
+ * data › Delete account) and by email, how to have play data that Google Analytics already received deleted (Ask to
+ * delete my play data), and what is deleted and what is not. English is the default; `?lang=tr` serves Turkish.
+ * Keep it in line with the privacy policy (../privacy/page.tsx), sections "analytics", "choices" and "deleting".
  *
- * Google Analytics for Firebase (game commit 4ff61637, checked in code): Delete account first switches Share play
- * data off, which stops collection and calls the SDK's resetAnalyticsData (a new app-instance ID). Nothing asks Google
- * to delete data it already has; "Ask to delete my play data" opens an email draft to CONTACT_EMAIL (subject
- * "Sledlings play data deletion") with the app-instance ID, and only while sharing is on. So the page tells players to
- * ask first. An automatic deletion through Google's API is planned; do not promise it until it ships.
- * Labels as in SettingsPanel.cs at that commit. "Within 30 days" is our commitment, as for account deletion by email.
+ * Matched to the store version 1.0.0 (game code at 10de45bb and online/rooms 2a0158b1, labels from SettingsPanel.cs
+ * and UgsOnline.cs): the dialog "Delete online account?" with Cancel / Delete account / Account deletion help; the
+ * result "Online account deleted. Your progress on this device is still here." (the row reads "Delete account" from
+ * online/rooms 005fee30 on). Deletion removes the Unity account, Cloud Save (profile and room results), friends,
+ * requests and blocks, and withdraws play data (resetAnalyticsData), but in Google-managed regions play data comes
+ * back at the next launch from Google's stored answer; ad and Meta choices are not changed. "Ask to delete my play
+ * data" emails the app-instance ID(s) (subject "Sledlings play data deletion"); IDs captured at withdrawal or
+ * deletion are kept on the device for 90 days, so the request also works afterwards. "Within 30 days" is our
+ * commitment, as for account deletion by email.
  */
 
 const PAGE_PATH = "/sledlings/delete-account";
-const UPDATED = "2026-11-26";
+const UPDATED = "2026-11-27";
 
 const SUBJECT = { en: "Delete my Sledlings account", tr: "Sledlings hesabımı silin" };
 const mailFor = (lang: LegalLang) => (
@@ -32,6 +35,7 @@ const mailFor = (lang: LegalLang) => (
 /* In-game labels, as the game shows them (in English: the game is English only). */
 const en = (text: string) => <strong lang="en">{text}</strong>;
 const ASK_PATH = "Settings › Services › Privacy & data › Ask to delete my play data";
+const CHOICES_PATH = "Settings › Services › Privacy & data › Manage privacy choices";
 
 const COPY: Record<LegalLang, LegalCopy> = {
   en: {
@@ -41,7 +45,7 @@ const COPY: Record<LegalLang, LegalCopy> = {
     title: "Delete your account",
     meta: (
       <>
-        Sledlings: Kart Rush · Simple Ideas · Last updated: <time dateTime={UPDATED}>26 November 2026</time>
+        Sledlings: Kart Rush · Simple Ideas · Last updated: <time dateTime={UPDATED}>27 November 2026</time>
       </>
     ),
     intro: (
@@ -53,11 +57,11 @@ const COPY: Record<LegalLang, LegalCopy> = {
     summaryLabel: "In short",
     summary: [
       <>In the game: {en("Settings › Services › Privacy & data › Delete account")}.</>,
-      <>By email: write to {mailFor("en")} with your display name and friend code.</>,
-      "Deleting removes your Unity player account, your friends list with its requests and blocks, your cloud save with your public profile and any linked sign-ins. It also turns off play data sharing and clears the play data on your device. Your single-player progress on the device stays.",
+      <>By email: write to {mailFor("en")} with your name and friend code from the game.</>,
+      "Deleting removes your anonymous player account, your public profile with the results of your races in rooms, and your friends list with its requests and blocks. It also turns play data off on your device. Your single-player progress on the device stays.",
       <>
-        Play data that Google Analytics has already received is deleted when you ask: use {en("Ask to delete my play data")}{" "}
-        before you delete your account.
+        Play data that Google Analytics has already received is deleted when you ask: use{" "}
+        {en("Ask to delete my play data")}, also after you have deleted your account.
       </>,
     ],
     contentsLabel: "On this page",
@@ -72,16 +76,16 @@ const COPY: Record<LegalLang, LegalCopy> = {
               <li>Under {en("Privacy & data")}, tap {en("Delete account")}.</li>
               <li>
                 The game asks {en("Delete online account?")} Tap {en("Delete account")} to confirm. When it is done,
-                the game shows {en("Account deleted")}.
+                the game shows {en("Online account deleted.")}
               </li>
             </ol>
             <p>
-              If you also want the play data that Google Analytics already has deleted, first follow{" "}
-              <a href="#play-data">the steps for your play data</a>, then delete the account.
+              The same window offers {en("Ask to delete my play data")}, if you also want the play data that Google
+              Analytics already has deleted; see <a href="#play-data">the steps for your play data</a>.
             </p>
             <p>
-              If you have never opened the Online page or Save Progress, you have no player account to delete: the game
-              then says there is no signed-in online account on the device.
+              If you have never gone online (with {en("Online Race")} or {en("Friends")}), you have no player account
+              to delete.
             </p>
           </>
         ),
@@ -92,9 +96,9 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <>
             <p>
-              Write to {mailFor("en")} with the subject “{SUBJECT.en}”. Include your display name and friend code from
-              the game, so we can find your account. Your player account is anonymous: without them, we may not be able
-              to tell which account is yours.
+              Write to {mailFor("en")} with the subject “{SUBJECT.en}”. Include your name and friend code from the game,
+              so we can find your account. Your player account is anonymous: without them, we may not be able to tell
+              which account is yours.
             </p>
             <p>
               We delete the account within 30 days of your email and reply to confirm when it is done. We do not need
@@ -109,25 +113,23 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <>
             <p>
-              Play data is the gameplay analytics the game sends to Google Analytics for Firebase while{" "}
-              {en("Share play data")} is on (see the <Link href="/sledlings/privacy#analytics">privacy policy</Link>).
-              It is not linked to your name or your player account, so we need the play data ID (app-instance ID) of
-              the game on your device to find it.
+              Play data is the gameplay analytics the game sends to Google Analytics for Firebase (see the{" "}
+              <Link href="/sledlings/privacy#analytics">privacy policy</Link>). It is not linked to your name or your
+              player account, so we need the game’s app-instance ID from your device to find it.
             </p>
             <ol className={styles.steps}>
+              <li>Open {en(ASK_PATH)}.</li>
               <li>
-                While {en("Share play data")} is still on, open {en(ASK_PATH)}.
-              </li>
-              <li>
-                The game opens an email to us with the subject {en("Sledlings play data deletion")}, containing the play
-                data ID and nothing else about you. Send it.
+                The game opens an email to us with the subject {en("Sledlings play data deletion")}, containing the
+                app-instance ID and nothing else about you. Send it.
               </li>
               <li>Within 30 days of your email, we ask Google to delete the play data for that ID and reply to you.</li>
             </ol>
             <p>
-              Do this before you turn off {en("Share play data")} or delete your account: both clear the ID from your
-              device, and the game then cannot give it to us. Play data that is not deleted on request is kept by Google
-              for 14 months.
+              This works while play data is on, and for up to 90 days after you turn it off or delete your account: the
+              game keeps the ID on your device, and only there, for that long. After you have sent the email, tap{" "}
+              {en("Sent")} beside the button to remove the kept ID. Play data that is not deleted on request is kept by
+              Google for 14 months.
             </p>
           </>
         ),
@@ -139,13 +141,14 @@ const COPY: Record<LegalLang, LegalCopy> = {
           <>
             <h3>Deleted with your account</h3>
             <ul>
-              <li>Your Unity player account, with your display name and friend code</li>
+              <li>Your anonymous Unity player account, with your name and friend code</li>
+              <li>Your public profile (name, rider, vehicle and costume) and the results of your races in rooms</li>
               <li>Your friends list, with its friend requests and the players you blocked</li>
-              <li>Your cloud save, with your public profile (display name, rider, sled and costumes)</li>
-              <li>Any linked sign-ins</li>
               <li>
-                The play data on your device: the game turns off {en("Share play data")}, stops sending play data and
-                clears the play data it holds on the device, with its play data ID.
+                Play data on your device: the game turns play data off and resets its ID. In the European Economic
+                Area, the United Kingdom and Switzerland, your answer in Google’s consent form still stands: if it
+                allowed play data, play data starts again with a new ID the next time you open the game, unless you
+                change it at {en(CHOICES_PATH)}.
               </li>
             </ul>
             <h3>Not deleted with your account</h3>
@@ -155,20 +158,21 @@ const COPY: Record<LegalLang, LegalCopy> = {
                 <a href="#play-data">above</a>); otherwise Google keeps it for 14 months.
               </li>
               <li>
+                Your choices for ads and for measuring our ads, which stay on your device. Change them at{" "}
+                {en(CHOICES_PATH)}. What Google AdMob and Meta received for ads and their measurement is not linked to
+                your player account; they keep it under their own policies.
+              </li>
+              <li>
                 Your single-player progress on the device. It stays on your device; deleting the game removes it from
                 the device.
               </li>
               <li>Crash reports. They are kept for 90 days.</li>
               <li>
-                Emails you exchange with us, which are handled as described in the{" "}
-                <a href="/kvkk?lang=en#processing">personal data notice (KVKK)</a>.
+                Emails you exchange with us, including reports about other players, which are handled as described in
+                the <a href="/kvkk?lang=en#processing">personal data notice (KVKK)</a>.
               </li>
             </ul>
             <p>A deleted account cannot be restored.</p>
-            <p>
-              The test versions 0.16 sent play data to Unity Analytics instead. There, turning off{" "}
-              {en("Share play data")} asks Unity to delete it, and from 0.16.1 deleting the account does too.
-            </p>
           </>
         ),
       },
@@ -192,7 +196,7 @@ const COPY: Record<LegalLang, LegalCopy> = {
     meta: (
       <>
         <span lang="en">Sledlings: Kart Rush</span> · Simple Ideas · Son güncelleme:{" "}
-        <time dateTime={UPDATED}>26 Kasım 2026</time>
+        <time dateTime={UPDATED}>27 Kasım 2026</time>
       </>
     ),
     intro: (
@@ -205,11 +209,11 @@ const COPY: Record<LegalLang, LegalCopy> = {
     summaryLabel: "Kısaca",
     summary: [
       <>Oyunda: {en("Settings › Services › Privacy & data › Delete account")}.</>,
-      <>E-postayla: görünen adınız ve arkadaş kodunuzla birlikte {mailFor("tr")} adresine yazın.</>,
-      "Silme işlemi Unity oyuncu hesabınızı, istekleri ve engellemeleriyle birlikte arkadaş listenizi, herkese açık profilinizle birlikte bulut kaydınızı ve bağlı girişleri kaldırır. Ayrıca oyun verisi paylaşımını kapatır ve cihazınızdaki oyun verilerini temizler. Cihazdaki tek oyunculu ilerlemeniz kalır.",
+      <>E-postayla: oyundaki adınız ve arkadaş kodunuzla birlikte {mailFor("tr")} adresine yazın.</>,
+      "Silme işlemi anonim oyuncu hesabınızı, odalardaki yarışlarınızın sonuçlarıyla birlikte herkese açık profilinizi ve istekleri ve engellemeleriyle birlikte arkadaş listenizi kaldırır. Ayrıca cihazınızda oyun verilerini kapatır. Cihazdaki tek oyunculu ilerlemeniz kalır.",
       <>
-        Google Analytics’in daha önce aldığı oyun verileri siz istediğinizde silinir: hesabınızı silmeden önce{" "}
-        {en("Ask to delete my play data")} seçeneğini kullanın.
+        Google Analytics’in daha önce aldığı oyun verileri siz istediğinizde silinir: hesabınızı sildikten sonra da{" "}
+        {en("Ask to delete my play data")} seçeneğini kullanabilirsiniz.
       </>,
     ],
     contentsLabel: "Bu sayfada",
@@ -229,16 +233,17 @@ const COPY: Record<LegalLang, LegalCopy> = {
               </li>
               <li>
                 Oyun {en("Delete online account?")} diye sorar. Onaylamak için {en("Delete account")} düğmesine
-                dokunun. İşlem bitince oyun {en("Account deleted")} gösterir.
+                dokunun. İşlem bitince oyun {en("Online account deleted.")} gösterir.
               </li>
             </ol>
             <p>
-              Google Analytics’in daha önce aldığı oyun verilerinin de silinmesini istiyorsanız önce{" "}
-              <a href="#play-data">oyun verileriniz için adımları</a> izleyin, sonra hesabı silin.
+              Google Analytics’in daha önce aldığı oyun verilerinin de silinmesini istiyorsanız aynı pencere{" "}
+              {en("Ask to delete my play data")} seçeneğini sunar; bkz.{" "}
+              <a href="#play-data">oyun verileriniz için adımlar</a>.
             </p>
             <p>
-              Online sayfasını veya <span lang="en">Save Progress</span> düğmesini hiç açmadıysanız silinecek bir
-              oyuncu hesabınız yoktur; oyun bu durumda cihazda oturum açılmış çevrim içi hesap olmadığını söyler.
+              Hiç çevrim içi olmadıysanız ({en("Online Race")} veya {en("Friends")} ile) silinecek bir oyuncu hesabınız
+              yoktur.
             </p>
           </>
         ),
@@ -249,9 +254,9 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <>
             <p>
-              {mailFor("tr")} adresine “{SUBJECT.tr}” konusuyla yazın. Hesabınızı bulabilmemiz için oyundaki görünen
-              adınızı ve arkadaş kodunuzu ekleyin. Oyuncu hesabınız anonimdir: bunlar olmadan hangi hesabın size ait
-              olduğunu anlayamayabiliriz.
+              {mailFor("tr")} adresine “{SUBJECT.tr}” konusuyla yazın. Hesabınızı bulabilmemiz için oyundaki adınızı ve
+              arkadaş kodunuzu ekleyin. Oyuncu hesabınız anonimdir: bunlar olmadan hangi hesabın size ait olduğunu
+              anlayamayabiliriz.
             </p>
             <p>
               Hesabı e-postanızdan itibaren 30 gün içinde siler ve tamamlandığında size yanıt veririz. Sizden başka bir
@@ -266,25 +271,24 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <>
             <p>
-              Oyun verileri, {en("Share play data")} açıkken oyunun Google Analytics for Firebase’e gönderdiği oyun
-              analitiğidir (bkz. <Link href="/sledlings/privacy?lang=tr#analytics">gizlilik politikası</Link>).
-              Bu veriler adınıza veya oyuncu hesabınıza bağlı değildir; bu yüzden onları bulmak için cihazınızdaki
-              oyunun oyun verisi kimliğine (<span lang="en">app-instance ID</span>) ihtiyacımız var.
+              Oyun verileri, oyunun Google Analytics for Firebase’e gönderdiği oyun analitiğidir (bkz.{" "}
+              <Link href="/sledlings/privacy?lang=tr#analytics">gizlilik politikası</Link>). Bu veriler adınıza veya
+              oyuncu hesabınıza bağlı değildir; bu yüzden onları bulmak için cihazınızdaki oyunun uygulama örneği
+              kimliğine (<span lang="en">app-instance ID</span>) ihtiyacımız var.
             </p>
             <ol className={styles.steps}>
+              <li>{en(ASK_PATH)} yolunu açın.</li>
               <li>
-                {en("Share play data")} hâlâ açıkken {en(ASK_PATH)} yolunu açın.
-              </li>
-              <li>
-                Oyun, {en("Sledlings play data deletion")} konulu ve oyun verisi kimliğini içeren, sizinle ilgili başka
-                hiçbir bilgi taşımayan bir e-posta açar. Bu e-postayı gönderin.
+                Oyun, {en("Sledlings play data deletion")} konulu ve uygulama örneği kimliğini içeren, sizinle ilgili
+                başka hiçbir bilgi taşımayan bir e-posta açar. Bu e-postayı gönderin.
               </li>
               <li>E-postanızdan itibaren 30 gün içinde o kimliğe ait oyun verilerinin silinmesini Google’dan ister ve size yanıt veririz.</li>
             </ol>
             <p>
-              Bunu {en("Share play data")} anahtarını kapatmadan veya hesabınızı silmeden önce yapın: ikisi de kimliği
-              cihazınızdan temizler ve oyun onu artık bize iletemez. İstek üzerine silinmeyen oyun verileri Google
-              tarafından 14 ay saklanır.
+              Bu, oyun verileri açıkken ve onları kapattıktan veya hesabınızı sildikten sonra 90 güne kadar çalışır:
+              oyun kimliği bu süre boyunca yalnızca cihazınızda tutar. E-postayı gönderdikten sonra, tutulan kimliği
+              kaldırmak için düğmenin yanındaki {en("Sent")} seçeneğine dokunun. İstek üzerine silinmeyen oyun verileri
+              Google tarafından 14 ay saklanır.
             </p>
           </>
         ),
@@ -296,13 +300,14 @@ const COPY: Record<LegalLang, LegalCopy> = {
           <>
             <h3>Hesabınızla birlikte silinenler</h3>
             <ul>
-              <li>Görünen adınız ve arkadaş kodunuzla birlikte Unity oyuncu hesabınız</li>
+              <li>Adınız ve arkadaş kodunuzla birlikte anonim Unity oyuncu hesabınız</li>
+              <li>Herkese açık profiliniz (ad, karakter, araç ve kostüm) ve odalardaki yarışlarınızın sonuçları</li>
               <li>Arkadaşlık istekleri ve engellediğiniz oyuncularla birlikte arkadaş listeniz</li>
-              <li>Herkese açık profilinizle (görünen ad, karakter, kızak ve kostümler) birlikte bulut kaydınız</li>
-              <li>Bağlı girişleriniz</li>
               <li>
-                Cihazınızdaki oyun verileri: oyun {en("Share play data")} anahtarını kapatır, oyun verisi göndermeyi
-                durdurur ve cihazda tuttuğu oyun verilerini, oyun verisi kimliğiyle birlikte temizler.
+                Cihazınızdaki oyun verileri: oyun, oyun verilerini kapatır ve kimliğini sıfırlar. Avrupa Ekonomik Alanı,
+                Birleşik Krallık ve İsviçre’de Google’ın izin formundaki cevabınız geçerli kalır: oyun verilerine izin
+                verdiyse, siz {en(CHOICES_PATH)} yolundan değiştirmedikçe oyun verileri oyunu bir sonraki açışınızda yeni
+                bir kimlikle yeniden başlar.
               </li>
             </ul>
             <h3>Hesabınızla birlikte silinmeyenler</h3>
@@ -311,19 +316,19 @@ const COPY: Record<LegalLang, LegalCopy> = {
                 Google Analytics’in daha önce aldığı oyun verileri. Siz istediğinizde silinir (bkz.{" "}
                 <a href="#play-data">yukarısı</a>); aksi hâlde Google bunları 14 ay saklar.
               </li>
+              <li>
+                Cihazınızda kalan reklam ve reklamlarımızın ölçülmesiyle ilgili seçimleriniz. Bunları{" "}
+                {en(CHOICES_PATH)} yolundan değiştirebilirsiniz. Google AdMob’un ve Meta’nın reklamlar ve ölçümleri için
+                aldıkları oyuncu hesabınıza bağlı değildir; onları kendi politikalarına göre saklarlar.
+              </li>
               <li>Cihazdaki tek oyunculu ilerlemeniz. Cihazınızda kalır; oyunu sildiğinizde cihazdan da silinir.</li>
               <li>Çökme raporları. 90 gün saklanır.</li>
               <li>
-                Bizimle yaptığınız e-posta yazışmaları;{" "}
+                Diğer oyuncularla ilgili bildirimler dahil bizimle yaptığınız e-posta yazışmaları;{" "}
                 <a href="/kvkk?lang=tr#processing">KVKK aydınlatma metninde</a> açıklandığı şekilde işlenir.
               </li>
             </ul>
             <p>Silinen bir hesap geri getirilemez.</p>
-            <p>
-              0.16 test sürümleri oyun verilerini bunun yerine Unity Analytics’e gönderiyordu. Orada{" "}
-              {en("Share play data")} anahtarını kapatmak Unity’den verilerin silinmesini ister; 0.16.1’den itibaren
-              hesabı silmek de ister.
-            </p>
           </>
         ),
       },

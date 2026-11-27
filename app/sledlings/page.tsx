@@ -2,13 +2,18 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { shareMetadata } from "@/lib/share";
-import { CONTACT_EMAIL } from "@/lib/site";
+import { CONTACT_EMAIL, SLEDLINGS_STORE } from "@/lib/site";
 import { AppScreens, type AppScreen } from "@/components/AppScreens";
+import { StoreBadges } from "@/components/StoreBadges";
 import { SledlingsShell } from "./SledlingsShell";
 import styles from "./sledlings.module.css";
 
 /*
- * Sledlings: Kart Rush: game page and support page in one, until the game is out ("Coming soon").
+ * Sledlings: Kart Rush: game page and support page in one (the store listing's Support and Marketing URL).
+ * Matched to the first store version, 1.0.0 (game facts: Race docs/site/store-build-pages.md and docs/store/listing.md
+ * at game commit 10de45bb): seven riders and six vehicles, Online Race, rooms from Friends, one optional rewarded video
+ * after a race, nothing sold. The store badges appear by themselves once SLEDLINGS_STORE (lib/site.ts) has the links.
+ * Public texts never say "bot" (the game's rule): a race has six racers on the grid.
  * Its privacy policy, terms of service and account deletion page live under this address
  * (/sledlings/privacy, /sledlings/terms, /sledlings/delete-account); those addresses go into App Store Connect
  * and Google Play, so never move them without a 301.
@@ -76,7 +81,7 @@ const SUPPORT_MAIL = `mailto:${CONTACT_EMAIL}?subject=Sledlings%3A%20Kart%20Rush
 const PAGE_URL = "https://www.simpleideas.net/sledlings";
 const TITLE = "Sledlings: Kart Rush — A kart and sled racer for iPhone and Android";
 const DESCRIPTION =
-  "Seven cute animal riders, eleven courses across five worlds, snowballs to throw and rooms to race your friends. Free to play. Coming soon to the App Store and Google Play.";
+  "Seven cute animal riders, eleven courses across five worlds, snowballs to throw, Online Race and rooms to race your friends. Free to play, and nothing is sold.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -92,7 +97,7 @@ const jsonLd = {
   url: PAGE_URL,
   image: "https://www.simpleideas.net/sledlings/og.jpg",
   description:
-    "A kart and sled racer for phones: seven animal riders, eleven courses across five worlds, items to throw, drop and block with, an Adventure road of 34 stops, free races and rooms to race friends by code.",
+    "A kart and sled racer for phones: seven animal riders and six vehicles, eleven courses across five worlds, items to throw, drop and block with, an Adventure road of 34 stops, Online Race and rooms to race friends by code.",
   genre: ["Racing", "Kart racing"],
   gamePlatform: ["iOS", "Android"],
   applicationCategory: "GameApplication",
@@ -103,6 +108,7 @@ const jsonLd = {
 };
 
 export default function SledlingsPage() {
+  const hasStore = Boolean(SLEDLINGS_STORE.appStore || SLEDLINGS_STORE.googlePlay);
   return (
     <SledlingsShell>
       <script
@@ -111,19 +117,33 @@ export default function SledlingsPage() {
       />
       <Image
         className={styles.icon}
-        src="/sledlings/icon.jpg"
-        alt="Sledlings: Kart Rush app icon: a fox in goggles and a red scarf on a sled"
+        src="/sledlings/app-icon.jpg"
+        alt="Sledlings: Kart Rush app icon: a fox in goggles and a red scarf driving an orange kart"
         width={512}
         height={512}
         sizes="(max-width: 720px) 72px, 88px"
         preload
       />
-      <p className={styles.kicker}>iPhone and Android · Coming soon</p>
-      <h1>Sledlings: Kart Rush</h1>
+      <p className={styles.kicker}>iPhone and Android · Free to play</p>
+      <h1 className={styles.wordmark}>
+        <Image
+          src="/sledlings/wordmark.webp"
+          alt="Sledlings: Kart Rush"
+          width={960}
+          height={281}
+          sizes="(max-width: 720px) 300px, 400px"
+          preload
+        />
+      </h1>
       <p className={styles.lede}>
         A kart and sled racer for phones. Pick one of seven cute animal riders, throw a snowball at the leader and race
         your friends down eleven courses.
       </p>
+      {hasStore && (
+        <div className={styles.stores}>
+          <StoreBadges store={SLEDLINGS_STORE} />
+        </div>
+      )}
       <a className={styles.button} href={SUPPORT_MAIL}>
         Email support
       </a>
@@ -146,16 +166,20 @@ export default function SledlingsPage() {
 
       <h2>The game</h2>
       <ul>
-        <li>Seven cute animal riders</li>
+        <li>
+          Seven cute animal riders: Cinnamon the fox, Button the husky, Cotton the snow hare, Chestnut the reindeer,
+          Nimbus the snow leopard, Dumpling the elephant and Nutmeg the squirrel
+        </li>
+        <li>Six vehicles, from the Classic Sled to the Red Frame Kart. Start with three riders and two vehicles, and open the rest with the coins you win.</li>
         <li>Eleven courses across five worlds: snow, city, dunes, candy and volcano</li>
         <li>Downhill runs and three-lap circuits, at four times of day</li>
         <li>
-          Items to throw, drop and block with: snowballs, an ice slick, an icicle, a snow globe shield, and hot cocoa
-          for a boost
+          Items to throw, drop and block with: snowballs (one of them homing), an ice slick, an icicle, a snow globe
+          shield, and hot cocoa for a boost
         </li>
         <li>An Adventure road of 34 stops with medals to win</li>
-        <li>Free races, and rooms to race your friends by code</li>
-        <li>Free to play. Costumes for your riders come later.</li>
+        <li>Free races, Online Race for a quick race with whoever is searching, and rooms to race your friends by code</li>
+        <li>Free to play, and nothing is sold. One optional video after a race doubles that race’s coins.</li>
         <li>In English</li>
       </ul>
 
@@ -187,7 +211,8 @@ export default function SledlingsPage() {
       <h2>Adventure and races</h2>
       <p>
         The Adventure is a road of 34 stops with medals to win, from sunrise to nightfall. Free races let you pick a
-        course and go. To race friends, open a room and share its code.
+        course and go. Online Race gives you a quick race with whoever is searching right then, six racers on the grid.
+        To race friends, open a room from Friends and share its short code.
       </p>
       <ul className={styles.road} aria-label="The Adventure road">
         {ROAD.map((stage) => (
@@ -207,20 +232,35 @@ export default function SledlingsPage() {
       <AppScreens items={MENU_SCREENS} shape="phone169" label="Sledlings: Kart Rush menus" className={styles.pair} />
 
       <h2>Common questions</h2>
-      <h3>When does it come out?</h3>
-      <p>Soon, on the App Store and Google Play. This page will link to both stores on launch day.</p>
+      {!hasStore && (
+        <>
+          <h3>Where can I get it?</h3>
+          <p>Sledlings is on its way to the App Store and Google Play. This page links to both stores as soon as it is there.</p>
+        </>
+      )}
       <h3>Does it cost anything?</h3>
       <p>
-        No, Sledlings is free to play. Costumes for your riders will come later as purchases through the App Store and
-        Google Play. They change how a rider looks, not how fast they go.
+        No. Sledlings is free to play, and nothing in it is sold. You win coins in races and open riders and vehicles
+        with them.
+      </p>
+      <h3>Are there ads?</h3>
+      <p>
+        One kind, and only if you choose it: after a race that paid coins, you can watch one short video to double that
+        race’s coins. No banners, and no ad ever starts by itself. The ads come from Google AdMob; how they use data is
+        in the <Link href="/sledlings/privacy#ads">privacy policy</Link>.
       </p>
       <h3>Do I need an account?</h3>
       <p>
-        No. Playing alone needs no account: your progress is saved on your device. Racing friends online needs no
-        sign-up either: when you open the Online page, the game gives you an anonymous player account.
+        No. Playing alone needs no account: your progress is saved on your device. Racing online needs no sign-up
+        either: the first time you press Online Race or Friends, the game asks once and then gives you an anonymous
+        player account.
       </p>
       <h3>Can I chat with other players?</h3>
-      <p>There is no chat. In a room you can send four fixed phrases and emotes, nothing typed.</p>
+      <p>
+        There is no chat. Names come from a word list, and in a room you can send four fixed phrases and emotes, nothing
+        typed. You can block, mute or report any player: tap them in a race or a room, in your friends list or in the
+        list of players you raced with.
+      </p>
       <h3>How do I delete my account?</h3>
       <p>
         In the game at Settings › Services › Privacy &amp; data › Delete account, or by email. The steps are on the{" "}
@@ -228,10 +268,11 @@ export default function SledlingsPage() {
       </p>
       <h3>What data does the game collect?</h3>
       <p>
-        Gameplay analytics through Google Analytics, without names or codes, which you can turn off in Settings, and
-        crash reports. Online play uses an anonymous player account. The game shows no ads and uses no advertising
-        identifier. The details are in the{" "}
-        <Link href="/sledlings/privacy">privacy policy</Link>.
+        Play data about how the game is played, sent to Google Analytics without names or codes; the ad network’s data
+        for the optional video; a record of the install (and on iPhone, the app’s sessions) for Meta, to measure our
+        own ads; and crash reports. Where the law asks for it, the game asks you first, and everyone can change these
+        choices at Settings › Services › Privacy &amp; data › Manage privacy choices. Online play uses an anonymous
+        player account. The details are in the <Link href="/sledlings/privacy">privacy policy</Link>.
       </p>
       <h3>Something is not working</h3>
       <p>

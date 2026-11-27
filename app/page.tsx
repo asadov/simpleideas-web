@@ -355,7 +355,7 @@ export default function Home() {
             <div className={styles.teaserCopy}>
               <Image
                 className={styles.teaserIcon}
-                src="/sledlings/icon.jpg"
+                src="/sledlings/app-icon.jpg"
                 alt="Sledlings: Kart Rush app icon"
                 width={512}
                 height={512}

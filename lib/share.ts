@@ -6,7 +6,7 @@ const SITE = "https://www.simpleideas.net";
 const CARDS = {
   aio: { path: "/og-image-free.png", alt: "Almost in Orbit — play free on iPhone and Android" },
   cpa: { path: "/cpa/og.jpg", alt: "Pixel Art Collect — restore great paintings, pixel by pixel" },
-  sledlings: { path: "/sledlings/og.jpg", alt: "Sledlings: Kart Rush — a kart and sled racer, coming soon to iPhone and Android" },
+  sledlings: { path: "/sledlings/og.jpg", alt: "Sledlings: Kart Rush — a kart and sled racer for iPhone and Android" },
   tempo: { path: "/tempo/og.png", alt: "Tempo — haptic metronome for Apple Watch" },
   tuner: { path: "/tuner/og.png", alt: "Tuner Pro Studio — chromatic and guitar tuner for iPhone and iPad" },
   studio: { path: "/og-studio.png", alt: "Simple Ideas" },

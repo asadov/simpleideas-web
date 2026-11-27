@@ -120,8 +120,8 @@ export async function InvitePage({ kind, params }: { kind: InviteKind; params: I
     <SledlingsShell>
       <Image
         className={styles.icon}
-        src="/sledlings/icon.jpg"
-        alt="Sledlings: Kart Rush app icon: a fox in goggles and a red scarf on a sled"
+        src="/sledlings/app-icon.jpg"
+        alt="Sledlings: Kart Rush app icon: a fox in goggles and a red scarf driving an orange kart"
         width={512}
         height={512}
         sizes="(max-width: 720px) 72px, 88px"

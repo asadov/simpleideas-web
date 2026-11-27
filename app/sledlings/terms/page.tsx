@@ -10,12 +10,18 @@ import { LegalDoc, legalDocMetadata, readLang, type LegalCopy, type SearchParams
  *
  * Built on the Almost in Orbit terms (../../terms/terms.tsx): same publisher identity, Türkiye law with the player's
  * mandatory consumer rules reserved, and the "If you got the game from the App Store" section with Apple's minimum
- * EULA terms. Sledlings adds online play and friend rooms, fair play, and cosmetic purchases that are not live yet.
- * Keep it in line with the privacy policy (../privacy/page.tsx).
+ * EULA terms. Sledlings adds online play (Online Race with other players, friend rooms), fair play, coins and the
+ * optional rewarded video, and the conditional paragraph on purchases. Keep it in line with the privacy policy
+ * (../privacy/page.tsx).
+ *
+ * Store version 1.0.0 (facts: Race docs/site/store-build-pages.md at game commit 10de45bb, "Said now for later:
+ * purchases" from the owner on 27 November 2026): the first version sells nothing for money; coins are won in races
+ * and by watching an optional video; a diamond shop and a gold shop are planned, so "items" already says how
+ * purchases would work, without saying they are in the game.
  */
 
 const PAGE_PATH = "/sledlings/terms";
-const TERMS_EFFECTIVE = "2026-11-25";
+const TERMS_EFFECTIVE = "2026-11-27";
 
 const LINKS = {
   appleEula: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/",
@@ -32,11 +38,11 @@ const COPY: Record<LegalLang, LegalCopy> = {
   en: {
     metaTitle: "Terms of Service · Sledlings: Kart Rush",
     metaDescription:
-      "The terms for playing Sledlings: Kart Rush on iOS and Android: your licence, online play and friend rooms, fair play, virtual items and your rights.",
+      "The terms for playing Sledlings: Kart Rush on iOS and Android: your licence, online play with Online Race and friends’ rooms, fair play, coins, ads and your rights.",
     title: "Terms of Service",
     meta: (
       <>
-        Sledlings: Kart Rush · Effective date: <time dateTime={TERMS_EFFECTIVE}>25 November 2026</time>
+        Sledlings: Kart Rush · Effective date: <time dateTime={TERMS_EFFECTIVE}>27 November 2026</time>
       </>
     ),
     intro: (
@@ -48,9 +54,9 @@ const COPY: Record<LegalLang, LegalCopy> = {
     summaryLabel: "In short",
     summary: [
       "The game is for players aged 13 and over, for personal, non-commercial use. The App Store or Google Play terms also apply.",
-      "It is free to play. Costumes will come later as purchases. They only change how a rider looks and have no cash value.",
-      "Online play is optional. Race fair: no cheats, bots or modified versions of the game.",
-      "Payments and refunds go through Apple or Google.",
+      "It is free to play and sells nothing for money. Coins are won in races, or by choosing to watch a video after a race. Coins have no value outside the game.",
+      "Online play is optional. In Online Race you meet players you do not know: you can block, mute or report any of them. Race fair: no cheats, no programs that play for you and no modified versions of the game.",
+      "If the game sells something in a later version, payments and refunds go through Apple or Google.",
       "Nothing here takes away the consumer rights the law gives you.",
       <>Questions: {mail}</>,
     ],
@@ -66,7 +72,7 @@ const COPY: Record<LegalLang, LegalCopy> = {
               Simple Ideas (“we”, “us”). Contact: {mail}.
             </p>
             <p>
-              These terms apply when you download, install or play the game. They take effect on 25 November 2026. If
+              These terms apply when you download, install or play the game. They take effect on 27 November 2026. If
               you do not agree with them, please do not use the game.
             </p>
           </>
@@ -137,18 +143,33 @@ const COPY: Record<LegalLang, LegalCopy> = {
       },
       {
         id: "online",
-        title: "Online play and friend rooms",
+        title: "Online play, Online Race and friends’ rooms",
         body: (
           <>
             <p>
-              Online play is optional and starts when you open the Online page in the game. It gives you an anonymous
-              player account, a display name made of two ready-made words, a friend code and a friends list. You can
-              open a room or join one with its code. Anyone who has a room’s code can join it, so share codes only with
-              people you want to race.
+              Online play is optional. It starts the first time you press Online Race or Friends in the game, after
+              the game asks you to agree. It gives you an anonymous player account, a name made of two words from a
+              list, a friend code and a friends list.
             </p>
             <p>
-              There is no chat. In a room, players can send four fixed phrases and emotes. Online play needs an internet
-              connection and runs on Unity’s online services, so it may not always be available.
+              <strong>Online Race</strong> puts you in a quick race with other players who are searching at the same
+              time, people you may not know. They see your name, rider, vehicle and costume, and they can send you a
+              friend request.
+            </p>
+            <p>
+              <strong>Friends’ rooms.</strong> You can open a room from Friends, or join one with its code or an
+              invite. Anyone who has a room’s code can join it, so share codes only with people you want to race. With{" "}
+              <strong>Private room</strong> on, your friends can no longer join from their friends list, but the code
+              and invites still work. With <strong>Open to others</strong> on, Online Race players can join too. The
+              host can remove a player who came in by code or invite from the room.
+            </p>
+            <p>
+              You can block, mute or report any player. A report opens an email to us in your own mail app; we look at
+              the reports we receive and may act on them as described under <a href="#fair-play">fair play</a>.
+            </p>
+            <p>
+              There is no chat. Players can send four fixed phrases and stickers, nothing typed. Online play needs an
+              internet connection and runs on Unity’s online services, so it may not always be available.
             </p>
           </>
         ),
@@ -160,11 +181,12 @@ const COPY: Record<LegalLang, LegalCopy> = {
           <>
             <p>When you play, and above all when you race other players, do not:</p>
             <ul>
-              <li>use cheats, bots or tools that change the game, its memory, its saves or its network traffic;</li>
+              <li>use cheats, programs that play for you, or tools that change the game, its memory, its saves or its network traffic;</li>
               <li>use or share a modified version of the game;</li>
               <li>exploit bugs to win races, medals or items, or tamper with race data or results;</li>
               <li>use someone else’s player account, or sell, share or give away your own;</li>
-              <li>disrupt rooms or the online service, or try to get into data that is not yours;</li>
+              <li>disrupt rooms or the online service, harass other players, or try to get into data that is not yours;</li>
+              <li>send false reports about other players;</li>
               <li>reverse engineer, decompile or disassemble the game, except where the law allows it;</li>
               <li>get purchases without paying, or otherwise get around the purchase system;</li>
               <li>copy, sell, rent or redistribute the game or its content.</li>
@@ -182,20 +204,20 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <>
             <p>
-              The game is free to play. Costumes for the riders are planned as purchases; they are not in the game yet.
-              When they come:
+              The game is free to play, and this version sells nothing for money. You win coins in races. After a race
+              that paid coins, you can choose to watch a short video ad to double that race’s coins; the game never
+              starts an ad by itself.
             </p>
             <ul>
-              <li>Costumes only change how a rider looks. They do not make a rider faster or stronger.</li>
               <li>
-                Costumes, medals and other in-game items have no value outside the game. They cannot be exchanged for
-                cash, or transferred or sold to another player. They are part of your licence to play, not property you
-                own.
+                Coins, medals and other in-game items are part of your licence to play, not property you own. They
+                have no value in money and cannot be exchanged for cash, or transferred or sold to another player.
               </li>
               <li>
-                Payment, refunds and billing are handled by Apple or Google under their own terms and policies. Prices
-                are shown in the store before you buy. To ask for a refund, use{" "}
-                <a href={LINKS.appleRefund}>Apple’s refund request</a> or{" "}
+                If a later version offers purchases (for example diamonds or gold), the same applies to diamonds and to
+                what they buy. Payment, refunds and billing are then handled by the store that took the payment, Apple
+                or Google, under its own terms and policies and as the law allows. Prices are shown in the store before
+                you buy. To ask for a refund, use <a href={LINKS.appleRefund}>Apple’s refund request</a> or{" "}
                 <a href={LINKS.playRefund}>Google Play’s refund process</a>. The game never sees your payment details.
               </li>
             </ul>
@@ -211,8 +233,9 @@ const COPY: Record<LegalLang, LegalCopy> = {
         title: "Your progress",
         body: (
           <p>
-            Your progress is saved on your device only. It can be lost if you delete the game, clear its data or lose
-            your device, and we cannot recover it.
+            Your single-player progress is saved on your device only. It can be lost if you delete the game, clear its
+            data or lose your device, and we cannot recover it. Your online profile, friends list and the results of
+            your races in rooms are kept with your online account until you delete it.
           </p>
         ),
       },
@@ -309,12 +332,12 @@ const COPY: Record<LegalLang, LegalCopy> = {
   tr: {
     metaTitle: "Kullanım Şartları · Sledlings: Kart Rush",
     metaDescription:
-      "Sledlings: Kart Rush’ı iOS ve Android’de oynamanın şartları: kullanım lisansı, çevrim içi oyun ve arkadaş odaları, adil oyun, sanal öğeler ve haklarınız.",
+      "Sledlings: Kart Rush’ı iOS ve Android’de oynamanın şartları: kullanım lisansı, Online Race ve arkadaş odalarıyla çevrim içi oyun, adil oyun, jetonlar, reklamlar ve haklarınız.",
     title: "Kullanım Şartları",
     meta: (
       <>
         <span lang="en">Sledlings: Kart Rush</span> · Yürürlük tarihi:{" "}
-        <time dateTime={TERMS_EFFECTIVE}>25 Kasım 2026</time>
+        <time dateTime={TERMS_EFFECTIVE}>27 Kasım 2026</time>
       </>
     ),
     intro: (
@@ -326,9 +349,9 @@ const COPY: Record<LegalLang, LegalCopy> = {
     summaryLabel: "Kısaca",
     summary: [
       "Oyun 13 yaş ve üzeri oyuncular içindir; kişisel ve ticari olmayan kullanım içindir. App Store veya Google Play şartları da geçerlidir.",
-      "Ücretsiz oynanır. Kostümler ileride satın alma olarak gelecek; yalnızca yarışçının görünüşünü değiştirirler ve nakit değerleri yoktur.",
-      "Çevrim içi oyun isteğe bağlıdır. Adil yarışın: hile, bot veya oyunun değiştirilmiş sürümleri yok.",
-      "Ödeme ve iadeler Apple veya Google üzerinden yürür.",
+      "Ücretsiz oynanır ve parayla hiçbir şey satmaz. Jetonlar yarışlarda ya da bir yarıştan sonra isteğe bağlı bir video izlenerek kazanılır. Jetonların oyun dışında değeri yoktur.",
+      "Çevrim içi oyun isteğe bağlıdır. Online Race’te tanımadığınız oyuncularla karşılaşırsınız: herhangi birini engelleyebilir, sessize alabilir veya bildirebilirsiniz. Adil yarışın: hile, sizin yerinize oynayan programlar veya oyunun değiştirilmiş sürümleri yok.",
+      "Oyun ileriki bir sürümde bir şey satarsa ödeme ve iadeler Apple veya Google üzerinden yürür.",
       "Buradaki hiçbir şey yasanın size tanıdığı tüketici haklarını ortadan kaldırmaz.",
       <>Sorularınız için: {mail}</>,
     ],
@@ -344,7 +367,7 @@ const COPY: Record<LegalLang, LegalCopy> = {
               geliştirici olan Salih Salihoğlu yayımlar (“biz”). İletişim: {mail}.
             </p>
             <p>
-              Bu şartlar oyunu indirdiğinizde, kurduğunuzda veya oynadığınızda geçerlidir ve 25 Kasım 2026’da yürürlüğe
+              Bu şartlar oyunu indirdiğinizde, kurduğunuzda veya oynadığınızda geçerlidir ve 27 Kasım 2026’da yürürlüğe
               girer. Kabul etmiyorsanız lütfen oyunu kullanmayın.
             </p>
           </>
@@ -416,18 +439,37 @@ const COPY: Record<LegalLang, LegalCopy> = {
       },
       {
         id: "online",
-        title: "Çevrim içi oyun ve arkadaş odaları",
+        title: "Çevrim içi oyun, Online Race ve arkadaş odaları",
         body: (
           <>
             <p>
-              Çevrim içi oyun isteğe bağlıdır ve oyundaki Online sayfasını açtığınızda başlar. Size anonim bir oyuncu
-              hesabı, iki hazır kelimeden oluşan bir görünen ad, bir arkadaş kodu ve bir arkadaş listesi verir. Bir oda
-              açabilir ya da koduyla bir odaya katılabilirsiniz. Bir odanın kodunu bilen herkes odaya katılabilir; bu
-              yüzden kodları yalnızca birlikte yarışmak istediğiniz kişilerle paylaşın.
+              Çevrim içi oyun isteğe bağlıdır. Oyunda <span lang="en">Online Race</span> veya{" "}
+              <span lang="en">Friends</span> düğmesine ilk bastığınızda, oyun onayınızı istedikten sonra başlar. Size
+              anonim bir oyuncu hesabı, listeden seçilen iki kelimelik bir ad, bir arkadaş kodu ve bir arkadaş listesi
+              verir.
             </p>
             <p>
-              Sohbet yoktur. Odada oyuncular dört hazır ifade ve emoji gönderebilir. Çevrim içi oyun internet bağlantısı
-              gerektirir ve Unity’nin çevrim içi hizmetleri üzerinde çalışır; bu yüzden her zaman kullanılamayabilir.
+              <strong lang="en">Online Race</strong> sizi aynı anda arama yapan, tanımıyor olabileceğiniz oyuncularla
+              hızlı bir yarışa koyar. Bu oyuncular adınızı, karakterinizi, aracınızı ve kostümünüzü görür ve size
+              arkadaşlık isteği gönderebilir.
+            </p>
+            <p>
+              <strong>Arkadaş odaları.</strong> <span lang="en">Friends</span> bölümünden bir oda açabilir ya da koduyla
+              veya bir davetle bir odaya katılabilirsiniz. Bir odanın kodunu bilen herkes odaya katılabilir; bu yüzden
+              kodları yalnızca birlikte yarışmak istediğiniz kişilerle paylaşın. <strong lang="en">Private room</strong>{" "}
+              açıkken arkadaşlarınız odaya artık arkadaş listelerinden katılamaz, ama kod ve davetler yine çalışır.{" "}
+              <strong lang="en">Open to others</strong> açıkken Online Race oyuncuları da katılabilir. Oda sahibi, kodla
+              veya davetle gelen bir oyuncuyu odadan çıkarabilir.
+            </p>
+            <p>
+              Herhangi bir oyuncuyu engelleyebilir, sessize alabilir veya bildirebilirsiniz. Bildirim, kendi e-posta
+              uygulamanızda bize gönderilecek bir e-posta açar; aldığımız bildirimlere bakar ve{" "}
+              <a href="#fair-play">adil oyun</a> bölümünde anlatıldığı gibi işlem yapabiliriz.
+            </p>
+            <p>
+              Sohbet yoktur. Oyuncular dört hazır ifade ve çıkartma gönderebilir, yazı yazamaz. Çevrim içi oyun internet
+              bağlantısı gerektirir ve Unity’nin çevrim içi hizmetleri üzerinde çalışır; bu yüzden her zaman
+              kullanılamayabilir.
             </p>
           </>
         ),
@@ -439,11 +481,12 @@ const COPY: Record<LegalLang, LegalCopy> = {
           <>
             <p>Oynarken, özellikle de başka oyuncularla yarışırken şunları yapmayın:</p>
             <ul>
-              <li>oyunu, belleğini, kayıtlarını veya ağ trafiğini değiştiren hile, bot ya da araçlar kullanmak;</li>
+              <li>hile, sizin yerinize oynayan programlar ya da oyunu, belleğini, kayıtlarını veya ağ trafiğini değiştiren araçlar kullanmak;</li>
               <li>oyunun değiştirilmiş bir sürümünü kullanmak veya paylaşmak;</li>
               <li>yarış, madalya ya da öğe kazanmak için hatalardan yararlanmak, yarış verilerini veya sonuçlarını kurcalamak;</li>
               <li>başkasının oyuncu hesabını kullanmak ya da kendi hesabınızı satmak, paylaşmak veya başkasına vermek;</li>
-              <li>odaları veya çevrim içi hizmeti bozmak ya da size ait olmayan verilere erişmeye çalışmak;</li>
+              <li>odaları veya çevrim içi hizmeti bozmak, diğer oyunculara rahatsızlık vermek ya da size ait olmayan verilere erişmeye çalışmak;</li>
+              <li>diğer oyuncular hakkında asılsız bildirimde bulunmak;</li>
               <li>yasanın izin verdiği durumlar dışında oyunu tersine mühendislikle incelemek, kaynak koda dönüştürmek veya parçalarına ayırmak;</li>
               <li>satın almaları ödeme yapmadan elde etmek ya da satın alma sistemini başka bir yolla aşmak;</li>
               <li>oyunu veya içeriğini kopyalamak, satmak, kiralamak ya da yeniden dağıtmak.</li>
@@ -461,20 +504,21 @@ const COPY: Record<LegalLang, LegalCopy> = {
         body: (
           <>
             <p>
-              Oyun ücretsiz oynanır. Yarışçılar için kostümlerin satın alma olarak gelmesi planlanıyor; henüz oyunda
-              yoklar. Geldiklerinde:
+              Oyun ücretsiz oynanır ve bu sürüm parayla hiçbir şey satmaz. Jetonları yarışlarda kazanırsınız. Jeton
+              kazandıran bir yarıştan sonra, o yarışın jetonlarını ikiye katlamak için kısa bir reklam videosu izlemeyi
+              seçebilirsiniz; oyun hiçbir reklamı kendiliğinden başlatmaz.
             </p>
             <ul>
-              <li>Kostümler yalnızca yarışçının görünüşünü değiştirir; onu daha hızlı veya daha güçlü yapmaz.</li>
               <li>
-                Kostümlerin, madalyaların ve diğer oyun içi öğelerin oyun dışında değeri yoktur. Nakde çevrilemez,
-                başka bir oyuncuya devredilemez veya satılamazlar. Sahip olduğunuz bir mülk değil, oynama lisansınızın
-                parçasıdırlar.
+                Jetonlar, madalyalar ve diğer oyun içi öğeler sahip olduğunuz bir mülk değil, oynama lisansınızın
+                parçasıdır. Parasal değerleri yoktur; nakde çevrilemez, başka bir oyuncuya devredilemez veya
+                satılamazlar.
               </li>
               <li>
-                Ödeme, iade ve faturalandırmayı Apple veya Google kendi şart ve politikalarına göre yürütür. Fiyatlar
-                satın almadan önce mağazada gösterilir. İade istemek için{" "}
-                <a href={LINKS.appleRefund}>Apple’ın iade talebini</a> veya{" "}
+                İleriki bir sürüm satın alma sunarsa (örneğin elmas veya altın), aynı kural elmaslar ve onlarla alınanlar
+                için de geçerlidir. Ödeme, iade ve faturalandırmayı o zaman ödemeyi alan mağaza, yani Apple veya Google,
+                kendi şart ve politikalarına göre ve yasanın izin verdiği ölçüde yürütür. Fiyatlar satın almadan önce
+                mağazada gösterilir. İade istemek için <a href={LINKS.appleRefund}>Apple’ın iade talebini</a> veya{" "}
                 <a href={LINKS.playRefund}>Google Play’in iade sürecini</a> kullanın. Oyun ödeme bilgilerinizi hiçbir
                 zaman görmez.
               </li>
@@ -491,8 +535,9 @@ const COPY: Record<LegalLang, LegalCopy> = {
         title: "İlerlemeniz",
         body: (
           <p>
-            İlerlemeniz yalnızca cihazınızda saklanır. Oyunu silerseniz, verilerini temizlerseniz veya cihazınızı
-            kaybederseniz kaybolabilir ve onu geri getiremeyiz.
+            Tek oyunculu ilerlemeniz yalnızca cihazınızda saklanır. Oyunu silerseniz, verilerini temizlerseniz veya
+            cihazınızı kaybederseniz kaybolabilir ve onu geri getiremeyiz. Çevrim içi profiliniz, arkadaş listeniz ve
+            odalardaki yarışlarınızın sonuçları, siz silene kadar çevrim içi hesabınızla birlikte tutulur.
           </p>
         ),
       },

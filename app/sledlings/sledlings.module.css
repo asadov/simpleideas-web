@@ -124,6 +124,27 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+/* the game page's title is the game's wordmark (its alt text is the heading's name) */
+.main h1.wordmark {
+  margin: 10px 0 20px;
+  line-height: 0;
+}
+.wordmark img {
+  display: block;
+  width: min(100%, 400px);
+  height: auto;
+  /* the artwork carries its own cream edge; pull it left so the letters, not the edge, sit on the text column */
+  margin-left: -4px;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45));
+}
+@media (max-width: 720px) {
+  .main h1.wordmark {
+    margin: 8px 0 16px;
+  }
+  .wordmark img {
+    width: min(100%, 300px);
+  }
+}
 .lede {
   color: var(--muted);
   font-size: 1.15rem;

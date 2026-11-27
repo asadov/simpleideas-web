@@ -9,7 +9,7 @@ const LINKS = [
   { href: "/sledlings", label: "Sledlings", chip: "Soon" },
   // "Soon" until the app is live on the App Store; remove the chip on launch day.
   { href: "/tempo", label: "Tempo", chip: "Soon" },
-  { href: "/tuner", label: "Tuner Pro Studio", chip: "Soon" },
+  { href: "/tuner", label: "Tuner Pro Studio" },
   { href: "/press", label: "Press kit" },
   { href: "/support", label: "Support" },
 ] as const;

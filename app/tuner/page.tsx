@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/share";
 import Link from "next/link";
-import { CONTACT_EMAIL } from "@/lib/site";
+import { CONTACT_EMAIL, TUNER_STORE } from "@/lib/site";
 import { AppScreens, type AppScreen } from "@/components/AppScreens";
+import { StoreBadges } from "@/components/StoreBadges";
 import { TunerShell } from "./TunerShell";
 import styles from "./tuner.module.css";
 
@@ -39,7 +40,7 @@ const SUPPORT_MAIL = `mailto:${CONTACT_EMAIL}?subject=Tuner%20Pro%20Studio%20%E2
 
 const TITLE = "Tuner Pro Studio — Chromatic and guitar tuner for iPhone";
 const DESCRIPTION =
-  "A precise chromatic and guitar tuner for iPhone and iPad. Works offline; your microphone audio is never recorded. Coming soon to the App Store.";
+  "A precise chromatic and guitar tuner for iPhone and iPad. Works offline; your microphone audio is never recorded. Available on the App Store.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -51,15 +52,18 @@ export const metadata: Metadata = {
 export default function TunerPage() {
   return (
     <TunerShell>
-      <p className={styles.kicker}>iPhone and iPad · Coming soon to the App Store</p>
+      <p className={styles.kicker}>iPhone and iPad · On the App Store</p>
       <h1>Tuner Pro Studio</h1>
       <p className={styles.lede}>
         A precise chromatic and guitar tuner with a wide, easy-to-read needle. Play one note, centre the needle, and
         you are in tune.
       </p>
-      <a className={styles.button} href={SUPPORT_MAIL}>
-        Email support
-      </a>
+      <div className={styles.actions}>
+        <StoreBadges store={TUNER_STORE} />
+        <a className={`${styles.button} ${styles.secondary}`} href={SUPPORT_MAIL}>
+          Email support
+        </a>
+      </div>
       <p className={styles.meta}>
         Your email and message are used to answer your request. <a href="/kvkk?lang=en#processing">Personal data notice</a>.
       </p>

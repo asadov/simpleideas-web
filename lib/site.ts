@@ -11,6 +11,11 @@ export type StoreLinks = { appStore?: string; googlePlay?: string };
  */
 export const SLEDLINGS_STORE: StoreLinks = {};
 
+/* Tuner Pro Studio is on the App Store (iPhone and iPad; there is no Android version). */
+export const TUNER_STORE: StoreLinks = {
+  appStore: "https://apps.apple.com/app/tuner-pro-studio/id6830564620",
+};
+
 export const CONTACT_EMAIL = "salih@simpleideas.net";
 
 export const TRAILER = {

@@ -16,6 +16,11 @@ export const TUNER_STORE: StoreLinks = {
   appStore: "https://apps.apple.com/app/tuner-pro-studio/id6830564620",
 };
 
+/* Tempo is on the App Store (Apple Watch only, watchOS 11 or later; there is no iPhone or Android app). */
+export const TEMPO_STORE: StoreLinks = {
+  appStore: "https://apps.apple.com/app/tempo-wrist-metronome/id6829817323",
+};
+
 export const CONTACT_EMAIL = "salih@simpleideas.net";
 
 export const TRAILER = {

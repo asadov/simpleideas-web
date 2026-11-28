@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { shareMetadata } from "@/lib/share";
 import Link from "next/link";
-import { CONTACT_EMAIL } from "@/lib/site";
+import { CONTACT_EMAIL, TEMPO_STORE } from "@/lib/site";
 import { AppScreens, type AppScreen } from "@/components/AppScreens";
+import { StoreBadges } from "@/components/StoreBadges";
 import { TempoShell } from "./TempoShell";
 import styles from "./tempo.module.css";
 
@@ -11,7 +12,7 @@ const SCREENS: AppScreen[] = [
   {
     src: "/tempo/screens/1-idle.png",
     alt: "Tempo stopped at 120 BPM with ALLEGRO below the number, four beat dots, the 4/4 button, an orange Play button and TAP.",
-    caption: "Digital Crown sets 40 to 240 BPM, with the tempo name below",
+    caption: "Digital Crown sets 40 to 170 BPM, with the tempo name below",
   },
   {
     src: "/tempo/screens/2-playing-first-beat.png",
@@ -37,7 +38,7 @@ const SCREENS: AppScreen[] = [
 
 const TITLE = "Tempo — Haptic metronome for Apple Watch";
 const DESCRIPTION =
-  "Tempo taps the beat on your wrist. A metronome for Apple Watch with tap tempo and odd time signatures. Coming soon to the App Store.";
+  "Tempo taps the beat on your wrist. A metronome for Apple Watch with tap tempo and odd time signatures. On the App Store.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -49,15 +50,21 @@ export const metadata: Metadata = {
 export default function TempoPage() {
   return (
     <TempoShell>
-      <p className={styles.kicker}>Apple Watch · Coming soon to the App Store</p>
+      <p className={styles.kicker}>Apple Watch · On the App Store</p>
       <h1>Tempo</h1>
       <p className={styles.lede}>
         A metronome you feel instead of hear. Tempo taps the beat on your wrist, so you can keep time without headphones
         or a clicking speaker.
       </p>
-      <a className={styles.button} href={`mailto:${CONTACT_EMAIL}?subject=Tempo%20%E2%80%94%20support`}>
-        Email support
-      </a>
+      <div className={styles.actions}>
+        <StoreBadges store={TEMPO_STORE} />
+        <a
+          className={`${styles.button} ${styles.secondary}`}
+          href={`mailto:${CONTACT_EMAIL}?subject=Tempo%20%E2%80%94%20support`}
+        >
+          Email support
+        </a>
+      </div>
       <p className={styles.meta}>
         Your email and message are used to answer your request. <a href="/kvkk?lang=en#processing">Personal data notice</a>.
       </p>
@@ -67,7 +74,7 @@ export default function TempoPage() {
       <h2>What it does</h2>
       <ul>
         <li>A light tap on every beat, a stronger tap on the first beat of the bar</li>
-        <li>40 to 240 BPM with the Digital Crown, with the classical tempo name below the number</li>
+        <li>40 to 170 BPM with the Digital Crown, with the classical tempo name below the number</li>
         <li>Tap tempo: tap TAP along with the music</li>
         <li>2/4, 3/4, 4/4, 3/8, 5/8, 6/8, 7/8 and 10/8</li>
         <li>Keeps going when you lower your wrist</li>
@@ -80,9 +87,10 @@ export default function TempoPage() {
         The stronger first-beat tap is a system haptic, and Apple Watch plays a short chime with it. For vibration only,
         turn on Silent Mode in Control Center.
       </p>
-      <h3>Why is the first beat light at fast tempos?</h3>
+      <h3>Why does the tempo stop at 170 BPM?</h3>
       <p>
-        Above 170 BPM every beat uses the light tap. The stronger pattern is longer and would push the next beat late.
+        The stronger first-beat tap is a longer pattern. Above 170 BPM it would push the next beat late, so the range
+        ends where every beat still lands on time.
       </p>
       <h3>Does it keep playing with my wrist down?</h3>
       <p>Yes, while Tempo stays open. Pressing the Digital Crown or switching to another app stops the metronome.</p>

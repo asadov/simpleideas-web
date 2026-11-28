@@ -135,6 +135,22 @@
   font-size: 1.15rem;
 }
 /* block-level so its margins are exact: the same 20px above (after the lede) and below (before the note) */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin: 20px 0;
+}
+.page .actions .button {
+  margin: 0;
+}
+/* Email support next to the badge: outlined, so the App Store badge stays the main action */
+.page .actions .secondary {
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+}
 .page .button {
   display: flex;
   width: fit-content;
